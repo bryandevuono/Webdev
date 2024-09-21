@@ -11,13 +11,43 @@ public class EventController : Controller
     {
         _context = context;
     }
+
     [HttpGet("GetAllEvents")]
     public async Task<IActionResult> GetAllEvents()
     {
-        string path = $"Json/events.json";
         var ListOfEvents = _context.Events.ToList();
-        await System.IO.File.WriteAllTextAsync(path, JsonSerializer.Serialize(ListOfEvents));
-        return Ok();
+        return Ok(ListOfEvents);
         
+    }
+
+    [HttpDelete("DeleteEvent/{Id}")]
+    public async Task<IActionResult> DeleteEvent(int Id)
+    {
+        var Event = _context.Events.SingleOrDefault(u => u.Id == Id);
+        if(Event != null)
+        {
+            _context.Events.Remove(Event);
+            _context.SaveChanges();
+            return Ok();
+        }
+        else
+        {
+            return NotFound();
+        }
+    }
+
+    [HttpPut("AddEvent")]
+    public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
+    {
+        if(NewEvent != null)
+        {
+            _context.Events.AddAsync(NewEvent);
+            _context.SaveChanges();
+            return Ok();
+        }
+        else
+        {
+            return StatusCode(500, "Failed");
+        }
     }
 }
