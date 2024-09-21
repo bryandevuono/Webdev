@@ -1,6 +1,0 @@
-@Webdev_HostAddress = http://localhost:5053
-
-GET {{Webdev_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

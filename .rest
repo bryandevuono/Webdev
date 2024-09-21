@@ -1,0 +1,2 @@
+
+GET http://localhost:5053/api/events/GetAllEvents
