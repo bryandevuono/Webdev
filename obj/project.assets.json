@@ -2726,11 +2726,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bryan\\OneDrive\\Documenten\\Webdev\\Webdev.csproj",
+      "projectUniqueName": "C:\\Users\\bryan\\Documents\\Webdev\\Webdev.csproj",
       "projectName": "Webdev",
-      "projectPath": "C:\\Users\\bryan\\OneDrive\\Documenten\\Webdev\\Webdev.csproj",
+      "projectPath": "C:\\Users\\bryan\\Documents\\Webdev\\Webdev.csproj",
       "packagesPath": "C:\\Users\\bryan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bryan\\OneDrive\\Documenten\\Webdev\\obj\\",
+      "outputPath": "C:\\Users\\bryan\\Documents\\Webdev\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\bryan\\AppData\\Roaming\\NuGet\\NuGet.Config"
