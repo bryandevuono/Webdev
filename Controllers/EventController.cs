@@ -6,48 +6,46 @@ using System.Text.Json;
 [Route("api/events")]
 public class EventController : Controller
 {
-    private MyDbContext _context;
-    public EventController(MyDbContext context)
+    private EventService _eventservice;
+    public EventController(EventService eventservice)
     {
-        _context = context;
+        _eventservice=eventservice;
     }
 
     [HttpGet("GetAllEvents")]
     public async Task<IActionResult> GetAllEvents()
     {
-        var ListOfEvents = _context.Events.ToList();
-        return Ok(ListOfEvents);
-        
+        var Allevents = await _eventservice.GetAllEvents();
+        return Ok(Allevents);
     }
 
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(int Id)
     {
-        var Event = _context.Events.SingleOrDefault(u => u.Id == Id);
-        if(Event != null)
+        try
         {
-            _context.Events.Remove(Event);
-            _context.SaveChanges();
+            await _eventservice.DeleteEvent(Id);
             return Ok();
         }
-        else
+        catch(Exception ex)
         {
-            return NotFound();
+            Console.WriteLine(ex);
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
         }
     }
 
-    [HttpPut("AddEvent")]
+    [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {
-        if(NewEvent != null)
-        {
-            _context.Events.AddAsync(NewEvent);
-            _context.SaveChanges();
-            return Ok();
-        }
-        else
-        {
-            return StatusCode(500, "Failed");
-        }
+        await _eventservice.AddEvent(NewEvent);
+        return Ok();
     }
+
+    [HttpGet("EditEvent")]
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent)
+    {
+        _eventservice.EditEvent(NewEvent);
+        return Ok();     
+    }
+
 }
