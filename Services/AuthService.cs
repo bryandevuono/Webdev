@@ -5,6 +5,9 @@ public class AuthService : IAuthService
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly MyDbContext _dbContext;
 
+    // var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+    // var isPasswordValid = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+
     private const string SessionKeyUsername = "LoggedInUsername";
 
     public AuthService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
