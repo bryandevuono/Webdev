@@ -1,13 +1,13 @@
-public class AttendanceService : IAttendanceService
+public class OfficeAttendanceService : IOfficeAttendanceService
 {
     private MyDbContext _context;
 
-    public AttendanceService(MyDbContext context)
+    public OfficeAttendanceService(MyDbContext context)
     {
         _context = context;
     }
 
-    public async Task AddAttendance(Attendance attendance)
+    public async Task AddOfficeAttendance(OfficeAttendance attendance)
     {
         if (attendance != null)
         {
@@ -16,12 +16,12 @@ public class AttendanceService : IAttendanceService
         }
     }
 
-    public async Task UpdateAttendance(Guid attendanceId)
+    public async Task UpdateOfficeAttendance(Guid attendanceId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task DeleteAttendance(Guid attendanceId)
+    public async Task DeleteOfficeAttendance(Guid attendanceId)
     {
         throw new NotImplementedException();
     }

@@ -1,6 +1,6 @@
-public interface IAttendanceService
+public interface IOfficeAttendanceService
 {
-    public Task AddAttendance(Attendance attendance);
-    public Task UpdateAttendance(Guid attendanceId);
-    public Task DeleteAttendance(Guid attendanceId);
+    public Task AddOfficeAttendance(OfficeAttendance attendance);
+    public Task UpdateOfficeAttendance(Guid attendanceId);
+    public Task DeleteOfficeAttendance(Guid attendanceId);
 }

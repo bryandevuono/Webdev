@@ -1,33 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 
-[Route("api/attendance")]
-public class AttendanceController : Controller
+[Route("api/officeattendance")]
+public class OfficeAttendanceController : Controller
 {
-    private AttendanceService _attendanceService;
+    private IOfficeAttendanceService _attendanceService;
     private MyDbContext _context;
 
-    public AttendanceController(MyDbContext context, AttendanceService attendanceService)
+    public OfficeAttendanceController(MyDbContext context, IOfficeAttendanceService attendanceService)
     {
         _context = context;
         _attendanceService = attendanceService;
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAttendance([FromBody] Attendance attendance)
+    public async Task<IActionResult> AddOfficeAttendance([FromBody] OfficeAttendance attendance)
     {
         if (attendance == null) return BadRequest("Attendance object is null");
-        await _attendanceService.AddAttendance(attendance);
+        await _attendanceService.AddOfficeAttendance(attendance);
         return Ok("Attendance added successfully");
     }
 
     [HttpPut("{attendanceId}")]
-    public async Task<IActionResult> UpdateAttendance(Guid attendanceId)
+    public async Task<IActionResult> UpdateOfficeAttendance(Guid attendanceId)
     {
         return Ok();
     }
 
     [HttpDelete("{attendanceId}")]
-    public async Task<IActionResult> DeleteAttendance(Guid attendanceId)
+    public async Task<IActionResult> DeleteOfficeAttendance(Guid attendanceId)
     {
         return Ok();
     }

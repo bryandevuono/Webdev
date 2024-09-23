@@ -1,4 +1,4 @@
-public class Attendance
+public class OfficeAttendance
 {
     public DateTime? Start { get; set; }
     public DateTime? End { get; set; }

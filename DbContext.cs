@@ -7,5 +7,5 @@ public class MyDbContext : DbContext
     public DbSet<Users> Users { get; set; }
     public DbSet<Events> Events { get; set; }
     public DbSet<Admin> Admin { get; set; }
-    public DbSet<Attendance> Attendance { get; set; }
+    public DbSet<OfficeAttendance> Attendance { get; set; }
 }
