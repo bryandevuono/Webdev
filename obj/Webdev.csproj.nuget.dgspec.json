@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\School\\WEBDEV\\webdev\\Webdev.csproj": {}
+    "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/Webdev.csproj": {}
   },
   "projects": {
-    "D:\\School\\WEBDEV\\webdev\\Webdev.csproj": {
+    "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/Webdev.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\School\\WEBDEV\\webdev\\Webdev.csproj",
+        "projectUniqueName": "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/Webdev.csproj",
         "projectName": "Webdev",
-        "projectPath": "D:\\School\\WEBDEV\\webdev\\Webdev.csproj",
-        "packagesPath": "C:\\Users\\robin\\.nuget\\packages\\",
-        "outputPath": "D:\\School\\WEBDEV\\webdev\\obj\\",
+        "projectPath": "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/Webdev.csproj",
+        "packagesPath": "/Users/henrianderstelt/.nuget/packages/",
+        "outputPath": "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\robin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/henrianderstelt/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +46,10 @@
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -91,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

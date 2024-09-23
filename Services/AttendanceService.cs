@@ -1,31 +1,27 @@
 public class AttendanceService : IAttendanceService
 {
-    public async Task GetAttendance()
+    private MyDbContext _context;
+
+    public AttendanceService(MyDbContext context)
+    {
+        _context = context;
+    }
+
+    public async Task AddAttendance(Attendance attendance)
+    {
+        if (attendance != null)
+        {
+            await _context.Attendance.AddAsync(attendance);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task UpdateAttendance(Guid attendanceId)
     {
         throw new NotImplementedException();
     }
 
-    public async Task GetEventAttendance(int eventId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task GetUserAttendance(int personId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task AddAttendance(bool isAttending)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task UpdateAttendance(bool isAttending)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task DeleteAttendance()
+    public async Task DeleteAttendance(Guid attendanceId)
     {
         throw new NotImplementedException();
     }
