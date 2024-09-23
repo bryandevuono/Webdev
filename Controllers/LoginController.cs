@@ -13,7 +13,7 @@ public class AuthController : Controller
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+    public async Task<IActionResult> Login([FromBody] LoginRequestAdmin loginRequest)
     {
         if (await _authService.LoginAsync(loginRequest.Username, loginRequest.Password))
         {

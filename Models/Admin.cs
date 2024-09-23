@@ -1,13 +1,12 @@
-public class Users
+public class Admin
 {
     public int? Id { get; set; }
     public string? Username { get; set; }
-    public string? Email { get; set; }
     public string? Password { get; set; }
-    public int? RecurringDays { get; set; }
+    public string? Email { get; set; }
 }
 
-public class LoginRequest
+public class LoginRequestAdmin
 {
     public string? Username { get; set; }
     public string? Password { get; set; }

@@ -18,8 +18,8 @@ public class AuthService : IAuthService
 
     public async Task<bool> LoginAsync(string username, string password)
     {
-        var adminUser = await _dbContext.Users
-            .FirstOrDefaultAsync(user => user.Username == username);
+        var adminUser = await _dbContext.Admin
+            .FirstOrDefaultAsync(admin => admin.Username == username);
 
         if (adminUser == null || adminUser.Password != password)
         {
