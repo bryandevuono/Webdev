@@ -4600,24 +4600,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/henrianderstelt/.nuget/packages/": {}
+    "C:\\Users\\robin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/Webdev.csproj",
+      "projectUniqueName": "D:\\School\\web dev\\webdev\\Webdev.csproj",
       "projectName": "Webdev",
-      "projectPath": "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/Webdev.csproj",
-      "packagesPath": "/Users/henrianderstelt/.nuget/packages/",
-      "outputPath": "/Users/henrianderstelt/Documents/informatica/jaar 2/semester 3/Web Development/Project/Webdev/obj/",
+      "projectPath": "D:\\School\\web dev\\webdev\\Webdev.csproj",
+      "packagesPath": "C:\\Users\\robin\\.nuget\\packages\\",
+      "outputPath": "D:\\School\\web dev\\webdev\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/henrianderstelt/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\robin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4687,7 +4689,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

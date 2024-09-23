@@ -1,0 +1,10 @@
+[
+    {
+        "Id": 0,
+        "Firstname": "John",
+        "Lastname": "Doe",
+        "Email": "email!hr.nl",
+        "Password": "password",
+        "RecurringDays": 7
+    }
+]

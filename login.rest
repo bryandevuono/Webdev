@@ -1,0 +1,41 @@
+POST http://localhost:5053/api/login/register
+Content-Type: application/json
+
+{
+    "Id": 0,
+    "Firstname": "John",
+    "Lastname": "Doe",
+    "Email": "email!hr.nl",
+    "Password": "password",
+    "RecurringDays": 7
+    
+}
+#####
+
+POST http://localhost:5053/api/login/delete
+Content-Type: application/json
+
+{
+    "Id": 0,
+    "Firstname": "John",
+    "Lastname": "Doe",
+    "Email": "email!hr.nl",
+    "Password": "password",
+    "RecurringDays": 7
+    
+}
+#####
+
+POST http://localhost:5053/api/login/update
+Content-Type: application/json
+
+{
+    "Id": 0,
+    "Firstname": "John",
+    "Lastname": "Does",
+    "Email": "email!hr.nl",
+    "Password": "password",
+    "RecurringDays": 7
+    
+}
+#####
