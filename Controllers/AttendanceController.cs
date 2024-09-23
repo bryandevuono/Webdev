@@ -4,31 +4,31 @@ using Microsoft.AspNetCore.Mvc;
 public class AttendanceController : Controller
 {
     [HttpGet("events")]
-    public IActionResult GetEvents()
+    public async Task<IActionResult> GetEvents()
     {
         return Ok();
     }
 
     [HttpGet("events/{eventId}")]
-    public IActionResult GetEvent(int eventId)
+    public async Task<IActionResult> GetEvent(int eventId)
     {
         return Ok();
     }
 
     [HttpPost("events")]
-    public IActionResult CreateEvent()
+    public async Task<IActionResult> CreateEvent()
     {
         return Ok();
     }
 
     [HttpPut("events/{eventId}")]
-    public IActionResult UpdateEvent(int eventId)
+    public async Task<IActionResult> UpdateEvent(int eventId)
     {
         return Ok();
     }
 
     [HttpDelete("events/{eventId}")]
-    public IActionResult DeleteEvent(int eventId)
+    public async Task<IActionResult> DeleteEvent(int eventId)
     {
         return Ok();
     }
