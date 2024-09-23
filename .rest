@@ -28,3 +28,12 @@ content-type: application/json
     "Location": "lorem ipsum",
     "AdminAproval": true
 }
+#####
+
+POST http://localhost:5053/api/login/login
+Content-Type: application/json
+
+{
+    "Username": "email!hr.nl",
+    "Password": "password"
+} 

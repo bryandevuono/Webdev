@@ -10,7 +10,9 @@ public class Program
         builder.Services.AddDbContext<MyDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection")));
 
+        builder.Services.AddHttpContextAccessor();
         builder.Services.AddTransient<EventService>();
+        builder.Services.AddTransient<IAuthService, AuthService>();
         builder.Services.AddControllers();
 
         var app = builder.Build();
