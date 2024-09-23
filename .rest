@@ -49,3 +49,11 @@ Content-Type: application/json
     "Email": "admin@hr.nl"
 } 
 ###
+
+POST http://localhost:5053/api/officeattendance HTTP/1.1
+Content-Type: application/json
+
+{
+    "Start": "2021-02-09T00:00:00Z",
+    "End": "2021-02-10T00:00:00Z",
+}

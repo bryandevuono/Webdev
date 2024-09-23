@@ -1,34 +1,33 @@
 using Microsoft.AspNetCore.Mvc;
 
-[Route("api/attendance")]
-public class AttendanceController : Controller
+[Route("api/officeattendance")]
+public class OfficeAttendanceController : Controller
 {
-    [HttpGet("events")]
-    public IActionResult GetEvents()
+    private IOfficeAttendanceService _attendanceService;
+    private MyDbContext _context;
+
+    public OfficeAttendanceController(MyDbContext context, IOfficeAttendanceService attendanceService)
+    {
+        _context = context;
+        _attendanceService = attendanceService;
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> AddOfficeAttendance([FromBody] OfficeAttendance attendance)
+    {
+        if (attendance == null) return BadRequest("Attendance object is null");
+        await _attendanceService.AddOfficeAttendance(attendance);
+        return Ok("Attendance added successfully");
+    }
+
+    [HttpPut("{attendanceId}")]
+    public async Task<IActionResult> UpdateOfficeAttendance(Guid attendanceId)
     {
         return Ok();
     }
 
-    [HttpGet("events/{eventId}")]
-    public IActionResult GetEvent(int eventId)
-    {
-        return Ok();
-    }
-
-    [HttpPost("events")]
-    public IActionResult CreateEvent()
-    {
-        return Ok();
-    }
-
-    [HttpPut("events/{eventId}")]
-    public IActionResult UpdateEvent(int eventId)
-    {
-        return Ok();
-    }
-
-    [HttpDelete("events/{eventId}")]
-    public IActionResult DeleteEvent(int eventId)
+    [HttpDelete("{attendanceId}")]
+    public async Task<IActionResult> DeleteOfficeAttendance(Guid attendanceId)
     {
         return Ok();
     }
