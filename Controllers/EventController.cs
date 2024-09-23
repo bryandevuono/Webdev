@@ -7,9 +7,11 @@ using System.Text.Json;
 public class EventController : Controller
 {
     private EventService _eventservice;
-    public EventController(EventService eventservice)
+    private MyDbContext _context;
+    public EventController(EventService eventservice, MyDbContext context)
     {
         _eventservice=eventservice;
+        _context=context;
     }
 
     [HttpGet("GetAllEvents")]
@@ -22,21 +24,15 @@ public class EventController : Controller
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(int Id)
     {
-        try
-        {
-            await _eventservice.DeleteEvent(Id);
-            return Ok();
-        }
-        catch(Exception ex)
-        {
-            Console.WriteLine(ex);
-            return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
-        }
+        if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
+        await _eventservice.DeleteEvent(Id);
+        return Ok();
     }
 
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {
+        if(NewEvent == null) return BadRequest();
         await _eventservice.AddEvent(NewEvent);
         return Ok();
     }
@@ -44,7 +40,9 @@ public class EventController : Controller
     [HttpPut("EditEvent/{Id}")]
     public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, int Id)
     {
-        _eventservice.EditEvent(NewEvent, Id);
+        if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
+        if(NewEvent == null) return BadRequest();
+        await _eventservice.EditEvent(NewEvent, Id);
         return Ok();
     }
 
