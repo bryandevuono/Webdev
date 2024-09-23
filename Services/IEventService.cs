@@ -4,4 +4,5 @@ public interface IEventService
     Task DeleteEvent(int Id);
     Task AddEvent(Events NewEvent);
     Task EditEvent(Events Event, int Id);
+
 }

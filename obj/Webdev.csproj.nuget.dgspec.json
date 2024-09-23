@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "D:\\School\\WEBDEV\\webdev\\Webdev.csproj": {}
+    "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj": {}
   },
   "projects": {
-    "D:\\School\\WEBDEV\\webdev\\Webdev.csproj": {
+    "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\School\\WEBDEV\\webdev\\Webdev.csproj",
+        "projectUniqueName": "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj",
         "projectName": "Webdev",
-        "projectPath": "D:\\School\\WEBDEV\\webdev\\Webdev.csproj",
-        "packagesPath": "C:\\Users\\robin\\.nuget\\packages\\",
-        "outputPath": "D:\\School\\WEBDEV\\webdev\\obj\\",
+        "projectPath": "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj",
+        "packagesPath": "C:\\Users\\julin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\robin\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\julin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -91,7 +89,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -20,6 +20,7 @@ public class Program
         });
 
         builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<EventAttendanceService>();
         builder.Services.AddTransient<EventService>();
         builder.Services.AddTransient<IAuthService, AuthService>();
         builder.Services.AddControllers();
