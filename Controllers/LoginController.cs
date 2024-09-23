@@ -37,4 +37,11 @@ public class AuthController : Controller
 
         return Ok(new { IsLoggedIn = false });
     }
+
+    [HttpPost("addadmin")]
+    public IActionResult AddAdmin([FromBody] Admin admin)
+    {
+        _authService.addadmin(admin);
+        return Ok(new { Message = "Admin added" });
+    }
 }

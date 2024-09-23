@@ -425,8 +425,6 @@ C:/Users/bryan/Documents/Webdev/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.
 >>>>>>> ef56e9d1d5e181b26081560d053fd3cd2780d081
 D:\School\WEBDEV\webdev\bin\Debug\net8.0\appsettings.Development.json
 D:\School\WEBDEV\webdev\bin\Debug\net8.0\appsettings.json
-D:\School\WEBDEV\webdev\bin\Debug\net8.0\Json\events.json
-D:\School\WEBDEV\webdev\bin\Debug\net8.0\Json\users.json
 D:\School\WEBDEV\webdev\bin\Debug\net8.0\Webdev.exe
 D:\School\WEBDEV\webdev\bin\Debug\net8.0\Webdev.deps.json
 D:\School\WEBDEV\webdev\bin\Debug\net8.0\Webdev.runtimeconfig.json

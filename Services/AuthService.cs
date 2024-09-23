@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 public class AuthService : IAuthService
@@ -40,5 +41,11 @@ public class AuthService : IAuthService
     public string GetLoggedInUsername()
     {
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
+    }
+
+    public void addadmin([FromBody] Admin admin)
+    {
+        _dbContext.Admin.Add(admin);
+        _dbContext.SaveChanges();
     }
 }
