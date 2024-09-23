@@ -41,11 +41,11 @@ public class EventController : Controller
         return Ok();
     }
 
-    [HttpGet("EditEvent")]
-    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent)
+    [HttpPut("EditEvent/{Id}")]
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, int Id)
     {
-        _eventservice.EditEvent(NewEvent);
-        return Ok();     
+        _eventservice.EditEvent(NewEvent, Id);
+        return Ok();
     }
 
 }

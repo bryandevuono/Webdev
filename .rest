@@ -16,11 +16,11 @@ content-type: application/json
     "AdminAproval": true
 }
 ###
-PUT http://localhost:5053/api/events/EditEvent HTTP/1.1
+PUT http://localhost:5053/api/events/EditEvent/6 HTTP/1.1
 content-type: application/json
 
 { 
-   "Title": "title",
+   "Title": "title2",
    "Description": "lorem ipsu1m",
    "Date": "2004-02-09T00:00:00Z",
     "StartTime": "lorem ipsu3m",
