@@ -6,18 +6,46 @@ using System.Text.Json;
 [Route("api/events")]
 public class EventController : Controller
 {
-    private MyDbContext _context;
-    public EventController(MyDbContext context)
+    private EventService _eventservice;
+    public EventController(EventService eventservice)
     {
-        _context = context;
+        _eventservice=eventservice;
     }
+
     [HttpGet("GetAllEvents")]
     public async Task<IActionResult> GetAllEvents()
     {
-        string path = $"Json/events.json";
-        var ListOfEvents = _context.Events.ToList();
-        await System.IO.File.WriteAllTextAsync(path, JsonSerializer.Serialize(ListOfEvents));
-        return Ok();
-        
+        var Allevents = await _eventservice.GetAllEvents();
+        return Ok(Allevents);
     }
+
+    [HttpDelete("DeleteEvent/{Id}")]
+    public async Task<IActionResult> DeleteEvent(int Id)
+    {
+        try
+        {
+            await _eventservice.DeleteEvent(Id);
+            return Ok();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex);
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
+        }
+    }
+
+    [HttpPost("AddEvent")]
+    public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
+    {
+        await _eventservice.AddEvent(NewEvent);
+        return Ok();
+    }
+
+    [HttpPut("EditEvent/{Id}")]
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, int Id)
+    {
+        _eventservice.EditEvent(NewEvent, Id);
+        return Ok();
+    }
+
 }
