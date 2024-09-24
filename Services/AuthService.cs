@@ -19,7 +19,7 @@ public class AuthService : IAuthService
 
     public async Task<bool> LoginAsync(string username, string password)
     {
-        var adminUser = await _dbContext.Admin
+        var adminUser = await _dbContext.Admins
             .FirstOrDefaultAsync(admin => admin.Username == username);
 
         if (adminUser == null || adminUser.Password != password)
@@ -43,9 +43,31 @@ public class AuthService : IAuthService
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
     }
 
-    public void addadmin([FromBody] Admin admin)
+    public bool addadmin([FromBody] Admins admin)
     {
-        _dbContext.Admin.Add(admin);
+        var adminToAdd = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
+        if (adminToAdd != null) return false;
+
+        _dbContext.Admins.Add(admin);
         _dbContext.SaveChanges();
+
+        return true;
+    }
+
+    public List<Admins> GetAdmin()
+    {
+        var admin = _dbContext.Admins.ToList();
+        return admin;
+    }
+
+    public bool DeleteAdmin([FromBody] Admins admin)
+    {
+        var adminToDelete = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
+        if (adminToDelete == null) return false;
+
+        _dbContext.Admins.Remove(adminToDelete);
+        _dbContext.SaveChanges();
+
+        return true;
     }
 }

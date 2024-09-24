@@ -4601,24 +4601,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bryan\\.nuget\\packages\\": {}
+    "C:\\Users\\robin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\bryan\\Documents\\Webdev\\Webdev.csproj",
+      "projectUniqueName": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj",
       "projectName": "Webdev",
-      "projectPath": "C:\\Users\\bryan\\Documents\\Webdev\\Webdev.csproj",
-      "packagesPath": "C:\\Users\\bryan\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\bryan\\Documents\\Webdev\\obj\\",
+      "projectPath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj",
+      "packagesPath": "C:\\Users\\robin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\bryan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\robin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
