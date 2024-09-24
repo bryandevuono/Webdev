@@ -3,19 +3,33 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/attendance")]
 public class AttendanceController : Controller
 {
-    private readonly IEventService _eventService;
+    private readonly MyDbContext _context;
     private readonly IEventAttService _attendanceService;
 
-    public AttendanceController(IEventService eventService, IEventAttService attendanceService)
+    public AttendanceController(MyDbContext context, IEventAttService attendanceService)
     {
-        _eventService = eventService;
+        _context = context;
         _attendanceService = attendanceService;
     }
 
     [HttpPost("attend")]
-    public IActionResult AttendEvent()
+    public IActionResult AttendEvent([FromBody] EventAttendance eventAttendance)
     {
-        return Ok();
+        var eventObj = _context.Events.FirstOrDefault(e => e.Id == eventAttendance.EventId);
+        if (eventObj == null)
+        {
+            return NotFound("Event not found.");
+        }
+        if (eventObj.Date < DateTime.Now)
+        {
+            return BadRequest();
+        }
+        var succes = _attendanceService.AttendEvent(eventAttendance.UserId, eventAttendance.EventId);
+        if (!succes)
+        {
+            return BadRequest("User is already registered for this event.");
+        }
+        return Ok($"User {eventAttendance.UserId} is now attending event {eventAttendance.EventId}");
     }
 
     [HttpGet("events/{eventId}/attendees")]
@@ -29,9 +43,15 @@ public class AttendanceController : Controller
         return Ok(attendees);
     }
 
-    public IActionResult DeleteAttendance()
+    public IActionResult DeleteAttendance([FromBody] EventAttendance eventAttendance)
     {
-        return Ok();
+        var succes = _attendanceService.RemoveAttendance(eventAttendance.UserId, eventAttendance.EventId);
+        if (!succes)
+        {
+            return BadRequest("User attendance could not be removed.");
+        }
+
+        return Ok($"User {eventAttendance.UserId} is no longer attending event {eventAttendance.EventId}");
     }
 
 }
