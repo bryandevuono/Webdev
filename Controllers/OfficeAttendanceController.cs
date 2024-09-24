@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/officeattendance")]
 public class OfficeAttendanceController : Controller
 {
-    private IOfficeAttendanceService _attendanceService;
     private MyDbContext _context;
+    private IOfficeAttendanceService _attendanceService;
 
     public OfficeAttendanceController(MyDbContext context, IOfficeAttendanceService attendanceService)
     {
@@ -23,12 +23,28 @@ public class OfficeAttendanceController : Controller
     [HttpPut("{attendanceId}")]
     public async Task<IActionResult> UpdateOfficeAttendance(Guid attendanceId)
     {
-        return Ok();
+        try
+        {
+            await _attendanceService.UpdateOfficeAttendance(attendanceId);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpDelete("{attendanceId}")]
     public async Task<IActionResult> DeleteOfficeAttendance(Guid attendanceId)
     {
-        return Ok();
+        try
+        {
+            await _attendanceService.DeleteOfficeAttendance(attendanceId);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 }

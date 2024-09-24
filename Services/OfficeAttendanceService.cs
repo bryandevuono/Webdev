@@ -9,6 +9,7 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task AddOfficeAttendance(OfficeAttendance attendance)
     {
+        attendance.OfficeAttendanceId = Guid.NewGuid();
         if (attendance != null)
         {
             await _context.Attendance.AddAsync(attendance);
