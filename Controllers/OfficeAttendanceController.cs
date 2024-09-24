@@ -15,9 +15,15 @@ public class OfficeAttendanceController : Controller
     [HttpPost]
     public async Task<IActionResult> AddOfficeAttendance([FromBody] OfficeAttendance attendance)
     {
-        if (attendance == null) return BadRequest("Attendance object is null");
-        await _attendanceService.AddOfficeAttendance(attendance);
-        return Ok("Attendance added successfully");
+        try
+        {
+            await _attendanceService.AddOfficeAttendance(attendance);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPut("{attendanceId}")]
