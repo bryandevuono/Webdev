@@ -701,3 +701,4 @@ C:\Users\robin\OneDrive - Hogeschool Rotterdam\Jaar 2\Semester 3&4\Web Dev\Proje
 C:\Users\robin\OneDrive - Hogeschool Rotterdam\Jaar 2\Semester 3&4\Web Dev\Project\webdev\obj\Debug\net8.0\Webdev.pdb
 C:\Users\robin\OneDrive - Hogeschool Rotterdam\Jaar 2\Semester 3&4\Web Dev\Project\webdev\obj\Debug\net8.0\Webdev.genruntimeconfig.cache
 C:\Users\robin\OneDrive - Hogeschool Rotterdam\Jaar 2\Semester 3&4\Web Dev\Project\webdev\obj\Debug\net8.0\ref\Webdev.dll
+C:\Users\robin\OneDrive - Hogeschool Rotterdam\Jaar 2\Semester 3&4\Web Dev\Project\webdev\bin\Debug\net8.0\BCrypt.Net-Next.dll

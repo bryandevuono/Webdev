@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Vvrb5QU6yiY=",
+  "dgSpecHash": "qXgkSEx8tMg=",
   "success": true,
   "projectFilePath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\robin\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\robin\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\robin\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\robin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\robin\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.4\\microsoft.aspnetcore.openapi.8.0.4.nupkg.sha512",
     "C:\\Users\\robin\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using BCrypt.Net;
 
 public class AuthService : IAuthService
 {
@@ -22,10 +23,8 @@ public class AuthService : IAuthService
         var adminUser = await _dbContext.Admins
             .FirstOrDefaultAsync(admin => admin.Username == username);
 
-        if (adminUser == null || adminUser.Password != password)
-        {
-            return false;
-        }
+        var isPasswordValid = adminUser != null && BCrypt.Net.BCrypt.Verify(password, adminUser.Password);
+        if (adminUser == null || !isPasswordValid) return false;
 
         _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, username);
 
@@ -48,6 +47,7 @@ public class AuthService : IAuthService
         var adminToAdd = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
         if (adminToAdd != null) return false;
 
+        admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
         _dbContext.Admins.Add(admin);
         _dbContext.SaveChanges();
 
