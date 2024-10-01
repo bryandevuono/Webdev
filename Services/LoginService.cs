@@ -1,18 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
+using Webdev.Migrations;
 
-public class AuthService : IAuthService
+public class LoginService : ILoginService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly MyDbContext _dbContext;
 
-    // var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-    // var isPasswordValid = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
-
     private const string SessionKeyUsername = "LoggedInUsername";
 
-    public AuthService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+    public LoginService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
     {
         _dbContext = dbContext;
         _httpContextAccessor = httpContextAccessor;
@@ -31,42 +29,52 @@ public class AuthService : IAuthService
         return true;
     }
 
-    public bool IsSessionActive()
+    public async Task<bool> IsSessionActive()
     {
         var username = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
         return !string.IsNullOrEmpty(username);
     }
 
-    public string GetLoggedInUsername()
+    public async Task<string> GetLoggedInUsername()
     {
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
     }
 
-    public bool addadmin([FromBody] Admins admin)
+    public async Task<bool> logout()
+    {
+        _httpContextAccessor.HttpContext.Session.Remove(SessionKeyUsername);
+        return true;
+    }
+
+    public async Task<bool> addadmin([FromBody] Admins admin)
     {
         var adminToAdd = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
         if (adminToAdd != null) return false;
 
         admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
         _dbContext.Admins.Add(admin);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
 
         return true;
     }
 
-    public List<Admins> GetAdmin()
+    public async Task<List<Admins>> GetAdmin()
     {
-        var admin = _dbContext.Admins.ToList();
-        return admin;
+        return await _dbContext.Admins.ToListAsync();
     }
 
-    public bool DeleteAdmin([FromBody] Admins admin)
+    public async Task<bool> DeleteAdmin([FromBody] Admins admin)
     {
         var adminToDelete = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
         if (adminToDelete == null) return false;
 
         _dbContext.Admins.Remove(adminToDelete);
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
+
+        if (await IsSessionActive() && await GetLoggedInUsername() == admin.Username)
+        {
+            await logout();
+        }
 
         return true;
     }

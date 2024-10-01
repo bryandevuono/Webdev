@@ -21,7 +21,7 @@ public class Program
 
         builder.Services.AddHttpContextAccessor();
         builder.Services.AddTransient<EventService>();
-        builder.Services.AddTransient<IAuthService, AuthService>();
+        builder.Services.AddTransient<ILoginService, LoginService>();
         builder.Services.AddTransient<IOfficeAttendanceService, OfficeAttendanceService>();
         builder.Services.AddControllers();
 

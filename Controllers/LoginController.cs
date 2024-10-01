@@ -5,18 +5,19 @@ using System.Text.Json;
 
 public class AuthController : Controller
 {
-    private readonly IAuthService _authService;
+    private readonly ILoginService _loginService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(ILoginService loginService)
     {
-        _authService = authService;
+        _loginService = loginService;
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestAdmin loginRequest)
     {
-        if (_authService.IsSessionActive()) return Ok(new { Message = "Already logged in" });
-        if (await _authService.LoginAsync(loginRequest.Username, loginRequest.Password))
+        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (await _loginService.IsSessionActive()) return Ok(new { Message = "Already logged in" });
+        if (await _loginService.LoginAsync(loginRequest.Username, loginRequest.Password))
         {
             return Ok(new { Message = "Login successful" });
         }
@@ -24,14 +25,14 @@ public class AuthController : Controller
     }
 
     [HttpGet("session")]
-    public IActionResult CheckSession()
+    public async Task<IActionResult> CheckSession()
     {
-        if (_authService.IsSessionActive())
+        if (await _loginService.IsSessionActive())
         {
             return Ok(new
             {
                 IsLoggedIn = true,
-                Username = _authService.GetLoggedInUsername()
+                Username = _loginService.GetLoggedInUsername()
             });
         }
 
@@ -39,23 +40,23 @@ public class AuthController : Controller
     }
 
     [HttpPost("addadmin")]
-    public IActionResult AddAdmin([FromBody] Admins admin)
+    public async Task<IActionResult> AddAdmin([FromBody] Admins admin)
     {
-        if (_authService.addadmin(admin)) return Ok(new { Message = "Admin added" });
+        if (await _loginService.addadmin(admin)) return Ok(new { Message = "Admin added" });
         return BadRequest(new { Message = "Admin already exists" });
     }
 
     [HttpGet("getadmin")]
-    public IActionResult GetAdmin()
+    public async Task<IActionResult> GetAdmin()
     {
-        var admin = _authService.GetAdmin();
+        var admin = await _loginService.GetAdmin();
         return Ok(admin);
     }
 
     [HttpPost("deleteadmin")]
-    public IActionResult DeleteAdmin([FromBody] Admins admin)
+    public async Task<IActionResult> DeleteAdmin([FromBody] Admins admin)
     {
-        if (_authService.DeleteAdmin(admin)) return Ok(new { Message = "Admin deleted" });
+        if (await _loginService.DeleteAdmin(admin)) return Ok(new { Message = "Admin deleted" });
         return NotFound(new { Message = "Admin not found" });
     }
 }
