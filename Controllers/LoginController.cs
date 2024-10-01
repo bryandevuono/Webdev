@@ -15,11 +15,11 @@ public class AuthController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestAdmin loginRequest)
     {
+        if (_authService.IsSessionActive()) return Ok(new { Message = "Already logged in" });
         if (await _authService.LoginAsync(loginRequest.Username, loginRequest.Password))
         {
             return Ok(new { Message = "Login successful" });
         }
-
         return Unauthorized(new { Message = "Invalid username or password" });
     }
 
