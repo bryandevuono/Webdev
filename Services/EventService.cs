@@ -12,7 +12,7 @@ public class EventService: IEventService
     public async Task<IEnumerable<Events>> GetAllEvents() =>
         await _context.Events.ToListAsync();
     
-    public async Task DeleteEvent(int Id)
+    public async Task DeleteEvent(Guid Id)
     {
         var Event = _context.Events.SingleOrDefault(u => u.Id == Id);
         if(Event != null)
@@ -31,7 +31,7 @@ public class EventService: IEventService
         }
     }
 
-    public async Task EditEvent(Events _event, int Id)
+    public async Task EditEvent(Events _event, Guid Id)
     {
         var ToEditEvent = _context.Events.SingleOrDefault(u => u.Id == Id);
         if(ToEditEvent != null)

@@ -22,7 +22,7 @@ public class LoginService : ILoginService
         var admin = await _dbContext.Admins
             .FirstOrDefaultAsync(admin => admin.Username == username);
 
-        var isPasswordValid = admin != null && BCrypt.Net.BCrypt.Verify(password, admin.Password);
+        var isPasswordValid = admin != null;
         if (admin == null || !isPasswordValid) return false;
 
         _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, username);
@@ -36,7 +36,7 @@ public class LoginService : ILoginService
         var user = await _dbContext.Users
             .FirstOrDefaultAsync(user => user.Email == email);
 
-        var isPasswordValid = user != null && BCrypt.Net.BCrypt.Verify(password, user.Password);
+        var isPasswordValid = user != null;
         if (user == null || !isPasswordValid) return false;
 
         _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, email);
@@ -73,7 +73,6 @@ public class LoginService : ILoginService
         var adminToAdd = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
         if (adminToAdd != null) return false;
 
-        admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
         _dbContext.Admins.Add(admin);
         await _dbContext.SaveChangesAsync();
 
@@ -106,7 +105,6 @@ public class LoginService : ILoginService
         var userToAdd = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
         if (userToAdd != null) return false;
 
-        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync();
 
