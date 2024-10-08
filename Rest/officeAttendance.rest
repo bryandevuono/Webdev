@@ -1,0 +1,8 @@
+POST http://localhost:5053/api/officeattendance HTTP/1.1
+Content-Type: application/json
+
+{
+    "Start": "2024-10-08T08:00:00Z",
+    "End": "2024-10-08T17:00:00Z",
+    "UserId": "7198120a-c606-4302-ac8f-ddf39101171c"
+}
