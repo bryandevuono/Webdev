@@ -24,7 +24,7 @@ public class EventController : Controller
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(Guid Id, [FromQuery] Guid UserId)
     {
-        // Check if the user is an admin
+        // Check if the user is an admins
         if(_context.Admins.SingleOrDefault(_=>_.Id == UserId) == null) return Unauthorized();
         if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
         await _eventservice.DeleteEvent(Id);
