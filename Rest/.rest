@@ -30,26 +30,6 @@ content-type: application/json
 }
 ###
 
-POST http://localhost:5053/api/login/addadmin
-Content-Type: application/json
-
-{
-    "Username": "admin",
-    "Password": "Admin123!",
-    "Email": "admin@hr.nl"
-}
-###
-
-POST http://localhost:5053/api/login/login
-Content-Type: application/json
-
-{
-    "Username": "admin",
-    "Password": "Admin123!",
-    "Email": "admin@hr.nl"
-} 
-###
-
 POST http://localhost:5053/api/officeattendance HTTP/1.1
 Content-Type: application/json
 
