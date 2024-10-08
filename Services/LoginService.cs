@@ -9,6 +9,7 @@ public class LoginService : ILoginService
     private readonly MyDbContext _dbContext;
 
     private const string SessionKeyUsername = "LoggedInUsername";
+    private const string SessionKeyRole = "LoggedInRole";
 
     public LoginService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
     {
@@ -16,15 +17,30 @@ public class LoginService : ILoginService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<bool> LoginAsync(string username, string password)
+    public async Task<bool> LoginAsyncAdmin(string username, string password)
     {
-        var adminUser = await _dbContext.Admins
+        var admin = await _dbContext.Admins
             .FirstOrDefaultAsync(admin => admin.Username == username);
 
-        var isPasswordValid = adminUser != null && BCrypt.Net.BCrypt.Verify(password, adminUser.Password);
-        if (adminUser == null || !isPasswordValid) return false;
+        var isPasswordValid = admin != null && BCrypt.Net.BCrypt.Verify(password, admin.Password);
+        if (admin == null || !isPasswordValid) return false;
 
         _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, username);
+        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyRole, "admin");
+
+        return true;
+    }
+
+    public async Task<bool> LoginAsyncUser(string email, string password)
+    {
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(user => user.Email == email);
+
+        var isPasswordValid = user != null && BCrypt.Net.BCrypt.Verify(password, user.Password);
+        if (user == null || !isPasswordValid) return false;
+
+        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, email);
+        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyRole, "user");
 
         return true;
     }
@@ -32,12 +48,18 @@ public class LoginService : ILoginService
     public async Task<bool> IsSessionActive()
     {
         var username = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
-        return !string.IsNullOrEmpty(username);
+        var role = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
+        return !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(role);
     }
 
     public async Task<string> GetLoggedInUsername()
     {
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
+    }
+
+    public async Task<string> GetLoggedInUserRole()
+    {
+        return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
     }
 
     public async Task<bool> logout()
@@ -72,6 +94,39 @@ public class LoginService : ILoginService
         await _dbContext.SaveChangesAsync();
 
         if (await IsSessionActive() && await GetLoggedInUsername() == admin.Username)
+        {
+            await logout();
+        }
+
+        return true;
+    }
+
+    public async Task<bool> AddUser([FromBody] Users user)
+    {
+        var userToAdd = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        if (userToAdd != null) return false;
+
+        user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+        _dbContext.Users.Add(user);
+        await _dbContext.SaveChangesAsync();
+
+        return true;
+    }
+
+    public async Task<List<Users>> GetUser()
+    {
+        return await _dbContext.Users.ToListAsync();
+    }
+
+    public async Task<bool> DeleteUser([FromBody] Users user)
+    {
+        var userToDelete = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
+        if (userToDelete == null) return false;
+
+        _dbContext.Users.Remove(userToDelete);
+        await _dbContext.SaveChangesAsync();
+
+        if (await IsSessionActive() && await GetLoggedInUsername() == user.Email)
         {
             await logout();
         }

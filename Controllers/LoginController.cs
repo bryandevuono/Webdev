@@ -3,25 +3,37 @@ using System.Text.Json;
 
 [Route("api/login")]
 
-public class AuthController : Controller
+public class LoginController : Controller
 {
     private readonly ILoginService _loginService;
 
-    public AuthController(ILoginService loginService)
+    public LoginController(ILoginService loginService)
     {
         _loginService = loginService;
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestAdmin loginRequest)
+    [HttpPost("login/admin")]
+    public async Task<IActionResult> LoginAdmin([FromBody] LoginRequestAdmin loginRequest)
     {
         if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
-        if (await _loginService.IsSessionActive()) return Ok(new { Message = "Already logged in" });
-        if (await _loginService.LoginAsync(loginRequest.Username, loginRequest.Password))
+        if (await _loginService.IsSessionActive()) return Ok(new { Message = "Admin Already logged in" });
+        if (await _loginService.LoginAsyncAdmin(loginRequest.Username, loginRequest.Password))
         {
-            return Ok(new { Message = "Login successful" });
+            return Ok(new { Message = "Admin Login successful" });
         }
-        return Unauthorized(new { Message = "Invalid username or password" });
+        return Unauthorized(new { Message = "Admin Invalid username or password" });
+    }
+
+    [HttpPost("login/user")]
+    public async Task<IActionResult> LoginUser([FromBody] LoginRequestUser loginRequest)
+    {
+        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (await _loginService.IsSessionActive()) return Ok(new { Message = "User Already logged in" });
+        if (await _loginService.LoginAsyncUser(loginRequest.Email, loginRequest.Password))
+        {
+            return Ok(new { Message = "User Login successful" });
+        }
+        return Unauthorized(new { Message = "User Invalid username or password" });
     }
 
     [HttpGet("session")]
@@ -32,7 +44,8 @@ public class AuthController : Controller
             return Ok(new
             {
                 IsLoggedIn = true,
-                Username = _loginService.GetLoggedInUsername()
+                Username = _loginService.GetLoggedInUsername().Result,
+                Role = _loginService.GetLoggedInUserRole().Result
             });
         }
 
@@ -58,5 +71,26 @@ public class AuthController : Controller
     {
         if (await _loginService.DeleteAdmin(admin)) return Ok(new { Message = "Admin deleted" });
         return NotFound(new { Message = "Admin not found" });
+    }
+
+    [HttpPost("adduser")]
+    public async Task<IActionResult> AddUser([FromBody] Users user)
+    {
+        if (await _loginService.AddUser(user)) return Ok(new { Message = "User added" });
+        return BadRequest(new { Message = "User already exists" });
+    }
+
+    [HttpGet("getuser")]
+    public async Task<IActionResult> GetUser()
+    {
+        var user = await _loginService.GetUser();
+        return Ok(user);
+    }
+
+    [HttpPost("deleteuser")]
+    public async Task<IActionResult> DeleteUser([FromBody] Users user)
+    {
+        if (await _loginService.DeleteUser(user)) return Ok(new { Message = "User deleted" });
+        return NotFound(new { Message = "User not found" });
     }
 }
