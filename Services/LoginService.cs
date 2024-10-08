@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BCrypt.Net;
-using Webdev.Migrations;
 
 public class LoginService : ILoginService
 {
@@ -25,8 +23,11 @@ public class LoginService : ILoginService
         var isPasswordValid = admin != null && BCrypt.Net.BCrypt.Verify(password, admin.Password);
         if (admin == null || !isPasswordValid) return false;
 
-        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, username);
-        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyRole, "admin");
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+
+        httpContext.Session.SetString(SessionKeyUsername, username);
+        httpContext.Session.SetString(SessionKeyRole, "admin");
 
         return true;
     }
@@ -39,16 +40,20 @@ public class LoginService : ILoginService
         var isPasswordValid = user != null && BCrypt.Net.BCrypt.Verify(password, user.Password);
         if (user == null || !isPasswordValid) return false;
 
-        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, email);
-        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyRole, "user");
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+        httpContext.Session.SetString(SessionKeyUsername, email);
+        httpContext.Session.SetString(SessionKeyRole, "user");
 
         return true;
     }
 
     public async Task<bool> IsSessionActive()
     {
-        var username = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
-        var role = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+        var username = httpContext.Session.GetString(SessionKeyUsername);
+        var role = httpContext.Session.GetString(SessionKeyRole);
         return !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(role);
     }
 
@@ -64,7 +69,10 @@ public class LoginService : ILoginService
 
     public async Task<bool> logout()
     {
-        _httpContextAccessor.HttpContext.Session.Remove(SessionKeyUsername);
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+        httpContext.Session.Remove(SessionKeyRole);
+        httpContext.Session.Remove(SessionKeyUsername);
         return true;
     }
 
