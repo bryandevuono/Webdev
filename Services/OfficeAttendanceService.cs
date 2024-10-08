@@ -19,7 +19,7 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task UpdateOfficeAttendance(OfficeAttendance updatedAttendance)
     {
-        OfficeAttendance attendance = await _context.OfficeAttendance.FindAsync(updatedAttendance.OfficeAttendanceId);
+        OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(updatedAttendance.OfficeAttendanceId);
 
         if (attendance != null)
         {
@@ -33,7 +33,7 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task DeleteOfficeAttendance(Guid attendanceId)
     {
-        OfficeAttendance attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
+        OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
         if (attendance != null)
         {
             _context.OfficeAttendance.Remove(attendance);
