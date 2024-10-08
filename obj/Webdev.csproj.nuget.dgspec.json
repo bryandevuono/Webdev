@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\Webdev\\Webdev.csproj": {}
+    "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj": {}
   },
   "projects": {
-    "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\Webdev\\Webdev.csproj": {
+    "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\Webdev\\Webdev.csproj",
+        "projectUniqueName": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj",
         "projectName": "Webdev",
-        "projectPath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\Webdev\\Webdev.csproj",
+        "projectPath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\Webdev.csproj",
         "packagesPath": "C:\\Users\\robin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\Webdev\\obj\\",
+        "outputPath": "C:\\Users\\robin\\OneDrive - Hogeschool Rotterdam\\Jaar 2\\Semester 3&4\\Web Dev\\Project\\webdev\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\robin\\AppData\\Roaming\\NuGet\\NuGet.Config",
