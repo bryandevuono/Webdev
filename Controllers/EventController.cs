@@ -25,26 +25,28 @@ public class EventController : Controller
     public async Task<IActionResult> DeleteEvent(Guid Id, [FromQuery] Guid UserId)
     {
         // Check if the user is an admins
-        if(_context.Admins.SingleOrDefault(_=>_.Id == UserId) == null) return Unauthorized();
+        //if(_context.Admins.SingleOrDefault(_=>_.Id == UserId) == null) return Unauthorized();
         if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
         await _eventservice.DeleteEvent(Id);
         return Ok();
     }
 
     [HttpPost("AddEvent")]
-    public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
+    public async Task<IActionResult> AddEvent([FromBody] Events NewEvent, [FromQuery] Guid UserId)
     {
+        //if(_context.Admins.SingleOrDefault(_=>_.Id == UserId) == null) return Unauthorized();
         if(NewEvent == null) return BadRequest();
         await _eventservice.AddEvent(NewEvent);
         return Ok();
     }
 
-    [HttpPut("EditEvent/{Id}")]
-    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, Guid Id)
+    [HttpPut("EditEvent")]
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery] Guid UserId)
     {
-        if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
+        //if(_context.Admins.SingleOrDefault(_=>_.Id == UserId) == null) return Unauthorized();
+        if(_context.Events.SingleOrDefault(u => u.Id == NewEvent.Id) == null) return NotFound();
         if(NewEvent == null) return BadRequest();
-        await _eventservice.EditEvent(NewEvent, Id);
+        await _eventservice.EditEvent(NewEvent);
         return Ok();
     }
 

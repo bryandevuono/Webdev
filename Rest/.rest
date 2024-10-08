@@ -3,7 +3,7 @@ GET http://localhost:5053/api/events/GetAllEvents
 ###
 DELETE http://localhost:5053/api/events/DeleteEvent/1
 ###
-POST http://localhost:5053/api/events/AddEvent HTTP/1.1
+POST http://localhost:5053/api/events/AddEvent?dadads HTTP/1.1
 content-type: application/json
 
 { 

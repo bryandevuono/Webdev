@@ -31,9 +31,9 @@ public class EventService: IEventService
         }
     }
 
-    public async Task EditEvent(Events _event, Guid Id)
+    public async Task EditEvent(Events _event)
     {
-        var ToEditEvent = _context.Events.SingleOrDefault(u => u.Id == Id);
+        var ToEditEvent = _context.Events.SingleOrDefault(u => u.Id == _event.Id);
         if(ToEditEvent != null)
         {
             ToEditEvent.Title=_event.Title;
