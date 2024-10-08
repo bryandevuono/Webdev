@@ -15,11 +15,11 @@ public class AuthController : Controller
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequestAdmin loginRequest)
     {
+        if (_authService.IsSessionActive()) return Ok(new { Message = "Already logged in" });
         if (await _authService.LoginAsync(loginRequest.Username, loginRequest.Password))
         {
             return Ok(new { Message = "Login successful" });
         }
-
         return Unauthorized(new { Message = "Invalid username or password" });
     }
 
@@ -39,9 +39,23 @@ public class AuthController : Controller
     }
 
     [HttpPost("addadmin")]
-    public IActionResult AddAdmin([FromBody] Admin admin)
+    public IActionResult AddAdmin([FromBody] Admins admin)
     {
-        _authService.addadmin(admin);
-        return Ok(new { Message = "Admin added" });
+        if (_authService.addadmin(admin)) return Ok(new { Message = "Admin added" });
+        return BadRequest(new { Message = "Admin already exists" });
+    }
+
+    [HttpGet("getadmin")]
+    public IActionResult GetAdmin()
+    {
+        var admin = _authService.GetAdmin();
+        return Ok(admin);
+    }
+
+    [HttpPost("deleteadmin")]
+    public IActionResult DeleteAdmin([FromBody] Admins admin)
+    {
+        if (_authService.DeleteAdmin(admin)) return Ok(new { Message = "Admin deleted" });
+        return NotFound(new { Message = "Admin not found" });
     }
 }

@@ -23,6 +23,7 @@ public class Program
         builder.Services.AddTransient<EventAttendanceService>();
         builder.Services.AddTransient<EventService>();
         builder.Services.AddTransient<IAuthService, AuthService>();
+        builder.Services.AddTransient<IOfficeAttendanceService, OfficeAttendanceService>();
         builder.Services.AddControllers();
 
         var app = builder.Build();

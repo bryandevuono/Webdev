@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Webdev.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923205527_addattendence")]
+    partial class addattendence
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,7 @@ namespace Webdev.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Admins", b =>
+            modelBuilder.Entity("Admin", b =>
                 {
                     b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
@@ -79,12 +82,17 @@ namespace Webdev.Migrations
 
             modelBuilder.Entity("OfficeAttendance", b =>
                 {
-                    b.Property<Guid?>("OfficeAttendanceId")
+                    b.Property<int?>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int?>("Id"));
 
                     b.Property<DateTime?>("End")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("EventId")
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("Start")
                         .HasColumnType("timestamp with time zone");
@@ -92,7 +100,7 @@ namespace Webdev.Migrations
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("OfficeAttendanceId");
+                    b.HasKey("Id");
 
                     b.ToTable("Attendance");
                 });
