@@ -1,8 +1,22 @@
 ### Events endpoints
+### For Post, put and delete an admin must login, code 401 will be given otherwise
+
+### Reads all the events: 200 Ok
 GET http://localhost:5053/api/events/GetAllEvents
-###
+
+### Reads an event by ID: 200 Ok
+GET http://localhost:5053/api/events?Id=2
+
+### Reads an event with an invalid Id: 404 NotFound
+GET http://localhost:5053/api/events?Id=25324156341
+
+### Removes an event by ID: 200 Ok
 DELETE http://localhost:5053/api/events/DeleteEvent/1
-###
+
+### Removes an event by ID with an invalid Id: 404 NotFound
+DELETE http://localhost:5053/api/events/DeleteEvent/1456
+
+### Creates an event Succesfully: 200 OK
 POST http://localhost:5053/api/events/AddEvent HTTP/1.1
 content-type: application/json
 
@@ -15,11 +29,26 @@ content-type: application/json
     "Location": "lorem ipsum",
     "AdminAproval": true
 }
-###
+
+### Tries to create an event with an empty body: 400 BadRequest
+POST http://localhost:5053/api/events/AddEvent HTTP/1.1
+content-type: application/json
+
+{ 
+   "Title": "title",
+   "Description": "lorem ipsum",
+   "Date": "2004-02-09T00:00:00Z",
+    "StartTime": "lorem ipsum",
+    "EndTime": "lorem ipsum",
+    "Location": "lorem ipsum",
+    "AdminAproval": true
+}
+### Updates an event succesfully: 200 Ok
 PUT http://localhost:5053/api/events/EditEvent/6 HTTP/1.1
 content-type: application/json
 
 { 
+   "Id": "6f4f1cd9-4539-44ee-aeb2-d722e5db1d73",
    "Title": "title2",
    "Description": "lorem ipsu1m",
    "Date": "2004-02-09T00:00:00Z",
@@ -28,25 +57,18 @@ content-type: application/json
     "Location": "lorem ipsum",
     "AdminAproval": true
 }
-###
 
-POST http://localhost:5053/api/officeattendance HTTP/1.1
-Content-Type: application/json
+### Id not found: 404 NotFound
+PUT http://localhost:5053/api/events/EditEvent/6 HTTP/1.1
+content-type: application/json
 
-{
-    "Start": "2021-02-09T10:00:00Z",
-    "End": "2021-02-09T17:00:00Z"
+{ 
+   "Id": "6f4f1cd9-4539-44ee-aeb2-d722edddd5db1d73",
+   "Title": "title2",
+   "Description": "lorem ipsu1m",
+   "Date": "2004-02-09T00:00:00Z",
+    "StartTime": "lorem ipsu3m",
+    "EndTime": "lorem ipsu3m",
+    "Location": "lorem ipsum",
+    "AdminAproval": true
 }
-###
-
-PUT http://localhost:5053/api/officeattendance/{Guid here} HTTP/1.1
-Content-Type: application/json
-
-{
-    "Start": "2021-02-09T09:00:00Z",
-    "End": "2021-02-09T17:00:00Z",
-}
-###
-
-DELETE http://localhost:5053/api/officeattendance/{Guid here}
-###

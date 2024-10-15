@@ -24,9 +24,7 @@ public class EventController : Controller
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(Guid Id)
     {
-        if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
-        await _eventservice.DeleteEvent(Id);
-        return Ok();
+        
     }
 
     [HttpPost("AddEvent")]
