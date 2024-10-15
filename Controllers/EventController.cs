@@ -22,26 +22,55 @@ public class EventController : Controller
     }
 
     [HttpDelete("DeleteEvent/{Id}")]
-    public async Task<IActionResult> DeleteEvent(Guid Id)
+    public async Task<IActionResult> DeleteEvent(Guid? Id)
     {
-        
+        if(Id == null)
+        {
+            return NotFound();
+        }
+        var result = await _eventservice.DeleteEvent(Id);
+        if(result)
+        {
+            return Ok("Deleted succesfully");
+        }
+        else
+        {
+            return BadRequest();
+        }
     }
 
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {
-        if(NewEvent == null) return BadRequest();
-        await _eventservice.AddEvent(NewEvent);
-        return Ok();
+        if(NewEvent?.Title == null) return BadRequest();
+        var result = await _eventservice.AddEvent(NewEvent);
+        if(result)
+        {
+            return Ok("Added");
+        }
+        else
+        {
+            return BadRequest();
+        }
     }
 
-    [HttpPut("EditEvent/{Id}")]
-    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent)
+    [HttpPut("EditEvent")]
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery]Guid Id)
     {
-        if(_context.Events.SingleOrDefault(u => u.Id == NewEvent.Id) == null) return NotFound();
-        if(NewEvent == null) return BadRequest();
-        await _eventservice.EditEvent(NewEvent);
-        return Ok();
+        if(NewEvent == null)
+        {
+            return BadRequest();
+        }
+        
+        var result = await _eventservice.EditEvent(NewEvent, Id);
+        if(result)
+        {
+            return Ok();
+        }
+        else
+        {
+            return NotFound("Id not found");
+        }
     }
 
 }

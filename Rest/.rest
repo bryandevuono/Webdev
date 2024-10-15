@@ -11,7 +11,7 @@ GET http://localhost:5053/api/events?Id=2
 GET http://localhost:5053/api/events?Id=25324156341
 
 ### Removes an event by ID: 200 Ok
-DELETE http://localhost:5053/api/events/DeleteEvent/1
+DELETE http://localhost:5053/api/events/DeleteEvent/6f4f1cd9-4539-44ee-aeb2-d722e5db1d73
 
 ### Removes an event by ID with an invalid Id: 404 NotFound
 DELETE http://localhost:5053/api/events/DeleteEvent/1456
@@ -35,26 +35,19 @@ POST http://localhost:5053/api/events/AddEvent HTTP/1.1
 content-type: application/json
 
 { 
-   "Title": "title",
-   "Description": "lorem ipsum",
-   "Date": "2004-02-09T00:00:00Z",
-    "StartTime": "lorem ipsum",
-    "EndTime": "lorem ipsum",
-    "Location": "lorem ipsum",
-    "AdminAproval": true
+   
 }
 ### Updates an event succesfully: 200 Ok
-PUT http://localhost:5053/api/events/EditEvent/6 HTTP/1.1
+PUT http://localhost:5053/api/events/EditEvent?Id=03854f40-6355-44e0-8126-2ade4352c8a3
 content-type: application/json
 
 { 
-   "Id": "6f4f1cd9-4539-44ee-aeb2-d722e5db1d73",
-   "Title": "title2",
-   "Description": "lorem ipsu1m",
+   "Title": "tistle2",
+   "Description": "loresm ipssssu1m",
    "Date": "2004-02-09T00:00:00Z",
-    "StartTime": "lorem ipsu3m",
-    "EndTime": "lorem ipsu3m",
-    "Location": "lorem ipsum",
+    "StartTime": "loremsdf ipsu3m",
+    "EndTime": "lorem ipsdfsu3m",
+    "Location": "loredm ipsum",
     "AdminAproval": true
 }
 
