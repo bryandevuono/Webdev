@@ -1,4 +1,3 @@
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
 public class EventService: IEventService
 {
@@ -12,38 +11,57 @@ public class EventService: IEventService
     public async Task<IEnumerable<Events>> GetAllEvents() =>
         await _context.Events.ToListAsync();
     
-    public async Task DeleteEvent(Guid Id)
+    public async Task<bool> DeleteEvent(Guid? Id)
     {
-        var Event = _context.Events.SingleOrDefault(u => u.Id == Id);
-        if(Event != null)
+        var Event = _context.Events.SingleOrDefault(_ => _.Id == Id);
+        if(Event == null)
         {
-            _context.Events.Remove(Event);
-            await _context.SaveChangesAsync();
+            return false;
         }
+        _context.Events.Remove(Event);
+        int changes = await _context.SaveChangesAsync();
+        if(changes>0)
+        {
+            return true;
+        }
+        return false;
     }
 
-    public async Task AddEvent(Events _event)
+    public async Task<bool> AddEvent(Events _event)
     {
-        if(_event != null)
+        await _context.Events.AddAsync(_event);
+        int changes = await _context.SaveChangesAsync();
+        if(changes>0)
         {
-            await _context.Events.AddAsync(_event);
-            await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 
-    public async Task EditEvent(Events _event)
+    public async Task<bool> EditEvent(Events _event, Guid Id)
     {
-        var ToEditEvent = _context.Events.SingleOrDefault(u => u.Id == _event.Id);
-        if(ToEditEvent != null)
+        var ToEditEvent = await _context.Events.FindAsync(Id);
+    	if(ToEditEvent == null)
         {
-            ToEditEvent.Title=_event.Title;
-            ToEditEvent.Description = _event.Description;
-            ToEditEvent.Date = _event.Date;
-            ToEditEvent.StartTime = _event.StartTime;
-            ToEditEvent.EndTime = _event.EndTime;
-            ToEditEvent.Location = _event.Location;
-            ToEditEvent.AdminAproval = _event.AdminAproval;
-            await _context.SaveChangesAsync();
+            return false;
+        }
+        ToEditEvent.Title=_event.Title;
+        ToEditEvent.Description = _event.Description;
+        ToEditEvent.Date = _event.Date;
+        ToEditEvent.StartTime = _event.StartTime;
+        ToEditEvent.EndTime = _event.EndTime;
+        ToEditEvent.Location = _event.Location;
+        ToEditEvent.AdminAproval = _event.AdminAproval;
+        
+        int changes = await _context.SaveChangesAsync();
+        if(changes>0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+
         }
     }
 }
