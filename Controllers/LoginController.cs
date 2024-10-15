@@ -3,59 +3,60 @@ using System.Text.Json;
 
 [Route("api/login")]
 
-public class AuthController : Controller
+public class LoginController : Controller
 {
-    private readonly IAuthService _authService;
+    private readonly ILoginService _loginService;
 
-    public AuthController(IAuthService authService)
+    public LoginController(ILoginService loginService)
     {
-        _authService = authService;
+        _loginService = loginService;
     }
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequestAdmin loginRequest)
+    [HttpPost("login/admin")]
+    public async Task<IActionResult> LoginAdmin([FromBody] LoginRequestAdmin loginRequest)
     {
-        if (_authService.IsSessionActive()) return Ok(new { Message = "Already logged in" });
-        if (await _authService.LoginAsync(loginRequest.Username, loginRequest.Password))
+        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (await _loginService.IsSessionActive()) return Ok(new { Message = "Admin Already logged in" });
+        if (string.IsNullOrEmpty(loginRequest.Username) || string.IsNullOrEmpty(loginRequest.Password))
         {
-            return Ok(new { Message = "Login successful" });
+            return BadRequest(new { Message = "Username or password cannot be null or empty" });
         }
-        return Unauthorized(new { Message = "Invalid username or password" });
+        if (await _loginService.LoginAsyncAdmin(loginRequest.Username, loginRequest.Password))
+        {
+            return Ok(new { Message = "Admin Login successful" });
+        }
+        return Unauthorized(new { Message = "Admin Invalid username or password" });
+    }
+
+    [HttpPost("login/user")]
+    public async Task<IActionResult> LoginUser([FromBody] LoginRequestUser loginRequest)
+    {
+        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (await _loginService.IsSessionActive()) return Ok(new { Message = "User Already logged in" });
+        if (string.IsNullOrEmpty(loginRequest.Email) || string.IsNullOrEmpty(loginRequest.Password))
+        {
+            return BadRequest(new { Message = "Email or password cannot be null or empty" });
+        }
+        if (await _loginService.LoginAsyncUser(loginRequest.Email, loginRequest.Password))
+        {
+            return Ok(new { Message = "User Login successful" });
+        }
+        return Unauthorized(new { Message = "User Invalid username or password" });
     }
 
     [HttpGet("session")]
-    public IActionResult CheckSession()
+    public async Task<IActionResult> CheckSession()
     {
-        if (_authService.IsSessionActive())
+        if (await _loginService.IsSessionActive())
         {
             return Ok(new
             {
                 IsLoggedIn = true,
-                Username = _authService.GetLoggedInUsername()
+                Username = _loginService.GetLoggedInUsername().Result,
+                Role = _loginService.GetLoggedInUserRole().Result
             });
         }
 
         return Ok(new { IsLoggedIn = false });
-    }
-
-    [HttpPost("addadmin")]
-    public IActionResult AddAdmin([FromBody] Admins admin)
-    {
-        if (_authService.addadmin(admin)) return Ok(new { Message = "Admin added" });
-        return BadRequest(new { Message = "Admin already exists" });
-    }
-
-    [HttpGet("getadmin")]
-    public IActionResult GetAdmin()
-    {
-        var admin = _authService.GetAdmin();
-        return Ok(admin);
-    }
-
-    [HttpPost("deleteadmin")]
-    public IActionResult DeleteAdmin([FromBody] Admins admin)
-    {
-        if (_authService.DeleteAdmin(admin)) return Ok(new { Message = "Admin deleted" });
-        return NotFound(new { Message = "Admin not found" });
     }
 }

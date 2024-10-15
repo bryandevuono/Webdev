@@ -2,72 +2,78 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BCrypt.Net;
 
-public class AuthService : IAuthService
+public class LoginService : ILoginService
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly MyDbContext _dbContext;
 
-    // var hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-    // var isPasswordValid = BCrypt.Net.BCrypt.Verify(password, hashedPassword);
-
     private const string SessionKeyUsername = "LoggedInUsername";
+    private const string SessionKeyRole = "LoggedInRole";
 
-    public AuthService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
+    public LoginService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
     {
         _dbContext = dbContext;
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<bool> LoginAsync(string username, string password)
+    public async Task<bool> LoginAsyncAdmin(string username, string password)
     {
-        var adminUser = await _dbContext.Admins
+        var admin = await _dbContext.Admins
             .FirstOrDefaultAsync(admin => admin.Username == username);
 
-        var isPasswordValid = adminUser != null && BCrypt.Net.BCrypt.Verify(password, adminUser.Password);
-        if (adminUser == null || !isPasswordValid) return false;
+        var isPasswordValid = admin != null && BCrypt.Net.BCrypt.Verify(password, admin.Password);
+        if (admin == null || !isPasswordValid) return false;
 
-        _httpContextAccessor.HttpContext.Session.SetString(SessionKeyUsername, username);
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+
+        httpContext.Session.SetString(SessionKeyUsername, username);
+        httpContext.Session.SetString(SessionKeyRole, "admin");
 
         return true;
     }
 
-    public bool IsSessionActive()
+    public async Task<bool> LoginAsyncUser(string email, string password)
     {
-        var username = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
-        return !string.IsNullOrEmpty(username);
+        var user = await _dbContext.Users
+            .FirstOrDefaultAsync(user => user.Email == email);
+
+        var isPasswordValid = user != null && BCrypt.Net.BCrypt.Verify(password, user.Password);
+        if (user == null || !isPasswordValid) return false;
+
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+        httpContext.Session.SetString(SessionKeyUsername, email);
+        httpContext.Session.SetString(SessionKeyRole, "user");
+
+        return true;
     }
 
-    public string GetLoggedInUsername()
+    public async Task<bool> IsSessionActive()
+    {
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+        var username = httpContext.Session.GetString(SessionKeyUsername);
+        var role = httpContext.Session.GetString(SessionKeyRole);
+        return !string.IsNullOrEmpty(username) && !string.IsNullOrEmpty(role);
+    }
+
+    public async Task<string> GetLoggedInUsername()
     {
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUsername);
     }
 
-    public bool addadmin([FromBody] Admins admin)
+    public async Task<string> GetLoggedInUserRole()
     {
-        var adminToAdd = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
-        if (adminToAdd != null) return false;
-
-        admin.Password = BCrypt.Net.BCrypt.HashPassword(admin.Password);
-        _dbContext.Admins.Add(admin);
-        _dbContext.SaveChanges();
-
-        return true;
+        return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
     }
 
-    public List<Admins> GetAdmin()
+    public async Task<bool> logout()
     {
-        var admin = _dbContext.Admins.ToList();
-        return admin;
-    }
-
-    public bool DeleteAdmin([FromBody] Admins admin)
-    {
-        var adminToDelete = _dbContext.Admins.FirstOrDefault(a => a.Username == admin.Username);
-        if (adminToDelete == null) return false;
-
-        _dbContext.Admins.Remove(adminToDelete);
-        _dbContext.SaveChanges();
-
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) return false;
+        httpContext.Session.Remove(SessionKeyRole);
+        httpContext.Session.Remove(SessionKeyUsername);
         return true;
     }
 }

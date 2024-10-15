@@ -1,9 +1,8 @@
-public interface IAuthService
+public interface ILoginService
 {
-    Task<bool> LoginAsync(string username, string password);
-    bool IsSessionActive();
-    string GetLoggedInUsername();
-    bool addadmin(Admins admin);
-    List<Admins> GetAdmin();
-    bool DeleteAdmin(Admins admin);
+    Task<bool> LoginAsyncAdmin(string username, string password);
+    Task<bool> LoginAsyncUser(string email, string password);
+    Task<bool> IsSessionActive();
+    Task<string> GetLoggedInUsername();
+    Task<string> GetLoggedInUserRole();
 }
