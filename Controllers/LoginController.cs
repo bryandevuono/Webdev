@@ -15,11 +15,7 @@ public class LoginController : Controller
     [HttpPost("login/admin")]
     public async Task<IActionResult> LoginAdmin([FromBody] LoginRequestAdmin loginRequest)
     {
-        if (string.IsNullOrEmpty(loginRequest.Username) || string.IsNullOrEmpty(loginRequest.Password))
-        {
-            return BadRequest(new { Message = "Username or password cannot be null or empty" });
-        }
-        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (loginRequest == default(LoginRequestAdmin)) return BadRequest(new { Message = "loginRequest should not be empty" });
         if (await _loginService.IsSessionActive()) return BadRequest(new { Message = "Admin Already logged in" });
         if (await _loginService.LoginAsyncAdmin(loginRequest.Username, loginRequest.Password))
         {
@@ -31,11 +27,7 @@ public class LoginController : Controller
     [HttpPost("login/user")]
     public async Task<IActionResult> LoginUser([FromBody] LoginRequestUser loginRequest)
     {
-        if (string.IsNullOrEmpty(loginRequest.Email) || string.IsNullOrEmpty(loginRequest.Password))
-        {
-            return BadRequest(new { Message = "Email or password cannot be null or empty" });
-        }
-        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (loginRequest == default(LoginRequestUser)) return BadRequest(new { Message = "loginRequest should not be empty" });
         if (await _loginService.IsSessionActive()) return BadRequest(new { Message = "User Already logged in" });
         if (await _loginService.LoginAsyncUser(loginRequest.Email, loginRequest.Password))
         {

@@ -8,6 +8,10 @@ Content-Type: application/json
 }
 ### Expected Response: 200 OK "admin added | 400 Bad Request "Admin already exists"
 
+POST http://localhost:5053/api/admin/addadmin
+Content-Type: application/json
+### Expected Response: 400 Bad Request "admin should not be empty"
+
 GET http://localhost:5053/api/admin/getadmin
 ### Expected Response: 200 OK "all admins"
 
@@ -20,3 +24,7 @@ Content-Type: application/json
     "Email": "admin@hr.nl"
 } 
 ### Expected Response: 200 OK "Admin deleted" || 404 Not Found "Admin not found"
+
+DELETE http://localhost:5053/api/admin/deleteadmin HTTP/1.1
+Content-Type: application/json
+### Expected Response: 400 Bad Request "admin should not be empty"

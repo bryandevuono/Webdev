@@ -10,11 +10,7 @@ Content-Type: application/json
 
 POST http://localhost:5053/api/login/login/admin
 Content-Type: application/json
-
-{
-
-}
-### Expected Response: 400 Bad Request "Username or password cannot be null or empty"
+### Expected Response: 400 Bad Request ""loginRequest should not be empty""
 
 POST http://localhost:5053/api/login/login/user
 Content-Type: application/json
@@ -30,11 +26,7 @@ Content-Type: application/json
 
 POST http://localhost:5053/api/login/login/user
 Content-Type: application/json
-
-{
-
-}
-### Expected Response: 400 Bad Request "Email or password cannot be null or empty"
+### Expected Response: 400 Bad Request ""loginRequest should not be empty""
 
 
 GET http://localhost:5053/api/login/session
