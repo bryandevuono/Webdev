@@ -25,7 +25,7 @@ public class UserController : Controller
         return Ok(user);
     }
 
-    [HttpPost("deleteuser")]
+    [HttpDelete("deleteuser")]
     public async Task<IActionResult> DeleteUser([FromBody] Users user)
     {
         if (user == null) return BadRequest(new { Message = "Invalid request" });
