@@ -41,7 +41,7 @@ public class UserService : IUserService
         var loginService = new LoginService(_dbContext, _httpContextAccessor);
         if (await loginService.IsSessionActive() && await loginService.GetLoggedInUsername() == user.Email)
         {
-            await loginService.logout();
+            await loginService.Logout();
         }
 
         return true;

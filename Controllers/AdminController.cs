@@ -13,7 +13,7 @@ public class AdminController : Controller
     [HttpPost("addadmin")]
     public async Task<IActionResult> AddAdmin([FromBody] Admins admin)
     {
-        if (admin == null) return BadRequest(new { Message = "Invalid request" });
+        if (admin == null) return BadRequest(new { Message = "admin should not be empty" });
         if (await _adminService.AddAdmin(admin)) return Ok(new { Message = "Admin added" });
         return BadRequest(new { Message = "Admin already exists" });
     }
@@ -25,10 +25,10 @@ public class AdminController : Controller
         return Ok(admin);
     }
 
-    [HttpPost("deleteadmin")]
+    [HttpDelete("deleteadmin")]
     public async Task<IActionResult> DeleteAdmin([FromBody] Admins admin)
     {
-        if (admin == null) return BadRequest(new { Message = "Invalid request" });
+        if (admin == null) return BadRequest(new { Message = "admin should not be empty" });
         if (await _adminService.DeleteAdmin(admin)) return Ok(new { Message = "Admin deleted" });
         return NotFound(new { Message = "Admin not found" });
     }
