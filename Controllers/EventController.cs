@@ -22,7 +22,7 @@ public class EventController : Controller
     }
 
     [HttpDelete("DeleteEvent/{Id}")]
-    public async Task<IActionResult> DeleteEvent(int Id)
+    public async Task<IActionResult> DeleteEvent(Guid Id)
     {
         if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
         await _eventservice.DeleteEvent(Id);
@@ -38,11 +38,11 @@ public class EventController : Controller
     }
 
     [HttpPut("EditEvent/{Id}")]
-    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, int Id)
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent)
     {
-        if(_context.Events.SingleOrDefault(u => u.Id == Id) == null) return NotFound();
+        if(_context.Events.SingleOrDefault(u => u.Id == NewEvent.Id) == null) return NotFound();
         if(NewEvent == null) return BadRequest();
-        await _eventservice.EditEvent(NewEvent, Id);
+        await _eventservice.EditEvent(NewEvent);
         return Ok();
     }
 
