@@ -25,7 +25,7 @@ public class AdminController : Controller
         return Ok(admin);
     }
 
-    [HttpPost("deleteadmin")]
+    [HttpDelete("deleteadmin")]
     public async Task<IActionResult> DeleteAdmin([FromBody] Admins admin)
     {
         if (admin == null) return BadRequest(new { Message = "Invalid request" });

@@ -15,12 +15,12 @@ public class LoginController : Controller
     [HttpPost("login/admin")]
     public async Task<IActionResult> LoginAdmin([FromBody] LoginRequestAdmin loginRequest)
     {
-        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
-        if (await _loginService.IsSessionActive()) return Ok(new { Message = "Admin Already logged in" });
         if (string.IsNullOrEmpty(loginRequest.Username) || string.IsNullOrEmpty(loginRequest.Password))
         {
             return BadRequest(new { Message = "Username or password cannot be null or empty" });
         }
+        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (await _loginService.IsSessionActive()) return BadRequest(new { Message = "Admin Already logged in" });
         if (await _loginService.LoginAsyncAdmin(loginRequest.Username, loginRequest.Password))
         {
             return Ok(new { Message = "Admin Login successful" });
@@ -31,12 +31,12 @@ public class LoginController : Controller
     [HttpPost("login/user")]
     public async Task<IActionResult> LoginUser([FromBody] LoginRequestUser loginRequest)
     {
-        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
-        if (await _loginService.IsSessionActive()) return Ok(new { Message = "User Already logged in" });
         if (string.IsNullOrEmpty(loginRequest.Email) || string.IsNullOrEmpty(loginRequest.Password))
         {
             return BadRequest(new { Message = "Email or password cannot be null or empty" });
         }
+        if (loginRequest == null) return BadRequest(new { Message = "Invalid request" });
+        if (await _loginService.IsSessionActive()) return BadRequest(new { Message = "User Already logged in" });
         if (await _loginService.LoginAsyncUser(loginRequest.Email, loginRequest.Password))
         {
             return Ok(new { Message = "User Login successful" });
@@ -58,5 +58,16 @@ public class LoginController : Controller
         }
 
         return Ok(new { IsLoggedIn = false });
+    }
+
+    [HttpGet("logout")]
+    public async Task<IActionResult> Logout()
+    {
+        if (await _loginService.IsSessionActive())
+        {
+            await _loginService.Logout();
+            return Ok(new { Message = "Logged out successfully" });
+        }
+        return BadRequest(new { Message = "No active session" });
     }
 }
