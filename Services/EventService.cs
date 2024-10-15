@@ -12,13 +12,13 @@ public class EventService: IEventService
     public async Task<IEnumerable<Events>> GetAllEvents() =>
         await _context.Events.ToListAsync();
     
-    public async Task DeleteEvent(int Id)
+    public async Task DeleteEvent(Guid Id)
     {
         var Event = _context.Events.SingleOrDefault(u => u.Id == Id);
         if(Event != null)
         {
             _context.Events.Remove(Event);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 
@@ -26,14 +26,14 @@ public class EventService: IEventService
     {
         if(_event != null)
         {
-            _context.Events.AddAsync(_event);
+            await _context.Events.AddAsync(_event);
             await _context.SaveChangesAsync();
         }
     }
 
-    public async Task EditEvent(Events _event, int Id)
+    public async Task EditEvent(Events _event)
     {
-        var ToEditEvent = _context.Events.SingleOrDefault(u => u.Id == Id);
+        var ToEditEvent = _context.Events.SingleOrDefault(u => u.Id == _event.Id);
         if(ToEditEvent != null)
         {
             ToEditEvent.Title=_event.Title;
