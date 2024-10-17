@@ -41,7 +41,7 @@ public class AdminService : IAdminService
         var loginService = new LoginService(_dbContext, _httpContextAccessor);
         if (await loginService.IsSessionActive() && await loginService.GetLoggedInUsername() == admin.Username)
         {
-            await loginService.logout();
+            await loginService.Logout();
         }
 
         return true;

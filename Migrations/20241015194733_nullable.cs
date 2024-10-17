@@ -5,7 +5,7 @@
 namespace Webdev.Migrations
 {
     /// <inheritdoc />
-    public partial class notnullable_admin_user : Migration
+    public partial class nullable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

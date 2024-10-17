@@ -68,7 +68,7 @@ public class LoginService : ILoginService
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
     }
 
-    public async Task<bool> logout()
+    public async Task<bool> Logout()
     {
         var httpContext = _httpContextAccessor.HttpContext;
         if (httpContext == null) return false;
