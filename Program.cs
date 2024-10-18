@@ -19,13 +19,14 @@ public class Program
             options.Cookie.IsEssential = true;
         });
 
+        builder.Services.AddControllers();
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddTransient<EventService>();
+        builder.Services.AddTransient<IEventService, EventService>();
         builder.Services.AddTransient<ILoginService, LoginService>();
         builder.Services.AddTransient<IUserService, UserService>();
         builder.Services.AddTransient<IAdminService, AdminService>();
         builder.Services.AddTransient<IOfficeAttendanceService, OfficeAttendanceService>();
-        builder.Services.AddControllers();
+        builder.Services.AddScoped<AuthenticationFilter>();
 
         var app = builder.Build();
 
