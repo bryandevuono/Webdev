@@ -1,6 +1,5 @@
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
-
 public class Program
 {
     public static void Main(string[] args)
@@ -44,7 +43,12 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-
+        
+        app.Use(async (context, next) => {
+            string log = $"{context.Request.Path} was handled with status code {context.Response.StatusCode}";
+            await System.IO.File.AppendAllTextAsync("./log.txt", log);
+            await next.Invoke();
+        });
         app.Run();
     }
 }
