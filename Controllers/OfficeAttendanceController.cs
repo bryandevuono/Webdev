@@ -15,8 +15,9 @@ public class OfficeAttendanceController : Controller
     {
         try
         {
-            await _attendanceService.AddOfficeAttendance(attendance);
-            return Ok();
+            if (await _attendanceService.AddOfficeAttendance(attendance))
+                return Ok();
+            return BadRequest("OfficeAttendance could not be added.");
         }
         catch (Exception ex)
         {
@@ -29,8 +30,9 @@ public class OfficeAttendanceController : Controller
     {
         try
         {
-            await _attendanceService.UpdateOfficeAttendance(updatedAttendance);
-            return Ok();
+            if (await _attendanceService.UpdateOfficeAttendance(updatedAttendance))
+                return Ok();
+            return BadRequest("OfficeAttendance could not be updated.");
         }
         catch (Exception ex)
         {
@@ -38,13 +40,14 @@ public class OfficeAttendanceController : Controller
         }
     }
 
-    [HttpDelete("{attendanceId}")]
+    [HttpDelete("{attendanceid}")]
     public async Task<IActionResult> DeleteOfficeAttendance([FromRoute] Guid attendanceId)
     {
         try
         {
-            await _attendanceService.DeleteOfficeAttendance(attendanceId);
-            return Ok();
+            if (await _attendanceService.DeleteOfficeAttendance(attendanceId))
+                return Ok();
+            return BadRequest("OfficeAttendance could not be deleted.");
         }
         catch (Exception ex)
         {

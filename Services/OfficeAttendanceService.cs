@@ -7,17 +7,19 @@ public class OfficeAttendanceService : IOfficeAttendanceService
         _context = context;
     }
 
-    public async Task AddOfficeAttendance(OfficeAttendance attendance)
+    public async Task<bool> AddOfficeAttendance(OfficeAttendance attendance)
     {
         attendance.OfficeAttendanceId = Guid.NewGuid();
         if (attendance != null)
         {
             await _context.OfficeAttendance.AddAsync(attendance);
             await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 
-    public async Task UpdateOfficeAttendance(OfficeAttendance updatedAttendance)
+    public async Task<bool> UpdateOfficeAttendance(OfficeAttendance updatedAttendance)
     {
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(updatedAttendance.OfficeAttendanceId);
 
@@ -28,16 +30,20 @@ public class OfficeAttendanceService : IOfficeAttendanceService
             attendance.UserId = updatedAttendance.UserId;
 
             await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 
-    public async Task DeleteOfficeAttendance(Guid attendanceId)
+    public async Task<bool> DeleteOfficeAttendance(Guid attendanceId)
     {
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
         if (attendance != null)
         {
             _context.OfficeAttendance.Remove(attendance);
             await _context.SaveChangesAsync();
+            return true;
         }
+        return false;
     }
 }
