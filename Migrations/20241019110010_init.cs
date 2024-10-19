@@ -30,7 +30,7 @@ namespace Webdev.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: true),
+                    Title = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     StartTime = table.Column<string>(type: "text", nullable: true),
@@ -64,7 +64,7 @@ namespace Webdev.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Firstname = table.Column<string>(type: "text", nullable: false),
                     Lastname = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: true),
                     Password = table.Column<string>(type: "text", nullable: false),
                     RecurringDays = table.Column<int>(type: "integer", nullable: false)
                 },
