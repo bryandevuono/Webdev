@@ -1,6 +1,5 @@
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using Microsoft.EntityFrameworkCore;
-
 public class Program
 {
     public static void Main(string[] args)
@@ -19,13 +18,14 @@ public class Program
             options.Cookie.IsEssential = true;
         });
 
+        builder.Services.AddControllers();
         builder.Services.AddHttpContextAccessor();
-        builder.Services.AddTransient<EventService>();
+        builder.Services.AddTransient<IEventService, EventService>();
         builder.Services.AddTransient<ILoginService, LoginService>();
         builder.Services.AddTransient<IUserService, UserService>();
         builder.Services.AddTransient<IAdminService, AdminService>();
         builder.Services.AddTransient<IOfficeAttendanceService, OfficeAttendanceService>();
-        builder.Services.AddControllers();
+        builder.Services.AddScoped<AuthenticationFilter>();
 
         var app = builder.Build();
 
@@ -43,7 +43,12 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-
+        
+        app.Use(async (context, next) => {
+            string log = $"{context.Request.Path} was handled with status code {context.Response.StatusCode}";
+            await System.IO.File.AppendAllTextAsync("./log.txt", log);
+            await next.Invoke();
+        });
         app.Run();
     }
 }
