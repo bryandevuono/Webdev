@@ -11,6 +11,11 @@ public class EventService: IEventService
     public async Task<IEnumerable<Events>> GetAllEvents() =>
         await _context.Events.ToListAsync();
     
+    public async Task<Events?> GetById(Guid Id)
+    {
+        var Event = await _context.Events.FindAsync(Id);
+        return Event;
+    }
     public async Task<bool> DeleteEvent(Guid? Id)
     {
         var Event = _context.Events.SingleOrDefault(_ => _.Id == Id);

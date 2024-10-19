@@ -16,6 +16,12 @@ public class EventController : Controller
         var Allevents = await _eventservice.GetAllEvents();
         return Ok(Allevents);
     }
+    [HttpGet()]
+    public async Task<IActionResult> GetEventById([FromQuery] Guid Id)
+    {
+        var Result = await _eventservice.GetById(Id);
+        return Ok(Result);
+    }
     [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(Guid? Id)

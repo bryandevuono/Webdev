@@ -5,13 +5,13 @@
 GET http://localhost:5053/api/events/GetAllEvents
 
 ### Reads an event by ID: 200 Ok
-GET http://localhost:5053/api/events?Id=2
+GET http://localhost:5053/api/events?Id=c99a86a7-d49e-452b-b5f7-3d96ec8eb601
 
 ### Reads an event with an invalid Id: 404 NotFound
 GET http://localhost:5053/api/events?Id=25324156341
 
 ### Removes an event by ID: 200 Ok
-DELETE http://localhost:5053/api/events/DeleteEvent/6f4f1cd9-4539-44ee-aeb2-d722e5db1d73
+DELETE http://localhost:5053/api/events/DeleteEvent/c99a86a7-d49e-452b-b5f7-3d96ec8eb601
 
 ### Removes an event by ID with an invalid Id: 404 NotFound
 DELETE http://localhost:5053/api/events/DeleteEvent/1456
