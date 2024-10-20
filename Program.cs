@@ -45,9 +45,9 @@ public class Program
             pattern: "{controller=Home}/{action=Index}/{id?}");
         
         app.Use(async (context, next) => {
-            string log = $"{context.Request.Path} was handled with status code {context.Response.StatusCode}";
-            await System.IO.File.AppendAllTextAsync("./log.txt", log);
             await next.Invoke();
+            string log = $"{DateTime.Now} | {context.Request.Path} was handled with status code {context.Response.StatusCode}\n";
+            await System.IO.File.AppendAllTextAsync("./log.txt", log);
         });
         app.Run();
     }
