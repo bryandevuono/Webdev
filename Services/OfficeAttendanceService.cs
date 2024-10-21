@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+
 public class OfficeAttendanceService : IOfficeAttendanceService
 {
     private MyDbContext _context;
@@ -45,5 +48,29 @@ public class OfficeAttendanceService : IOfficeAttendanceService
             return true;
         }
         return false;
+    }
+
+    public async Task<List<OfficeAttendance>> GetBatchOfficeAttendances(List<Guid?> attendanceIds)
+    {
+        if (attendanceIds.IsNullOrEmpty())
+        {
+            return await _context.OfficeAttendance.ToListAsync();
+        }
+        return await _context.OfficeAttendance.Where(attendance => attendanceIds.Contains(attendance.OfficeAttendanceId)).ToListAsync();
+    }
+
+    public async Task<OfficeAttendance?> GetOfficeAttendanceById(Guid attendanceId)
+    {
+        OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
+        return attendance;
+    }
+
+    public Task<List<OfficeAttendance>>? GetOfficeAttendancesForSingleUser(Guid? userId)
+    {
+        if (userId == Guid.Empty)
+        {
+            return null;
+        }
+        return _context.OfficeAttendance.Where(attendance => attendance.UserId == userId).ToListAsync();
     }
 }
