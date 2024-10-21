@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bryan\\Documents\\WebDevProj\\Webdev\\Webdev.csproj": {}
+    "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bryan\\Documents\\WebDevProj\\Webdev\\Webdev.csproj": {
+    "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bryan\\Documents\\WebDevProj\\Webdev\\Webdev.csproj",
+        "projectUniqueName": "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj",
         "projectName": "Webdev",
-        "projectPath": "C:\\Users\\bryan\\Documents\\WebDevProj\\Webdev\\Webdev.csproj",
-        "packagesPath": "C:\\Users\\bryan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bryan\\Documents\\WebDevProj\\Webdev\\obj\\",
+        "projectPath": "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\Webdev.csproj",
+        "packagesPath": "C:\\Users\\julin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\julin\\OneDrive\\Bureaublad\\School\\Jaar 2\\Op1\\Webdev\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bryan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\julin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
