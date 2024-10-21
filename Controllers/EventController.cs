@@ -23,6 +23,10 @@ public class EventController : Controller
         var Event = await _eventservice.GetById(Id);
         var Reviews = _eventservice.GetReviews(Id);
         Result result = new Result(Event, Reviews);
+        if(Event == null)
+        {
+            return NotFound();
+        }
         return Ok(result);
     }
 
