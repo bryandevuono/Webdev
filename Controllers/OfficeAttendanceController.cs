@@ -56,4 +56,52 @@ public class OfficeAttendanceController : Controller
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet]
+    public async Task<IActionResult> GetBatchOfficeAttendances([FromQuery] List<Guid?> ids)
+    {
+        try
+        {
+            List<OfficeAttendance> attendances = await _attendanceService.GetBatchOfficeAttendances(ids);
+            if (attendances != null)
+                return Ok(attendances);
+            return BadRequest();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetBatchOfficeAttendances([FromRoute] Guid id)
+    {
+        try
+        {
+            OfficeAttendance? attendance = await _attendanceService.GetOfficeAttendanceById(id);
+            if (attendance != null)
+                return Ok(attendance);
+            return BadRequest();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet("user/{id}")]
+    public async Task<IActionResult> GetOfficeAttendancesForSingleUser([FromRoute] Guid? id)
+    {
+        try
+        {
+            List<OfficeAttendance>? attendances = await _attendanceService.GetOfficeAttendancesForSingleUser(id);
+            if (attendances != null)
+                return Ok(attendances);
+            return BadRequest();
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }
