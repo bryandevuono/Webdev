@@ -48,13 +48,9 @@ public class EventAttendanceService : IEventAttService
 
     }
 
-    public async Task<Events> GetEventById(Guid eventId)
+    public async Task<Events?> GetEventById(Guid eventId)
     {
         var eventEntity = await _context.Events.FindAsync(eventId);
-        if (eventEntity == null)
-        {
-            throw new ArgumentException($"Event with ID {eventId} not found.");
-        }
         return eventEntity;
     }
 }

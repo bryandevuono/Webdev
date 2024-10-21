@@ -19,11 +19,6 @@ public class AttendanceController : Controller
             return NotFound("Event not found.");
         }
         
-        if (eventObj.Date < DateTime.Now)
-        {
-            return BadRequest();
-        }
-        
         var succes = await _attendanceService.AttendEvent(eventAttendance.UserId, eventAttendance.EventId);
         if (!succes)
         {
@@ -49,7 +44,7 @@ public class AttendanceController : Controller
         var succes = await _attendanceService.RemoveAttendance(userId, eventId);
         if (!succes)
         {
-            return BadRequest("User attendance could not be removed.");
+            return NotFound("User attendance could not be removed.");
         }
 
         return Ok($"User {userId} is no longer attending event {eventId}");
