@@ -10,14 +10,14 @@ public class EventAttendanceService : IEventAttService
 
     public async Task<bool> AttendEvent(Guid userId, Guid eventId)
     {
-        var alreadyAttending = await _context.Attendance
+        var alreadyAttending = await _context.EventAttendance
         .AnyAsync(a => a.UserId == userId && a.EventId == eventId);
         if (alreadyAttending)
         {
             return false;
         }
         var eventAttendance = new EventAttendance { UserId = userId, EventId = eventId };
-        _context.Attendance.Add(eventAttendance);
+        _context.EventAttendance.Add(eventAttendance);
         await _context.SaveChangesAsync();
 
         return true;
@@ -25,7 +25,7 @@ public class EventAttendanceService : IEventAttService
 
     public async Task<List<Users>> GetAttendeesByEventId(Guid eventId)
     {
-        return await _context.Attendance
+        return await _context.EventAttendance
             .Where(a => a.EventId == eventId)
             .Select(a => new Users { Id = a.UserId })
             .ToListAsync();
@@ -33,7 +33,7 @@ public class EventAttendanceService : IEventAttService
 
     public async Task<bool> RemoveAttendance(Guid userId, Guid eventId)
     {
-        var attendance = await _context.Attendance
+        var attendance = await _context.EventAttendance
         .FirstOrDefaultAsync(a => a.UserId == userId && a.EventId == eventId);
 
         if (attendance == null)
@@ -41,7 +41,7 @@ public class EventAttendanceService : IEventAttService
             return false;
         }
 
-        _context.Attendance.Remove(attendance);
+        _context.EventAttendance.Remove(attendance);
         await _context.SaveChangesAsync();
         
         return true;
