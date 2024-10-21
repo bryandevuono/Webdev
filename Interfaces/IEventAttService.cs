@@ -1,6 +1,7 @@
 public interface IEventAttService
 {
-    bool AttendEvent(Guid userId, Guid eventId);
-    List<Users> GetAttendeesByEventId(Guid eventId);
-    bool RemoveAttendance(Guid userId, Guid eventId);
+    Task<bool> AttendEvent(Guid userId, Guid eventId);
+    Task<List<Users>> GetAttendeesByEventId(Guid eventId);
+    Task<bool> RemoveAttendance(Guid userId, Guid eventId);
+    Task<Events> GetEventById(Guid eventId);
 }

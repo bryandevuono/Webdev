@@ -1,37 +1,60 @@
-
+using Microsoft.EntityFrameworkCore;
 public class EventAttendanceService : IEventAttService
 {
-    private readonly List<EventAttendance> _attendance;
+    private readonly MyDbContext _context;
 
-    public EventAttendanceService()
+    public EventAttendanceService(MyDbContext context)
     {
-        _attendance = new List<EventAttendance>();
+        _context = context;
     }
 
-    public bool AttendEvent(Guid userId, Guid eventId)
+    public async Task<bool> AttendEvent(Guid userId, Guid eventId)
     {
-        if (_attendance.Any(a => a.UserId == userId && a.EventId == eventId))
+        var alreadyAttending = await _context.Attendance
+        .AnyAsync(a => a.UserId == userId && a.EventId == eventId);
+        if (alreadyAttending)
         {
             return false;
         }
-        _attendance.Add(new EventAttendance { UserId = userId, EventId = eventId });
+        var eventAttendance = new EventAttendance { UserId = userId, EventId = eventId };
+        _context.Attendance.Add(eventAttendance);
+        await _context.SaveChangesAsync();
+
         return true;
     }
 
-    public List<Users> GetAttendeesByEventId(Guid eventId)
+    public async Task<List<Users>> GetAttendeesByEventId(Guid eventId)
     {
-        return _attendance.Where(async => async.EventId == eventId).Select(async => new Users { Id = async.UserId }).ToList();
+        return await _context.Attendance
+            .Where(a => a.EventId == eventId)
+            .Select(a => new Users { Id = a.UserId })
+            .ToListAsync();
     }
 
-    public bool RemoveAttendance(Guid userId, Guid eventId)
+    public async Task<bool> RemoveAttendance(Guid userId, Guid eventId)
     {
-        var attendance = _attendance.FirstOrDefault(a => a.UserId == userId && a.EventId == eventId);
+        var attendance = await _context.Attendance
+        .FirstOrDefaultAsync(a => a.UserId == userId && a.EventId == eventId);
+
         if (attendance == null)
         {
             return false;
         }
-        _attendance.Remove(attendance);
+
+        _context.Attendance.Remove(attendance);
+        await _context.SaveChangesAsync();
+        
         return true;
 
+    }
+
+    public async Task<Events> GetEventById(Guid eventId)
+    {
+        var eventEntity = await _context.Events.FindAsync(eventId);
+        if (eventEntity == null)
+        {
+            throw new ArgumentException($"Event with ID {eventId} not found.");
+        }
+        return eventEntity;
     }
 }

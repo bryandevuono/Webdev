@@ -3,28 +3,28 @@ using Microsoft.AspNetCore.Mvc;
 [Route("api/[controller]")]
 public class AttendanceController : Controller
 {
-    private readonly MyDbContext _context;
     private readonly IEventAttService _attendanceService;
 
-    public AttendanceController(MyDbContext context, IEventAttService attendanceService)
+    public AttendanceController(IEventAttService attendanceService)
     {
-        _context = context;
         _attendanceService = attendanceService;
     }
 
     [HttpPost("attend")]
-    public IActionResult AttendEvent([FromBody] EventAttendance eventAttendance)
+    public async Task<IActionResult> AttendEvent([FromBody] EventAttendance eventAttendance)
     {
-        var eventObj = _context.Events.FirstOrDefault(e => e.Id == eventAttendance.EventId);
+        var eventObj = await _attendanceService.GetEventById(eventAttendance.EventId);
         if (eventObj == null)
         {
             return NotFound("Event not found.");
         }
+        
         if (eventObj.Date < DateTime.Now)
         {
             return BadRequest();
         }
-        var succes = _attendanceService.AttendEvent(eventAttendance.UserId, eventAttendance.EventId);
+        
+        var succes = await _attendanceService.AttendEvent(eventAttendance.UserId, eventAttendance.EventId);
         if (!succes)
         {
             return BadRequest("User is already registered for this event.");
@@ -33,9 +33,9 @@ public class AttendanceController : Controller
     }
 
     [HttpGet("{eventId}/attendees")]
-    public IActionResult GetAttendees(Guid eventId)
+    public async Task<IActionResult> GetAttendees(Guid eventId)
     {
-        var attendees = _attendanceService.GetAttendeesByEventId(eventId);
+        var attendees = await _attendanceService.GetAttendeesByEventId(eventId);
         if (attendees == null || !attendees.Any())
         {
             return NotFound("No attendees found for this event.");
@@ -43,16 +43,16 @@ public class AttendanceController : Controller
         return Ok(attendees);
     }
 
-    [HttpDelete("delete/{UserId}")]
-    public IActionResult DeleteAttendance([FromBody] EventAttendance eventAttendance)
+    [HttpDelete("delete/{userId}/{eventId}")]
+    public async Task<IActionResult> DeleteAttendance(Guid userId, Guid eventId)
     {
-        var succes = _attendanceService.RemoveAttendance(eventAttendance.UserId, eventAttendance.EventId);
+        var succes = await _attendanceService.RemoveAttendance(userId, eventId);
         if (!succes)
         {
             return BadRequest("User attendance could not be removed.");
         }
 
-        return Ok($"User {eventAttendance.UserId} is no longer attending event {eventAttendance.EventId}");
+        return Ok($"User {userId} is no longer attending event {eventId}");
     }
 
 }

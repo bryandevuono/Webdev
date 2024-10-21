@@ -45,11 +45,8 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-        // middleware for logging
         app.Use(async (context, next) =>
         {
-            string log = $"{context.Request.Path} was handled with status code {context.Response.StatusCode}";
-            await System.IO.File.AppendAllTextAsync("./log.txt", log + "\n");
             await next.Invoke();
             string log = $"{DateTime.Now} | {context.Request.Path} was handled with status code {context.Response.StatusCode}\n";
             await System.IO.File.AppendAllTextAsync("./log.txt", log);
