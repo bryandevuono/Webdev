@@ -69,4 +69,15 @@ public class EventService: IEventService
 
         }
     }
+
+    public IEnumerable<string?> GetReviews(Guid Id)
+    {
+        var result = _context.EventAttendance.Where(_=>Id == _.EventId).ToList();
+        List<string?> Reviews = new List<string?>(); 
+        foreach(var review in result)
+        {
+            Reviews.Add(review.Rating + ": " + review.FeedBack);
+        }
+        return Reviews;
+    }
 }

@@ -8,16 +8,15 @@ public class EventAttendanceService : IEventAttService
         _context = context;
     }
 
-    public async Task<bool> AttendEvent(Guid userId, Guid eventId)
+    public async Task<bool> AttendEvent(EventAttendance att)
     {
         var alreadyAttending = await _context.EventAttendance
-        .AnyAsync(a => a.UserId == userId && a.EventId == eventId);
+        .AnyAsync(a => a.UserId == att.UserId && a.EventId == att.UserId);
         if (alreadyAttending)
         {
             return false;
         }
-        var eventAttendance = new EventAttendance { UserId = userId, EventId = eventId };
-        _context.EventAttendance.Add(eventAttendance);
+        _context.EventAttendance.Add(att);
         await _context.SaveChangesAsync();
 
         return true;

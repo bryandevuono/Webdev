@@ -19,7 +19,7 @@ public class AttendanceController : Controller
             return NotFound("Event not found.");
         }
         
-        var succes = await _attendanceService.AttendEvent(eventAttendance.UserId, eventAttendance.EventId);
+        var succes = await _attendanceService.AttendEvent(eventAttendance);
         if (!succes)
         {
             return BadRequest("User is already registered for this event.");
