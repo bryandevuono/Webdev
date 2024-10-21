@@ -4,3 +4,11 @@
 /api/events was handled with status code 200
 /api/login/login/admin was handled with status code 200
 /api/events was handled with status code 200
+/swagger was handled with status code 200
+/favicon.ico was handled with status code 200
+/api/eventAttendance was handled with status code 200
+/api/Attendance/1/attendees was handled with status code 200
+/api/attendance/1/attendees was handled with status code 200
+/api/attendance/1/attendees was handled with status code 200
+/api/attendance/1/attendees was handled with status code 200
+/api/events/GetAllEvents was handled with status code 200
