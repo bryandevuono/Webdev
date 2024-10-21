@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.Mvc;
+public readonly record struct Result(Events Event, IEnumerable<string?> Reviews);
 
 [Route("api/events")]
 public class EventController : Controller
@@ -19,9 +20,12 @@ public class EventController : Controller
     [HttpGet()]
     public async Task<IActionResult> GetEventById([FromQuery] Guid Id)
     {
-        var Result = await _eventservice.GetById(Id);
-        return Ok(Result);
+        var Event = await _eventservice.GetById(Id);
+        var Reviews = _eventservice.GetReviews(Id);
+        Result result = new Result(Event, Reviews);
+        return Ok(result);
     }
+
     [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(Guid? Id)
