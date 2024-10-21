@@ -20,6 +20,7 @@ public class Program
 
         builder.Services.AddControllers();
         builder.Services.AddHttpContextAccessor();
+        builder.Services.AddTransient<IEventAttService, EventAttendanceService>();
         builder.Services.AddTransient<IEventService, EventService>();
         builder.Services.AddTransient<ILoginService, LoginService>();
         builder.Services.AddTransient<IUserService, UserService>();
@@ -44,7 +45,6 @@ public class Program
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}");
-
         app.Use(async (context, next) =>
         {
             await next.Invoke();
