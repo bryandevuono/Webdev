@@ -494,3 +494,6 @@ $RECYCLE.BIN/
 *.deps.json
 *.dll.config
 
+appsettings.json
+
+log.txt
