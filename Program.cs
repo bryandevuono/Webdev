@@ -27,6 +27,7 @@ public class Program
         builder.Services.AddTransient<IAdminService, AdminService>();
         builder.Services.AddTransient<IOfficeAttendanceService, OfficeAttendanceService>();
         builder.Services.AddScoped<AuthenticationFilter>();
+        builder.Services.AddScoped<ValidateOfficeAttendanceDateAttribute>();
 
         var app = builder.Build();
 
@@ -50,6 +51,8 @@ public class Program
             string log = $"{context.Request.Path} was handled with status code {context.Response.StatusCode}";
             await System.IO.File.AppendAllTextAsync("./log.txt", log + "\n");
             await next.Invoke();
+            string log = $"{DateTime.Now} | {context.Request.Path} was handled with status code {context.Response.StatusCode}\n";
+            await System.IO.File.AppendAllTextAsync("./log.txt", log);
         });
         app.Run();
     }
