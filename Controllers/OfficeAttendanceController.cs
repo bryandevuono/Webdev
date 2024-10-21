@@ -11,6 +11,7 @@ public class OfficeAttendanceController : Controller
     }
 
     [HttpPost]
+    [ValidateOfficeAttendanceDate]
     public async Task<IActionResult> AddOfficeAttendance([FromBody] OfficeAttendance attendance)
     {
         try
@@ -26,11 +27,12 @@ public class OfficeAttendanceController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateOfficeAttendance([FromBody] OfficeAttendance updatedAttendance)
+    [ValidateOfficeAttendanceDate]
+    public async Task<IActionResult> UpdateOfficeAttendance([FromBody] OfficeAttendance attendance)
     {
         try
         {
-            if (await _attendanceService.UpdateOfficeAttendance(updatedAttendance))
+            if (await _attendanceService.UpdateOfficeAttendance(attendance))
                 return Ok();
             return BadRequest("OfficeAttendance could not be updated.");
         }
