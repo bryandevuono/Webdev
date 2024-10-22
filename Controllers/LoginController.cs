@@ -21,7 +21,7 @@ public class LoginController : Controller
         {
             return Ok(new { Message = "Admin Login successful" });
         }
-        return Unauthorized(new { Message = "Admin Invalid username or password" });
+        return NotFound(new { Message = "Admin not found" });
     }
 
     [HttpPost("login/user")]
@@ -33,7 +33,7 @@ public class LoginController : Controller
         {
             return Ok(new { Message = "User Login successful" });
         }
-        return Unauthorized(new { Message = "User Invalid username or password" });
+        return NotFound(new { Message = "User not found" });
     }
 
     [HttpGet("session")]

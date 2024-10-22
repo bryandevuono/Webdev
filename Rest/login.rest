@@ -6,7 +6,7 @@ Content-Type: application/json
     "Password": "Admin123!",
     "Email": "admin@hr.nl"
 } 
-### Expected Response: 200 OK "Admin Login successful" | 400 Bad Request "Admin Already logged in"
+### Expected Response: 200 OK "Admin Login successful" | 400 Bad Request "Admin Already logged in" || 404 Not Found "Admin not found"
 
 POST http://localhost:5053/api/login/login/admin
 Content-Type: application/json
@@ -22,7 +22,7 @@ Content-Type: application/json
     "Password": "User123!",
     "RecurringDays": 7
 }
-### Expected Response: 200 OK "User Login successful" | 400 Bad Request "User Already logged in"
+### Expected Response: 200 OK "User Login successful" | 400 Bad Request "User Already logged in" || 404 Not Found "User not found"
 
 POST http://localhost:5053/api/login/login/user
 Content-Type: application/json
