@@ -4,14 +4,20 @@ using Microsoft.IdentityModel.Tokens;
 public class OfficeAttendanceService : IOfficeAttendanceService
 {
     private MyDbContext _context;
+    private ILoginService _loginService;
 
-    public OfficeAttendanceService(MyDbContext context)
+    public OfficeAttendanceService(MyDbContext context, ILoginService loginService)
     {
         _context = context;
+        _loginService = loginService;
     }
 
     public async Task<bool> AddOfficeAttendance(OfficeAttendance attendance)
     {
+        if (await _loginService.IsSessionActive() == false)
+        {
+            return false;
+        }
         attendance.OfficeAttendanceId = Guid.NewGuid();
         if (attendance != null)
         {
@@ -24,6 +30,10 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task<bool> UpdateOfficeAttendance(OfficeAttendance updatedAttendance)
     {
+        if (await _loginService.IsSessionActive() == false)
+        {
+            return false;
+        }
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(updatedAttendance.OfficeAttendanceId);
 
         if (attendance != null)
@@ -40,6 +50,10 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task<bool> DeleteOfficeAttendance(Guid attendanceId)
     {
+        if (await _loginService.IsSessionActive() == false)
+        {
+            return false;
+        }
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
         if (attendance != null)
         {
@@ -52,6 +66,10 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task<List<OfficeAttendance>> GetBatchOfficeAttendances(List<Guid?> attendanceIds)
     {
+        if (await _loginService.IsSessionActive() == false)
+        {
+            return null;
+        }
         if (attendanceIds.IsNullOrEmpty())
         {
             return await _context.OfficeAttendance.ToListAsync();
@@ -61,16 +79,24 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task<OfficeAttendance?> GetOfficeAttendanceById(Guid attendanceId)
     {
+        if (await _loginService.IsSessionActive() == false)
+        {
+            return null;
+        }
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
         return attendance;
     }
 
-    public Task<List<OfficeAttendance>>? GetOfficeAttendancesForSingleUser(Guid? userId)
+    public async Task<List<OfficeAttendance>>? GetOfficeAttendancesForSingleUser(Guid? userId)
     {
+        if (await _loginService.IsSessionActive() == false)
+        {
+            return null;
+        }
         if (userId == Guid.Empty)
         {
             return null;
         }
-        return _context.OfficeAttendance.Where(attendance => attendance.UserId == userId).ToListAsync();
+        return await _context.OfficeAttendance.Where(attendance => attendance.UserId == userId).ToListAsync();
     }
 }
