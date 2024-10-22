@@ -1,5 +1,8 @@
 ### Get specific event attendences: 200 Ok
-GET http://localhost:5053/api/attendance/c99a86a7-d49e-452b-b5f7-3d96ec8eb601/attendees
+GET http://localhost:5053/api/attendance/eb534232-ffee-437c-9405-939ec03232d0/attendees
+
+### Get specific event user is attending: 200 Ok
+GET http://localhost:5053/api/attendance/users/7198120a-c606-4302-ac8f-ddf39101171c/events
 
 ### Post attendee: 200 Ok
 POST http://localhost:5053/api/attendance/attend HTTP/1.1
@@ -8,7 +11,7 @@ Content-type: application/json
 {
     "Id": "de0fbbc3-2fde-4dc2-83b1-82f51732a98a",
     "UserId": "7198120a-c606-4302-ac8f-ddf39101171c",
-    "EventId": "c99a86a7-d49e-452b-b5f7-3d96ec8eb601",
+    "EventId": "eb534232-ffee-437c-9405-939ec03232d0",
     "Rating": "3 Sterren",
     "FeedBack": "Greatly organized!"
 }
@@ -18,13 +21,13 @@ POST http://localhost:5053/api/attendance/attend HTTP/1.1
 Content-type: application/json
 
 {
-    "UserId": "71f98120a-c606-4302-ac8f-ddf39101171c",
+    "UserId": "7198120a-c606-4302-ac8f-ddf39101171c",
     "EventId": "c99a86a7-d49e-452b-b5f7-3d96ec8eb601",
     "Rating": "3 Sterren",
     "FeedBack": "Greatly organized!"
 }
 ### Remove attendee: 200 Ok
-DELETE http://localhost:5053/api/attendance/delete/7198120a-c606-4302-ac8f-ddf39101171c/c99a86a7-d49e-452b-b5f7-3d96ec8eb601 HTTP/1.1
+DELETE http://localhost:5053/api/attendance/delete/7198120a-c606-4302-ac8f-ddf39101171c/eb534232-ffee-437c-9405-939ec03232d0 HTTP/1.1
 
 ### Remove attendee: 400 NotFound
 DELETE http://localhost:5053/api/attendance/delete/7198120a-c606-4302-ac8f-ddf39101171c/c99a86da7-d49e-452b-b5f7-3d96ec8eb601 HTTP/1.1

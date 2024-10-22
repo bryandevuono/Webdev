@@ -42,14 +42,31 @@ public class EventAttendanceService : IEventAttService
 
         _context.EventAttendance.Remove(attendance);
         await _context.SaveChangesAsync();
-        
+
         return true;
 
+    }
+    public async Task<List<Events?>> GetEventByUserId(Guid userId)
+    {
+        List<Events?> eventList = new List<Events?>();
+        // Get event id from EventAttendance table where userId matches
+        var eventIds = await _context.EventAttendance
+            .Where(a => a.UserId == userId)
+            .Select(a => a.EventId)
+            .ToListAsync();
+
+        // Get event details from Events table where eventIds match
+        foreach (var eventId in eventIds)
+        {
+            var eventObj = await _context.Events.FindAsync(eventId);
+            eventList.Add(eventObj);
+        }
+        // return list of events
+        return eventList;
     }
 
     public async Task<Events?> GetEventById(Guid eventId)
     {
-        var eventEntity = await _context.Events.FindAsync(eventId);
-        return eventEntity;
+        return await _context.Events.FindAsync(eventId);
     }
 }
