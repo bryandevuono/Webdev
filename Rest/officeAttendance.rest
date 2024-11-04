@@ -26,7 +26,7 @@ Content-Type: application/json
     "End": "2023-10-08T17:00:00Z",
     "UserId": "6036ae40-12e5-4e16-a6ff-2b798eb5f528"
 }
-### Should return: 400 BadRequest "Start cannot take place later than End."
+### Should return: 400 BadRequest "Start must be before End."
 
 PUT http://localhost:5053/api/officeattendance HTTP/1.1
 Content-Type: application/json
@@ -48,9 +48,9 @@ Content-Type: application/json
     "End": "2023-11-08T17:00:00Z",
     "UserId": "6036ae40-12e5-4e16-a6ff-2b798eb5f528"
 }
-### Should return: 400 BadRequest "Start cannot take place later than End."
+### Should return: 400 BadRequest "Start must be before End."
 
-DELETE http://localhost:5053/api/officeattendance/e3f57237-fca9-4c23-b005-c2bca0258786 HTTP/1.1
+DELETE http://localhost:5053/api/officeattendance/ea8392e5-5b02-4859-8c03-b2f19dfa8ebd HTTP/1.1
 ### Should return: 200 Ok (if id exists)
 
 GET http://localhost:5053/api/officeattendance/0072c05b-1e3d-487d-bc60-fc8ac22fbcb9
