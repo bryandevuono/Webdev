@@ -6,9 +6,9 @@ POST http://localhost:5053/api/attendance/attend HTTP/1.1
 Content-type: application/json
 
 {
-    "Id": "de0fbbc3-2fde-4dc2-83b1-82f51732a98a",
-    "UserId": "7198120a-c606-4302-ac8f-ddf39101171c",
-    "EventId": "c99a86a7-d49e-452b-b5f7-3d96ec8eb601",
+    "Id": "ce0fbbc3-2fde-4dc2-83b1-82f52732a98a",
+    "UserId": "c6406c54-d6fd-4382-bf2a-a53cde700f45",
+    "EventId": "f4b911a8-582b-4e9e-8d1a-bb5cf3d2bb81",
     "Rating": "3 Sterren",
     "FeedBack": "Greatly organized!"
 }

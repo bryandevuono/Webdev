@@ -26,6 +26,7 @@ public class Program
         builder.Services.AddTransient<IUserService, UserService>();
         builder.Services.AddTransient<IAdminService, AdminService>();
         builder.Services.AddTransient<IOfficeAttendanceService, OfficeAttendanceService>();
+        builder.Services.AddTransient<IRankingService, RankingService>();
         builder.Services.AddScoped<AuthenticationFilter>();
         builder.Services.AddScoped<ValidateOfficeAttendanceDateAttribute>();
 

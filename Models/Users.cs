@@ -6,6 +6,7 @@ public class Users
     public string? Email { get; set; }
     public string Password { get; set; }
     public int RecurringDays { get; set; }
+    public int Points { get; set; }
 }
 
 public class LoginRequestUser

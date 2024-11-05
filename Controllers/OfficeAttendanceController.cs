@@ -16,9 +16,10 @@ public class OfficeAttendanceController : Controller
     {
         try
         {
-            if (await _attendanceService.AddOfficeAttendance(attendance))
-                return Ok();
-            return BadRequest("OfficeAttendance could not be added.");
+            (bool, string) attendanceToBeAdded = await _attendanceService.AddOfficeAttendance(attendance);
+            if (attendanceToBeAdded.Item1)
+                return Ok(attendanceToBeAdded.Item2);
+            return BadRequest(attendanceToBeAdded.Item2);
         }
         catch (Exception ex)
         {
