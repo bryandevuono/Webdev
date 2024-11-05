@@ -12,20 +12,27 @@ public class OfficeAttendanceService : IOfficeAttendanceService
         _loginService = loginService;
     }
 
-    public async Task<bool> AddOfficeAttendance(OfficeAttendance attendance)
+    public async Task<(bool, string)> AddOfficeAttendance(OfficeAttendance attendance)
     {
         if (await _loginService.IsSessionActive() == false)
         {
-            return false;
+            return (false, "Session not active");
         }
         attendance.OfficeAttendanceId = Guid.NewGuid();
         if (attendance != null)
         {
             await _context.OfficeAttendance.AddAsync(attendance);
-            await _context.SaveChangesAsync();
-            return true;
+            (bool, string) assign = await AssignPoints(attendance);
+            if (assign.Item1)
+            {
+                return (true, "Attendance added and points assigned");
+            }
+            else if (assign.Item1 == false)
+            {
+                return (false, "Attendance added but points not assigned");
+            }
         }
-        return false;
+        return (false, "Attendance not added");
     }
 
     public async Task<bool> UpdateOfficeAttendance(OfficeAttendance updatedAttendance)
@@ -98,5 +105,28 @@ public class OfficeAttendanceService : IOfficeAttendanceService
             return null;
         }
         return await _context.OfficeAttendance.Where(attendance => attendance.UserId == userId).ToListAsync();
+    }
+
+    private async Task<(bool, string)> AssignPoints(OfficeAttendance attendance)
+    {
+        Users user = await _context.Users.FindAsync(attendance.UserId);
+        if (user == null)
+        {
+            return (false, "User not found");
+        }
+
+        TimeSpan timeAttended = attendance.End - attendance.Start;
+
+        int pointsEarned = (int)timeAttended.TotalHours;
+        int newPoints = user.Points + pointsEarned;
+        user.Points = newPoints;
+
+        int saved = await _context.SaveChangesAsync();
+
+        if (saved > 0)
+        {
+            return (true, "Points saved");
+        }
+        return (false, "Points not saved");
     }
 }

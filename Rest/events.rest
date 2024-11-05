@@ -21,12 +21,12 @@ POST http://localhost:5053/api/events/AddEvent HTTP/1.1
 content-type: application/json
 
 { 
-   "Title": "title",
-   "Description": "lorem ipsum",
-   "Date": "2004-02-09T00:00:00Z",
-    "StartTime": "lorem ipsum",
-    "EndTime": "lorem ipsum",
-    "Location": "lorem ipsum",
+    "Title": "title",
+    "Description": "lorem ipsum",
+    "Date": "2004-02-09T00:00:00Z",
+    "StartTime": "2024-12-11T09:00:00Z",
+    "EndTime": "2024-12-11T11:00:00Z",
+    "Location": "New York",
     "AdminAproval": true
 }
 

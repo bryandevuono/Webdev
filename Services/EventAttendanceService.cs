@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 public class EventAttendanceService : IEventAttService
 {
@@ -17,7 +18,7 @@ public class EventAttendanceService : IEventAttService
             return false;
         }
         _context.EventAttendance.Add(att);
-        await _context.SaveChangesAsync();
+        await AssignPoints(att);
 
         return true;
     }
@@ -42,7 +43,7 @@ public class EventAttendanceService : IEventAttService
 
         _context.EventAttendance.Remove(attendance);
         await _context.SaveChangesAsync();
-        
+
         return true;
 
     }
@@ -51,5 +52,35 @@ public class EventAttendanceService : IEventAttService
     {
         var eventEntity = await _context.Events.FindAsync(eventId);
         return eventEntity;
+    }
+
+    private async Task<(bool, string)> AssignPoints(EventAttendance attendance)
+    {
+        Users user = await _context.Users.FindAsync(attendance.UserId);
+        if (user == null)
+        {
+            return (false, "User not found");
+        }
+
+        Events _event = await _context.Events.FindAsync(attendance.EventId);
+        if (_event == null)
+        {
+            return (false, "Event not found");
+        }
+
+        TimeSpan timeAttended = DateTime.Parse(_event.EndTime) - DateTime.Parse(_event.StartTime);
+
+        int pointsEarned = (int)timeAttended.TotalHours * 2;
+        int newPoints = user.Points + pointsEarned;
+        user.Points = newPoints;
+
+        int saved = await _context.SaveChangesAsync();
+
+        if (saved > 0)
+        {
+            return (true, "Points saved");
+        }
+        return (false, "Points not saved");
+
     }
 }

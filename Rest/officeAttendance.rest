@@ -2,8 +2,8 @@ POST http://localhost:5053/api/officeattendance HTTP/1.1
 Content-Type: application/json
 
 {
-    "Start": "2024-10-08T08:00:00Z",
-    "End": "2024-10-08T17:00:00Z",
+    "Start": "2024-12-08T08:00:00Z",
+    "End": "2024-12-08T17:00:00Z",
     "UserId": "6036ae40-12e5-4e16-a6ff-2b798eb5f528"
 }
 ### Should return: 200 Ok
