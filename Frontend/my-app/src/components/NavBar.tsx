@@ -7,11 +7,11 @@ interface NavBarProps{
 
 const NavBar = ({items}: NavBarProps): JSX.Element =>{
     return(
-    <div>
-        <ul>
+    <div className="navbar">
+        <ul className="navbar-buttons">
         {
           items.map(item => 
-            <button>{item}</button>
+            <button className="navbar-button">{item}</button>
             )
         }
         </ul>  
