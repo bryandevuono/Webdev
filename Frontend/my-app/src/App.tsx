@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from './components/NavBar';
-import Calendar from './components/Calendar';
+import EventCalendar from './components/EventCalendar';
 
 function App () {
   let navItems = ["Home", "Leaderbord", "Login", "Sign Up"];
@@ -8,7 +8,7 @@ function App () {
     <div className='Homepage' style={{height: "95vh"}}>
       <NavBar 
       items={navItems}/>
-      <Calendar/>
+      <EventCalendar/>
     </div>
   )
 }
