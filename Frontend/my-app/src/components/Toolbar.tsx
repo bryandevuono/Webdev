@@ -1,6 +1,7 @@
 // CustomToolbar.tsx
 import React from "react";
 import { ToolbarProps } from "react-big-calendar";
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 const CustomToolbar = (props: ToolbarProps): JSX.Element => {
     return (
@@ -8,7 +9,15 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
             <span className="rbc-btn-group">
                 <button onClick={() => props.onNavigate("PREV")}>Back</button>
                 <button onClick={() => props.onNavigate("NEXT")}>Next</button>
-                <button className="">+</button>
+                <button
+                    style={{
+                        backgroundColor: '#007bff',
+                        color: "white",
+                        borderColor: "#007bff"
+                    }}
+                >
+                    +
+                </button>
             </span>
             <span className="rbc-toolbar-label">{props.label}</span>
             <span className="rbc-btn-group">

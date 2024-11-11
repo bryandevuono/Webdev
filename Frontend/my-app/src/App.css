@@ -55,3 +55,11 @@
     height: 36px !important;
     background-color: #0056b3;
 }
+
+.rbc-toolbar {
+    .rbc-button-group {
+      button {
+        background-color: #007bff;
+      }
+    }
+  }
