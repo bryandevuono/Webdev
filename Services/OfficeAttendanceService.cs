@@ -42,14 +42,14 @@ public class OfficeAttendanceService : IOfficeAttendanceService
             return false;
         }
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(updatedAttendance.OfficeAttendanceId);
-
         if (attendance != null)
         {
+            await AssignPoints(attendance, false);
             attendance.Start = updatedAttendance.Start;
             attendance.End = updatedAttendance.End;
             attendance.UserId = updatedAttendance.UserId;
+            await AssignPoints(attendance);
 
-            await _context.SaveChangesAsync();
             return true;
         }
         return false;
@@ -64,6 +64,7 @@ public class OfficeAttendanceService : IOfficeAttendanceService
         OfficeAttendance? attendance = await _context.OfficeAttendance.FindAsync(attendanceId);
         if (attendance != null)
         {
+            await AssignPoints(attendance, false);
             _context.OfficeAttendance.Remove(attendance);
             await _context.SaveChangesAsync();
             return true;
@@ -71,7 +72,7 @@ public class OfficeAttendanceService : IOfficeAttendanceService
         return false;
     }
 
-    public async Task<List<OfficeAttendance>> GetBatchOfficeAttendances(List<Guid?> attendanceIds)
+    public async Task<List<OfficeAttendance>?> GetBatchOfficeAttendances(List<Guid?> attendanceIds)
     {
         if (await _loginService.IsSessionActive() == false)
         {
@@ -94,7 +95,7 @@ public class OfficeAttendanceService : IOfficeAttendanceService
         return attendance;
     }
 
-    public async Task<List<OfficeAttendance>>? GetOfficeAttendancesForSingleUser(Guid? userId)
+    public async Task<List<OfficeAttendance>?> GetOfficeAttendancesForSingleUser(Guid? userId)
     {
         if (await _loginService.IsSessionActive() == false)
         {
@@ -107,22 +108,25 @@ public class OfficeAttendanceService : IOfficeAttendanceService
         return await _context.OfficeAttendance.Where(attendance => attendance.UserId == userId).ToListAsync();
     }
 
-    private async Task<(bool, string)> AssignPoints(OfficeAttendance attendance)
+    private async Task<(bool, string)> AssignPoints(OfficeAttendance attendance, bool addPoints = true)
     {
-        Users user = await _context.Users.FindAsync(attendance.UserId);
+        // Find user
+        Users? user = await _context.Users.FindAsync(attendance.UserId);
         if (user == null)
         {
             return (false, "User not found");
         }
 
+        // Calculate points
         TimeSpan timeAttended = attendance.End - attendance.Start;
-
         int pointsEarned = (int)timeAttended.TotalHours;
-        int newPoints = user.Points + pointsEarned;
+
+        // Add or subtract points
+        int newPoints = addPoints ? user.Points + pointsEarned : user.Points - pointsEarned;
         user.Points = newPoints;
 
+        // Save changes
         int saved = await _context.SaveChangesAsync();
-
         if (saved > 0)
         {
             return (true, "Points saved");

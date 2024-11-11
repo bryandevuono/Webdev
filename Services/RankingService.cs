@@ -12,7 +12,7 @@ public class RankingService : IRankingService
     public async Task<List<Users>> GetUsersOrdered()
     {
         List<Users> users = await _context.Users.ToListAsync();
-        var sortedUsers = users.OrderBy(u => u.Points).ToList();
+        var sortedUsers = users.OrderByDescending(u => u.Points).ToList();
         return sortedUsers;
     }
 }
