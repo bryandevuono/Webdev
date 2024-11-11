@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-[Route("api/[controller]")]
+[Route("api/eventattendance")]
 public class AttendanceController : Controller
 {
     private readonly IEventAttService _attendanceService;
@@ -18,7 +18,7 @@ public class AttendanceController : Controller
         {
             return NotFound("Event not found.");
         }
-        
+
         var succes = await _attendanceService.AttendEvent(eventAttendance);
         if (!succes)
         {
@@ -38,8 +38,8 @@ public class AttendanceController : Controller
         return Ok(attendees);
     }
 
-    [HttpDelete("delete/{userId}/{eventId}")]
-    public async Task<IActionResult> DeleteAttendance(Guid userId, Guid eventId)
+    [HttpDelete("{userId}/{eventId}")]
+    public async Task<IActionResult> DeleteAttendance([FromRoute] Guid userId, [FromRoute] Guid eventId)
     {
         var succes = await _attendanceService.RemoveAttendance(userId, eventId);
         if (!succes)
