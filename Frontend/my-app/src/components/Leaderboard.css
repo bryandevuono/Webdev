@@ -1,4 +1,9 @@
+.leaderboardPage {
+    width: 100%;
+}
+
 .leaderboard {
+    width: 80%;
     margin: 0 auto;
 }
 
@@ -7,7 +12,7 @@ h1 {
 }
 
 table {
-    width: 80%;
+    width: 100%;
     background-color: #f3f3f3;
     border-radius: 10px;
 }
