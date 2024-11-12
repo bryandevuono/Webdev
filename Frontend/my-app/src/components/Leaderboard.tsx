@@ -7,7 +7,7 @@ interface User {
     points: number;
 }
 
-function Leaderboard() {
+function Leaderboard(){
     const [leaderboard, setLeaderboard] = useState([]);
 
     useEffect(() => {
