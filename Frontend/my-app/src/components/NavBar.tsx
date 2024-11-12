@@ -1,22 +1,21 @@
 import React from "react"
 import "../App.css"
+import { Link } from 'react-router-dom';
 
-interface NavBarProps{
-    items: String[]
-}
 
-const NavBar = ({items}: NavBarProps): JSX.Element =>{
+const NavBar = (): JSX.Element =>{
+    let navItems: string[] = ["Home", "Leaderbord", "Login", "Sign Up"];
     return(
-    <div className="navbar">
+    <header className="navbar">
         <h1 className="navbar-text">Office Calendar</h1>
         <ul className="navbar-buttons">
         {
-          items.map(item => 
-            <button className="navbar-button">{item}</button>
+          navItems.map(item => 
+            <Link to={"/"+ item}><button className="navbar-button">{item}</button></Link>
             )
         }
         </ul>  
-    </div>
+    </header>
     )
 }
 
