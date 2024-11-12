@@ -1,10 +1,13 @@
 import React from "react";
+import NavBar from "./NavBar";
 
 const LoginScreen = () : JSX.Element =>
 {
     return(
         <div>
-            <p>Login</p>
+            <NavBar/>
+            <input>Enter username: </input>
+            
         </div>
     );
 }
