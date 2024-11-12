@@ -7,6 +7,17 @@ public class Program
 
         var builder = WebApplication.CreateBuilder(args);
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("AllowLocalhost3000", policy =>
+            {
+                policy.WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            });
+        });
+
         builder.Services.AddDbContext<MyDbContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection")));
 
@@ -32,14 +43,15 @@ public class Program
 
         var app = builder.Build();
 
+        app.UseRouting();
+        app.UseCors("AllowLocalhost3000");
+
         app.MapControllers();
 
         app.UseSession();
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
-
-        app.UseRouting();
 
         app.UseAuthorization();
 
