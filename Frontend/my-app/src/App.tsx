@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EventCalendar from './components/EventCalendar';
+import LeaderBoard from './components/Leaderboard';
 import LoginScreen from './components/LoginScreen';
 
 function Home () {
@@ -9,6 +10,7 @@ function Home () {
     <div className='Homepage' style={{height: "95vh"}}>
       <NavBar/>
       <EventCalendar/>
+      <LeaderBoard />
     </div>
   )
 }
