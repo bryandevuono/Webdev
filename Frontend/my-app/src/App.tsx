@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EventCalendar from './components/EventCalendar';
+import LeaderBoard from './components/Leaderboard';
 
 function Home () {
   let navItems = ["Home", "Leaderbord", "Login", "Sign Up"];
@@ -10,6 +11,7 @@ function Home () {
       <NavBar 
       items={navItems}/>
       <EventCalendar/>
+      <LeaderBoard />
     </div>
   )
 }
