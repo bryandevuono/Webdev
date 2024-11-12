@@ -16,11 +16,8 @@ POST http://localhost:5053/api/login/login/user
 Content-Type: application/json
 
 {
-    "Firstname": "user",
-    "Lastname": "user",
     "Email": "user!hr.nl",
-    "Password": "User123!",
-    "RecurringDays": 7
+    "Password": "User123!"
 }
 ### Expected Response: 200 OK "User Login successful" | 400 Bad Request "User Already logged in" || 404 Not Found "User not found"
 
