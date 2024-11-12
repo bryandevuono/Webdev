@@ -14,11 +14,17 @@ h1 {
 table {
     width: 100%;
     background-color: #f3f3f3;
-    border-radius: 10px;
 }
 
 th {
     height: 30px;
     background-color: #0156B3;
     color: white;
+}
+
+td {
+    height: 35px;
+    padding-left: 20px;
+    text-align: left;
+    border-bottom: 1px solid #E6E6E6;
 }
