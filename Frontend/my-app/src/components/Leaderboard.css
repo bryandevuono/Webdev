@@ -22,8 +22,24 @@ th {
     color: white;
 }
 
+tr:nth-child(1) {
+    color: #aa8e43;
+    font-weight: 600;
+}
+
+tr:nth-child(2) {
+    color: #6d6d6d;
+    font-weight: 600;
+}
+
+tr:nth-child(3) {
+    color: #775a31;
+    font-weight: 600;
+}
+
 td {
-    height: 35px;
+    font-size: 1.2em;
+    height: 40px;
     padding-left: 20px;
     text-align: left;
     border-bottom: 1px solid #E6E6E6;
