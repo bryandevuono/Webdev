@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 
 const NavBar = (): JSX.Element =>{
-    let navItems: string[] = ["", "Leaderbord", "Login", "Sign Up"];
+    let navItems: string[] = ["", "Leaderboard", "Login", "Sign Up"];
     return(
     <header className="navbar">
         <h1 className="navbar-text">Office Calendar</h1>

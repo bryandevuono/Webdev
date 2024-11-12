@@ -2,14 +2,13 @@ import React from 'react';
 import NavBar from './components/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import EventCalendar from './components/EventCalendar';
-import LeaderBoard from './components/Leaderboard';
 import LoginScreen from './components/LoginScreen';
+import LeaderboardScreen from './components/Leaderboard';
 
 function Home () {
   return(
     <div className='Homepage' style={{height: "95vh"}}>
       <EventCalendar/>
-      <LeaderBoard />
     </div>
   )
 }
@@ -22,6 +21,7 @@ const Router = () : JSX.Element =>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path='/login' element={<LoginScreen/>}></Route>
+        <Route path='/Leaderboard' element={<LeaderboardScreen/>}></Route>
       </Routes>
     </BrowserRouter>
   );
