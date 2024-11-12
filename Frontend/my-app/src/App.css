@@ -63,3 +63,14 @@
       }
     }
   }
+
+.login-box{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    top: 45%;
+    left: 40%;
+    position: absolute;
+}
