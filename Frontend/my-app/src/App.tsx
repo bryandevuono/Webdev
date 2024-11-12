@@ -7,7 +7,6 @@ import LoginScreen from './components/LoginScreen';
 function Home () {
   return(
     <div className='Homepage' style={{height: "95vh"}}>
-      <NavBar/>
       <EventCalendar/>
     </div>
   )
@@ -17,8 +16,9 @@ const Router = () : JSX.Element =>
 {
   return(
     <BrowserRouter>
+      <NavBar/>
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path='/login' element={<LoginScreen/>}></Route>
       </Routes>
     </BrowserRouter>
