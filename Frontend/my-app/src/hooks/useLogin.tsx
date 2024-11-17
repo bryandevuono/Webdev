@@ -1,6 +1,3 @@
-import React, { useEffect } from 'react';
-
-
 export type LoginInput = {
     email: string,
     password: string

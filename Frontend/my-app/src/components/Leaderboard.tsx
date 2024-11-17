@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import './Leaderboard.css';
+import '../Leaderboard.css';
 
 interface User {
     firstname: string;
