@@ -38,7 +38,7 @@ function Leaderboard(){
                 <tbody>
                     {leaderboard.map((user:User, index:number) => (
                         <tr key={index}>
-                            <td>{index + 1}</td>
+                            <td>{index === 0 ? `🥇` : index === 1 ? `🥈` : index === 2 ? `🥉` : index + 1}</td>
                             <td>{user.firstname + " " + user.lastname}</td>
                             <td>{user.points}</td>
                         </tr>
