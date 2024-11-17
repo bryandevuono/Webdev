@@ -70,7 +70,7 @@
     justify-content: center;
     align-items: center;
     gap: 4px;
-    top: 40vh;
+    top: 39vh;
     left: 40vw;
     position: absolute;
 }
@@ -126,4 +126,12 @@
 .input-style:focus {
 border-color: #007bff;
 box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.error-text{
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  
+  
 }

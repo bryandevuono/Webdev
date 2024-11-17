@@ -1,18 +1,19 @@
 import React, { useState } from "react";
-import useLogin, { LoginInput } from "../hooks/useLogin"
+import PostLogin, { LoginInput } from "../api/Login"
 import { useNavigate } from "react-router-dom";
-
-
 
 const LoginScreen = () : JSX.Element =>
 {
     const navigate = useNavigate();
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [Email, setEmail] = useState("");
+    const [Password, setPassword] = useState("");
+    const [ErrorMessage, setErrorMessage] = useState(false);
+    const Login = PostLogin;
 
-    const HandleLogin = (email: string, password: string) => {
+    const HandleLogin = async (email: string, password: string) => {
         const userInfo: LoginInput = {email: email, password: password};
-        console.log(useLogin(userInfo, navigate));
+        const CheckLogin = await Login(userInfo, navigate);
+        !CheckLogin ? setErrorMessage(true): setErrorMessage(false)
     }
 
     const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +25,7 @@ const LoginScreen = () : JSX.Element =>
     }
 
     const handleLoginClick = () => {
-        HandleLogin(email, password)
+        HandleLogin(Email, Password)
     }
     return(
         <div className="login-box">
@@ -39,6 +40,7 @@ const LoginScreen = () : JSX.Element =>
             </label>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
+            {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
         </div>
     );
 }
