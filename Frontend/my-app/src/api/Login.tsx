@@ -13,6 +13,7 @@ const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): Promise
         const response = await fetch('http://localhost:5053/api/login/login/user', requestOptions);
         if (response.ok) {
             navigate("/");
+            alert("Logged in successfully");
             return true;
         } else {
             return false; 
