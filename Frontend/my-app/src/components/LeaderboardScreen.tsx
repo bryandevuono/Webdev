@@ -6,7 +6,6 @@ const LeaderboardScreen = () : JSX.Element =>
 {
     return(
         <div className="leaderboardPage">
-            <Leaderboard/>
         </div>
     );
 }

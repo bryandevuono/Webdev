@@ -17,11 +17,12 @@ const Router = () : JSX.Element =>
 {
   return(
     <BrowserRouter>
-      <NavBar/>
+    <NavBar/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoginScreen />} />
         <Route path='/login' element={<LoginScreen/>}></Route>
         <Route path='/Leaderboard' element={<LeaderboardScreen/>}></Route>
+        <Route path='/calendar' element={<Home/>}></Route>
       </Routes>
     </BrowserRouter>
   );
