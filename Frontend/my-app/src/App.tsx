@@ -10,7 +10,7 @@ import { CheckIfLoggedIn } from './api/Login';
 function App (): JSX.Element {
   const [Authorized, setAuthorized] = useState(false);
   const CheckSession = async () => {
-    const isLoggedIn = await CheckIfLoggedIn();
+    const isLoggedIn = await CheckIfLoggedIn(setAuthorized);
     setAuthorized(isLoggedIn);
   }
   useEffect(() => {
