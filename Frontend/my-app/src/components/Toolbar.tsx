@@ -39,82 +39,84 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
                     <div className="popup-overlay">
                         <div className="popup">
                             <h2>Add an event to the calendar</h2>
-                            <form onSubmit={handleSubmit}>
-                                <div>
-                                    <label>
-                                        Title:
-                                        <input
-                                            type="text"
-                                            name="title"
-                                            value={formData.title}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        Description:
-                                        <input
-                                            type="text"
-                                            name="description"
-                                            value={formData.description}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        Date:
-                                        <input
-                                            type="date"
-                                            name="date"
-                                            value={formData.date}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        Start Time:
-                                        <input
-                                            type="time"
-                                            name="starttime"
-                                            value={formData.starttime}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        End Time:
-                                        <input
-                                            type="time"
-                                            name="endtime"
-                                            value={formData.endtime}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </label>
-                                </div>
-                                <div>
-                                    <label>
-                                        Location:
-                                        <input
-                                            type="text"
-                                            name="location"
-                                            value={formData.location}
-                                            onChange={handleChange}
-                                            required
-                                        />
-                                    </label>
-                                </div>
-                                <button type="submit">Submit</button>
-                                <button onClick={togglePopup}>Cancel</button>
-                            </form>
+                            <div className="popup-form">
+                                <form onSubmit={handleSubmit}>
+                                    <div className="popup-title">
+                                        <label>
+                                            Title:
+                                            <input
+                                                type="text"
+                                                name="title"
+                                                value={formData.title}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <div className="popup-descriptions">
+                                        <label>
+                                            Description:
+                                            <input
+                                                type="text"
+                                                name="description"
+                                                value={formData.description}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <div className="popup-date">
+                                        <label>
+                                            Date:
+                                            <input
+                                                type="date"
+                                                name="date"
+                                                value={formData.date}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <div className="popup-starttime">
+                                        <label>
+                                            Start Time:
+                                            <input
+                                                type="time"
+                                                name="starttime"
+                                                value={formData.starttime}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <div className="popup-endtime">
+                                        <label>
+                                            End Time:
+                                            <input
+                                                type="time"
+                                                name="endtime"
+                                                value={formData.endtime}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <div className="popup-location">
+                                        <label>
+                                            Location:
+                                            <input
+                                                type="text"
+                                                name="location"
+                                                value={formData.location}
+                                                onChange={handleChange}
+                                                required
+                                            />
+                                        </label>
+                                    </div>
+                                    <button type="submit">Submit</button>
+                                    <button onClick={togglePopup}>Cancel</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 )}
