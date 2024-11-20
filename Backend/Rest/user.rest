@@ -4,8 +4,8 @@ Content-Type: application/json
 {
     "Firstname": "user",
     "Lastname": "user",
-    "Email": "user!hr.nl",
-    "Password": "User123!",
+    "Email": "test",
+    "Password": "test",
     "RecurringDays": 7
 }
 ### Expected Response: 200 OK "User added" | 400 Bad Request "User already exists"

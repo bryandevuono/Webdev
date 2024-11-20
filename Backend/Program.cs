@@ -27,6 +27,8 @@ public class Program
             options.IdleTimeout = TimeSpan.FromMinutes(30);
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
+            options.Cookie.SameSite = SameSiteMode.None; 
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
         });
 
         builder.Services.AddControllers();
@@ -42,13 +44,11 @@ public class Program
         builder.Services.AddScoped<ValidateOfficeAttendanceDateAttribute>();
 
         var app = builder.Build();
-
+        app.UseSession();
         app.UseRouting();
         app.UseCors("AllowLocalhost3000");
 
         app.MapControllers();
-
-        app.UseSession();
 
         app.UseHttpsRedirection();
         app.UseStaticFiles();
