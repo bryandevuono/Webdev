@@ -1,21 +1,27 @@
-import React from "react"
 import "../App.css"
 import { Link } from 'react-router-dom';
+import ProfileImg from "../img/user.png";
 
+interface NavBarItemProps {
+    navItems: string[]
+    LoggedIn: boolean
+}
 
-const NavBar = (): JSX.Element =>{
-    let navItems: string[] = ["", "Leaderboard", "Login", "Sign Up"];
+const NavBar = ({navItems, LoggedIn}: NavBarItemProps): JSX.Element =>{
+    console.log("LoggedIn value:", LoggedIn); // Debug
     return(
     <header className="navbar">
         <h1 className="navbar-text">Office Calendar</h1>
         <ul className="navbar-buttons">
         {
-          navItems.map(item => 
-            item === "" ? <Link to={"/"}><button className="navbar-button">Home</button></Link> :
+          LoggedIn ?
+          navItems.map(item =>  
             <Link to={"/"+ item}><button className="navbar-button">{item}</button></Link>
             )
+            : null
         }
-        </ul>  
+        </ul>
+        <img alt="" className="profile-img" src={ProfileImg}></img>
     </header>
     )
 }

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import PostLogin, { LoginInput } from "../api/Login"
+import { LoginInput , PostLogin} from "../api/Login"
 import { useNavigate } from "react-router-dom";
+
 
 const LoginScreen = () : JSX.Element =>
 {
@@ -40,6 +41,7 @@ const LoginScreen = () : JSX.Element =>
             </label>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
+            <button className="login-button">Sign up</button>
             {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
         </div>
     );

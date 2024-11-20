@@ -47,5 +47,6 @@
   },
   "devDependencies": {
     "@types/react-big-calendar": "^1.15.0"
-  }
+  },
+  "proxy": "http://localhost:5053"
 }
