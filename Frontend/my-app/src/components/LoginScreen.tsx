@@ -31,7 +31,7 @@ const LoginScreen = () : JSX.Element =>
     return(
         <div className="login-box">
             <label>
-                username:{" "}
+                Username:{" "}
                 <input className="input-style" onChange={ChangeEmail}/>
             </label>
             <br/>

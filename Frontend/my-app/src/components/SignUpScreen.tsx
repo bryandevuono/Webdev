@@ -38,7 +38,7 @@ const SignUpScreen = (): JSX.Element => {
             </label>
             <br/>
             <label>
-                username:
+                Username:
                 <input className="input-style" onChange={ChangeEmail}/>
             </label>
             <br/>
