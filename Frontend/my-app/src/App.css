@@ -75,6 +75,16 @@
     position: absolute;
 }
 
+.signup-box{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  top: 35vh;
+  left: 40vw;
+  position: absolute;
+}
 
 .login-button {
   appearance: button;

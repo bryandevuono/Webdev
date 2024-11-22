@@ -4,17 +4,16 @@ import ProfileImg from "../img/user.png";
 
 interface NavBarItemProps {
     navItems: string[]
-    LoggedIn: boolean
+    loggedIn: boolean
 }
 
-const NavBar = ({navItems, LoggedIn}: NavBarItemProps): JSX.Element =>{
-    console.log("LoggedIn value:", LoggedIn); // Debug
+const NavBar = ({navItems, loggedIn }: NavBarItemProps): JSX.Element =>{
     return(
     <header className="navbar">
         <h1 className="navbar-text">Office Calendar</h1>
         <ul className="navbar-buttons">
         {
-          LoggedIn ?
+          loggedIn ?
           navItems.map(item =>  
             <Link to={"/"+ item}><button className="navbar-button">{item}</button></Link>
             )

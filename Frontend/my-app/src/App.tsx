@@ -5,6 +5,7 @@ import EventCalendar from './components/EventCalendar';
 import LoginScreen from './components/LoginScreen';
 import LeaderboardScreen from './components/Leaderboard';
 import { CheckIfLoggedIn } from './api/Login';
+import SignUpScreen from './components/SignUpScreen';
 
 
 function App (): JSX.Element {
@@ -20,10 +21,10 @@ function App (): JSX.Element {
   return(
     <div className='Homepage' style={{height: "95vh"}}>
       <BrowserRouter>
-        <NavBar navItems={['Leaderboard', 'calendar']} LoggedIn={Authorized}/>
+        <NavBar navItems={['Leaderboard', 'calendar']} loggedIn={Authorized}/>
         <Routes>
           <Route path="/" element={Authorized ? <LoginScreen />: <LoginScreen/>} />
-          <Route path='/login' element={<LoginScreen/>}></Route>
+          <Route path='/signup' element={<SignUpScreen/>}></Route>
           <Route path='/Leaderboard' element={Authorized ? <LeaderboardScreen/>: <LoginScreen/>}></Route>
           <Route path='/calendar' element={Authorized ? <EventCalendar/> : <LoginScreen/>}></Route>
         </Routes>

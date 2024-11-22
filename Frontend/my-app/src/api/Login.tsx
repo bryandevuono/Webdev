@@ -3,6 +3,7 @@ export type LoginInput = {
     email: string;
     password: string;
 };
+
 export const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): Promise<boolean> => {
     const requestOptions = {
         method: 'POST',
