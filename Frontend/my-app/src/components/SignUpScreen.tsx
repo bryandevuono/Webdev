@@ -1,5 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import { PostSignUp, SignUpInput } from "../api/SignUp";
 
 const SignUpScreen = (): JSX.Element => {
     const Navigate = useNavigate();
@@ -8,6 +9,18 @@ const SignUpScreen = (): JSX.Element => {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
+
+    const handleLogin = async (firstname: string, lastname: string, email: string, password: string) => {
+        const UserInfo: SignUpInput = {
+            FirstName: firstname,
+            Lastname: lastname,
+            Email: email,
+            Password: password
+        }
+
+        const CheckSignUp = await PostSignUp(UserInfo, Navigate);
+        !CheckSignUp ? setErrorMessage(true) : setErrorMessage(ErrorMessage); 
+    }
 
     const ChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFirstName(event.target.value);
@@ -23,6 +36,10 @@ const SignUpScreen = (): JSX.Element => {
 
     const ChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
+    }
+
+    const handleSignUpClick = () => {
+        handleLogin(FirstName, LastName, Email, Password);
     }
 
     return(
@@ -47,7 +64,8 @@ const SignUpScreen = (): JSX.Element => {
                 <input type="password" className="input-style" onChange={ChangePassword}/>
             </label>
             <br/>
-            <button className="login-button">Sign up</button>
+            <button className="login-button" onClick={handleSignUpClick}>Sign up</button>
+            
             {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
         </div>
     );

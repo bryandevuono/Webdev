@@ -41,7 +41,7 @@ const LoginScreen = () : JSX.Element =>
             </label>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
-            <Link className="login-button" to={'/signup'}><p>Sign up</p></Link>
+            <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
             {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
         </div>
     );

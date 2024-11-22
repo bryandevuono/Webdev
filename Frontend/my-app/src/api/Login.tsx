@@ -14,14 +14,13 @@ export const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): 
 
         const response = await fetch('http://localhost:5053/api/login/login/user', requestOptions);
         if (response.ok) {
-            localStorage.setItem("loggedIn", "true");
-            navigate("/calendar");
-            navigate(0);
+            navigate("/");
             return true;
         } else {
             return false; 
         }
 };
+
 export const CheckIfLoggedIn = async (): Promise<boolean> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
