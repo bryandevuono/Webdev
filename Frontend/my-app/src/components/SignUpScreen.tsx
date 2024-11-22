@@ -44,7 +44,7 @@ const SignUpScreen = (): JSX.Element => {
             <br/>
             <label>
                 Password:
-                <input className="input-style" onChange={ChangePassword}/>
+                <input type="password" className="input-style" onChange={ChangePassword}/>
             </label>
             <br/>
             <button className="login-button">Sign up</button>
