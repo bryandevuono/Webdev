@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-
+import { PostSignUp, SignUpInput } from "../api/SignUp";
 const SignUpScreen = (): JSX.Element => {
     const Navigate = useNavigate();
     const [FirstName, setFirstName] = useState("");
@@ -8,6 +8,18 @@ const SignUpScreen = (): JSX.Element => {
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
+
+    const handleSignUp = async (firstname: string, lastname: string, email: string, password: string) => {
+        const UserInfo: SignUpInput = {
+            FirstName: firstname,
+            Lastname: lastname,
+            Email: email,
+            Password: password
+        }
+
+        const CheckSignUp = await PostSignUp(UserInfo, Navigate);
+        !CheckSignUp ? setErrorMessage(true) : setErrorMessage(ErrorMessage); 
+    }
 
     const ChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFirstName(event.target.value);
@@ -25,6 +37,10 @@ const SignUpScreen = (): JSX.Element => {
         setPassword(event.target.value);
     }
 
+    const handleSignUpClick = () => {
+        handleSignUp(FirstName, LastName, Email, Password);
+    }
+
     return(
         <div className="signup-box">
             <label>
@@ -38,17 +54,18 @@ const SignUpScreen = (): JSX.Element => {
             </label>
             <br/>
             <label>
-                username:
+                Username:
                 <input className="input-style" onChange={ChangeEmail}/>
             </label>
             <br/>
             <label>
                 Password:
-                <input className="input-style" onChange={ChangePassword}/>
+                <input type="password" className="input-style" onChange={ChangePassword}/>
             </label>
             <br/>
-            <button className="login-button">Sign up</button>
-            {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
+            <button className="login-button" onClick={handleSignUpClick}>Sign up</button>
+            
+            {ErrorMessage ? <p className="error-text">Missing required fields!</p> : null}
         </div>
     );
 }

@@ -1,20 +1,28 @@
 import React, { useState } from "react";
-import { LoginInput , PostLogin} from "../api/Login"
+import { CheckIfLoggedIn, LoginInput , PostLogin} from "../api/Login"
 import { useNavigate, Link } from "react-router-dom";
 
-
-const LoginScreen = () : JSX.Element =>
+interface LoginScreenProps {
+    setAuthorized: Function
+}
+const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
 {
     const Navigate = useNavigate();
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
-    const Login = PostLogin;
+    const [DuplicateLogin, setDuplicateLogin] = useState(false);
 
     const handleLogin = async (email: string, password: string) => {
         const UserInfo: LoginInput = {email: email, password: password};
-        const CheckLogin = await Login(UserInfo, Navigate);
-        !CheckLogin ? setErrorMessage(true): setErrorMessage(false)
+        const CheckLogin = await PostLogin(UserInfo, Navigate);
+        if(CheckLogin){
+            setAuthorized(true);
+            Navigate("/calendar");
+        }
+        else{
+            setErrorMessage(true);
+        }
     }
 
     const ChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +33,12 @@ const LoginScreen = () : JSX.Element =>
         setPassword(event.target.value);
     }
 
-    const handleLoginClick = () => {
+    const handleLoginClick = async ()=> {
+        const LoginCheck = await CheckIfLoggedIn()
+        if(LoginCheck){
+            setDuplicateLogin(true);
+            return;
+        }
         handleLogin(Email, Password)
     }
     return(
@@ -37,12 +50,13 @@ const LoginScreen = () : JSX.Element =>
             <br/>
             <label>
                 Password:{" "}
-                <input className="input-style" onChange={ChangePassword}/>
+                <input type="password" className="input-style" onChange={ChangePassword}/>
             </label>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
-            <Link className="login-button" to={'/signup'}><p>Sign up</p></Link>
+            <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
             {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
+            {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
         </div>
     );
 }

@@ -14,6 +14,9 @@ public class UserController : Controller
     public async Task<IActionResult> AddUser([FromBody] Users user)
     {
         if (user == null) return BadRequest(new { Message = "user should not be empty" });
+        if(user.Email == null || user.Firstname == null || user.Password == null){
+            return BadRequest(new { Message = "Missing fields" });
+        }
         if (await _userService.AddUser(user)) return Ok(new { Message = "User added" });
         return BadRequest(new { Message = "User already exists" });
     }
