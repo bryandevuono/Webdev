@@ -1,4 +1,3 @@
-
 export type LoginInput = {
     email: string;
     password: string;
@@ -14,14 +13,13 @@ export const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): 
 
         const response = await fetch('http://localhost:5053/api/login/login/user', requestOptions);
         if (response.ok) {
-            navigate("/calendar");
             return true;
         } else {
             return false; 
         }
 };
 
-export const CheckIfLoggedIn = async (setAuthorized: Function): Promise<boolean> => {
+export const CheckIfLoggedIn = async (): Promise<boolean> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -33,7 +31,6 @@ export const CheckIfLoggedIn = async (setAuthorized: Function): Promise<boolean>
     const data = await response.json();
     const isLoggedIn = data.isLoggedIn;
     if(isLoggedIn){
-        setAuthorized(true);
         return true;
     }
     return false;

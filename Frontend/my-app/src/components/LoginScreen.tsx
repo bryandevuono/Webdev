@@ -2,19 +2,26 @@ import React, { useState } from "react";
 import { LoginInput , PostLogin} from "../api/Login"
 import { useNavigate, Link } from "react-router-dom";
 
-
-const LoginScreen = () : JSX.Element =>
+interface LoginScreenProps {
+    setAuthorized: Function
+}
+const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
 {
     const Navigate = useNavigate();
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
-    const Login = PostLogin;
 
     const handleLogin = async (email: string, password: string) => {
         const UserInfo: LoginInput = {email: email, password: password};
-        const CheckLogin = await Login(UserInfo, Navigate);
-        !CheckLogin ? setErrorMessage(true): setErrorMessage(false)
+        const CheckLogin = await PostLogin(UserInfo, Navigate);
+        if(CheckLogin){
+            setAuthorized(true);
+            Navigate("/calendar");
+        }
+        else{
+            setErrorMessage(true);
+        }
     }
 
     const ChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +38,7 @@ const LoginScreen = () : JSX.Element =>
     return(
         <div className="login-box">
             <label>
-                Username:{" "}
+                username:{" "}
                 <input className="input-style" onChange={ChangeEmail}/>
             </label>
             <br/>
