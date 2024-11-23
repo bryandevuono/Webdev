@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LoginInput , PostLogin} from "../api/Login"
+import { CheckIfLoggedIn, LoginInput , PostLogin} from "../api/Login"
 import { useNavigate, Link } from "react-router-dom";
 
 interface LoginScreenProps {
@@ -11,6 +11,7 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
+    const [DuplicateLogin, setDuplicateLogin] = useState(false);
 
     const handleLogin = async (email: string, password: string) => {
         const UserInfo: LoginInput = {email: email, password: password};
@@ -32,7 +33,12 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
         setPassword(event.target.value);
     }
 
-    const handleLoginClick = () => {
+    const handleLoginClick = async ()=> {
+        const LoginCheck = await CheckIfLoggedIn()
+        if(LoginCheck){
+            setDuplicateLogin(true);
+            return;
+        }
         handleLogin(Email, Password)
     }
     return(
@@ -50,6 +56,7 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
             <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
             {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
+            {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
         </div>
     );
 }
