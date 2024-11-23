@@ -9,7 +9,7 @@ const SignUpScreen = (): JSX.Element => {
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
 
-    const handleLogin = async (firstname: string, lastname: string, email: string, password: string) => {
+    const handleSignUp = async (firstname: string, lastname: string, email: string, password: string) => {
         const UserInfo: SignUpInput = {
             FirstName: firstname,
             Lastname: lastname,
@@ -38,7 +38,7 @@ const SignUpScreen = (): JSX.Element => {
     }
 
     const handleSignUpClick = () => {
-        handleLogin(FirstName, LastName, Email, Password);
+        handleSignUp(FirstName, LastName, Email, Password);
     }
 
     return(
@@ -65,7 +65,7 @@ const SignUpScreen = (): JSX.Element => {
             <br/>
             <button className="login-button" onClick={handleSignUpClick}>Sign up</button>
             
-            {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
+            {ErrorMessage ? <p className="error-text">Missing required fields!</p> : null}
         </div>
     );
 }

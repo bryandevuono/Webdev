@@ -17,7 +17,6 @@ public class UserService : IUserService
     {
         var userToAdd = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
         if (userToAdd != null) return false;
-
         user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync();
