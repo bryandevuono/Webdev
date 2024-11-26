@@ -53,7 +53,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
             <span className="rbc-btn-group">
                 <button onClick={() => props.onNavigate("PREV")}>Back</button>
                 <button onClick={() => props.onNavigate("NEXT")}>Next</button>
-                <button onClick={togglePopup}>Open Form</button>
+                <button onClick={togglePopup}>Add event</button>
                 {showPopup && (
                     <div className="popup-overlay">
                         <div className="popup">
