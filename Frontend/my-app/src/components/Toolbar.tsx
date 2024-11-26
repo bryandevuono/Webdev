@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { ToolbarProps } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./Toolbar.css";
-
+import "../Toolbar.css"
 interface FormData {
     title: string;
     description: string;
