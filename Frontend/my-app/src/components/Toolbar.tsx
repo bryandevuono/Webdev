@@ -3,18 +3,37 @@ import { ToolbarProps } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./Toolbar.css";
 
+interface FormData {
+    title: string;
+    description: string;
+    date: string;
+    starttime: string;
+    endtime: string;
+    location: string;
+}
+
 const CustomToolbar = (props: ToolbarProps): JSX.Element => {
     const [showPopup, setShowPopup] = useState(false);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<FormData>({
         title: "",
         description: "",
         date: "",
         starttime: "",
         endtime: "",
-        location: ""
+        location: "",
     });
 
     const togglePopup = () => {
+        if (showPopup) {
+            setFormData({
+                title: "",
+                description: "",
+                date: "",
+                starttime: "",
+                endtime: "",
+                location: "",
+            });
+        }
         setShowPopup(!showPopup);
     };
 
