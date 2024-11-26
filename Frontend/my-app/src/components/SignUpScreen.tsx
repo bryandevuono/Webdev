@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import { PostSignUp, SignUpInput } from "../api/SignUp";
+import { PostSignUp, SignUpInput } from "../api/Signup";
 const SignUpScreen = (): JSX.Element => {
     const Navigate = useNavigate();
     const [FirstName, setFirstName] = useState("");
