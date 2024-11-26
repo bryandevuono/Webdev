@@ -1,46 +1,62 @@
 import React, { useState } from "react";
-import PostLogin, { LoginInput } from "../api/Login"
-import { useNavigate } from "react-router-dom";
+import { CheckIfLoggedIn, LoginInput , PostLogin} from "../api/Login"
+import { useNavigate, Link } from "react-router-dom";
 
-const LoginScreen = () : JSX.Element =>
+interface LoginScreenProps {
+    setAuthorized: Function
+}
+const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
 {
-    const navigate = useNavigate();
+    const Navigate = useNavigate();
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
     const [ErrorMessage, setErrorMessage] = useState(false);
-    const Login = PostLogin;
+    const [DuplicateLogin, setDuplicateLogin] = useState(false);
 
-    const HandleLogin = async (email: string, password: string) => {
-        const userInfo: LoginInput = {email: email, password: password};
-        const CheckLogin = await Login(userInfo, navigate);
-        !CheckLogin ? setErrorMessage(true): setErrorMessage(false)
+    const handleLogin = async (email: string, password: string) => {
+        const UserInfo: LoginInput = {email: email, password: password};
+        const CheckLogin = await PostLogin(UserInfo, Navigate);
+        if(CheckLogin){
+            setAuthorized(true);
+            Navigate("/calendar");
+        }
+        else{
+            setErrorMessage(true);
+        }
     }
 
-    const changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const ChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
     }
 
-    const changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const ChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     }
 
-    const handleLoginClick = () => {
-        HandleLogin(Email, Password)
+    const handleLoginClick = async ()=> {
+        const LoginCheck = await CheckIfLoggedIn()
+        if(LoginCheck){
+            setDuplicateLogin(true);
+            return;
+        }
+        handleLogin(Email, Password)
     }
     return(
         <div className="login-box">
             <label>
                 username:{" "}
-                <input className="input-style" onChange={changeEmail}/>
+                <input className="input-style" onChange={ChangeEmail}/>
             </label>
             <br/>
             <label>
                 Password:{" "}
-                <input className="input-style" onChange={changePassword}/>
+                <input type="password" className="input-style" onChange={ChangePassword}/>
             </label>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
+            <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
             {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
+            {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
         </div>
     );
 }
