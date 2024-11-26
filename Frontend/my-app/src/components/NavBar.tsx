@@ -33,7 +33,7 @@ const NavBar = ({navItems, loggedIn }: NavBarItemProps): JSX.Element =>{
         {loggedIn ? <img alt="" className="profile-img" src={ProfileImg}></img>: null}
         {loggedIn ? <p className="profile-text">{Username}</p>: null}
     </header>
-    )
+    );
 }
 
-export default NavBar
+export default NavBar;
