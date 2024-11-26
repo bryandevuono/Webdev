@@ -13,8 +13,6 @@ function App(): JSX.Element {
   const CheckSession = async () => {
     const IsLoggedIn = await CheckIfLoggedIn();
     setAuthorized(IsLoggedIn);
-
-    console.log(IsLoggedIn);
   }
   useEffect(() => {
     CheckSession();
