@@ -21,22 +21,6 @@ const SignUpScreen = (): JSX.Element => {
         !CheckSignUp ? setErrorMessage(true) : setErrorMessage(ErrorMessage); 
     }
 
-    const ChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(event.target.value);
-    }
-
-    const ChangeLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(event.target.value);
-    }
-
-    const ChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    }
-
-    const ChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    }
-
     const handleSignUpClick = () => {
         handleSignUp(FirstName, LastName, Email, Password);
     }
