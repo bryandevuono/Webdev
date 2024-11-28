@@ -45,22 +45,22 @@ const SignUpScreen = (): JSX.Element => {
         <div className="signup-box">
             <label>
                 Firstname:
-                <input className="input-style" onChange={ChangeFirstName}/>
+                <input className="input-style" onChange={(event) => setFirstName(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Lastname:
-                <input className="input-style" onChange={ChangeLastName}/>
+                <input className="input-style" onChange={(event) => setLastName(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Username:
-                <input className="input-style" onChange={ChangeEmail}/>
+                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Password:
-                <input type="password" className="input-style" onChange={ChangePassword}/>
+                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <br/>
             <button className="login-button" onClick={handleSignUpClick}>Sign up</button>
