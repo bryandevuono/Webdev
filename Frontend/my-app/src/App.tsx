@@ -21,12 +21,13 @@ function App(): JSX.Element {
   return (
     <div className='Homepage' style={{ height: "95vh" }}>
       <BrowserRouter>
-        <NavBar navItems={['Leaderboard', 'calendar', 'EventCalendar']} loggedIn={Authorized} />
+        <NavBar navItems={['Leaderboard', 'Calendar', 'EventCalendar']} loggedIn={Authorized} />
         <Routes>
           <Route path="/" element={<LoginScreen setAuthorized={setAuthorized} />}></Route>
           <Route path='/signup' element={<SignUpScreen />}></Route>
           <Route path='/Leaderboard' element={Authorized ? <LeaderboardScreen /> : <Navigate to="/" />}></Route>
           <Route path="/calendar" element={Authorized ? <EventCalendar /> : <Navigate to="/" />}></Route>
+          <Route path='/'></Route>
         </Routes>
       </BrowserRouter>
     </div>

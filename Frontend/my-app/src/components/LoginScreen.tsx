@@ -25,14 +25,6 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
         }
     }
 
-    const ChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    }
-
-    const ChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    }
-
     const handleLoginClick = async ()=> {
         const LoginCheck = await CheckIfLoggedIn()
         if(LoginCheck){
@@ -45,12 +37,12 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
         <div className="login-box">
             <label>
                 username:{" "}
-                <input className="input-style" onChange={ChangeEmail}/>
+                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Password:{" "}
-                <input type="password" className="input-style" onChange={ChangePassword}/>
+                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>

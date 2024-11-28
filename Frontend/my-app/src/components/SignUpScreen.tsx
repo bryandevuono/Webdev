@@ -21,22 +21,6 @@ const SignUpScreen = (): JSX.Element => {
         !CheckSignUp ? setErrorMessage(true) : setErrorMessage(ErrorMessage); 
     }
 
-    const ChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(event.target.value);
-    }
-
-    const ChangeLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(event.target.value);
-    }
-
-    const ChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
-    }
-
-    const ChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    }
-
     const handleSignUpClick = () => {
         handleSignUp(FirstName, LastName, Email, Password);
     }
@@ -45,22 +29,22 @@ const SignUpScreen = (): JSX.Element => {
         <div className="signup-box">
             <label>
                 Firstname:
-                <input className="input-style" onChange={ChangeFirstName}/>
+                <input className="input-style" onChange={(event) => setFirstName(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Lastname:
-                <input className="input-style" onChange={ChangeLastName}/>
+                <input className="input-style" onChange={(event) => setLastName(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Username:
-                <input className="input-style" onChange={ChangeEmail}/>
+                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
             </label>
             <br/>
             <label>
                 Password:
-                <input type="password" className="input-style" onChange={ChangePassword}/>
+                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <br/>
             <button className="login-button" onClick={handleSignUpClick}>Sign up</button>
