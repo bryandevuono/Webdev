@@ -49,3 +49,18 @@ export const GetUserInfo = async (): Promise<string> => {
     return data.username;
 }
 
+export const Logout = async () => {
+    const response = await fetch('http://localhost:5053/api/login/logout', {
+        method: 'GET',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    if (response.ok) {
+        return true;
+    } else {
+        return false; 
+    }
+}
+

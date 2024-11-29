@@ -30,7 +30,7 @@ const NavBar = ({navItems, loggedIn }: NavBarItemProps): JSX.Element =>{
             : null
         }
         </ul>
-        {loggedIn ? <img alt="" className="profile-img" src={ProfileImg}></img>: null}
+        {loggedIn ? <Link to={"/profile"} className="profile-img"><img alt="" className="profile-img" src={ProfileImg}></img></Link>: null}
         {loggedIn ? <p className="profile-text">{Username}</p>: null}
     </header>
     );
