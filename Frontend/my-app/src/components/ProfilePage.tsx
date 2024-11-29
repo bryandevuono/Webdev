@@ -1,11 +1,18 @@
 import React from "react";
 
-const ProfilePage = (): JSX.Element => {
+interface ProfileProps{
+    name: string,
+    lastname: string,
+    email: string
+}
+
+const ProfilePage = ({name, lastname, email}: ProfileProps): JSX.Element => {
     return (
         <div>
-            <p>Name: </p>
-            <p>Lastname: </p>
-            <p>E-mail/Username: </p>
+            <p>Name: {name}</p>
+            <p>Lastname: {lastname}</p>
+            <p>E-mail/Username: {email}</p>
+            <button className="login-button">Log out</button>
         </div>
     );
 }
