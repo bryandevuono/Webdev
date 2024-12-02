@@ -74,10 +74,10 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task<List<OfficeAttendance>?> GetBatchOfficeAttendances(List<Guid?> attendanceIds)
     {
-        if (await _loginService.IsSessionActive() == false)
-        {
-            return null;
-        }
+        // if (await _loginService.IsSessionActive() == false)
+        // {
+        //     return null;
+        // }
         if (attendanceIds.IsNullOrEmpty())
         {
             return await _context.OfficeAttendance.ToListAsync();
