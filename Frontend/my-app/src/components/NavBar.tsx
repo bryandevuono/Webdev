@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import "../App.css"
 import { Link } from 'react-router-dom';
 import ProfileImg from "../img/user.png";
+import { GetUserInfo } from "../api/Login";
 
 interface NavBarItemProps {
     navItems: string[]
@@ -8,6 +10,14 @@ interface NavBarItemProps {
 }
 
 const NavBar = ({navItems, loggedIn }: NavBarItemProps): JSX.Element =>{
+    const [Username, setUsername] = useState("");
+    const GetUserName = async () =>{
+        const UserName = await GetUserInfo();
+        setUsername(UserName);
+    }
+    useEffect(() => {
+        GetUserName();
+      }, [loggedIn]);
     return(
     <header className="navbar">
         <h1 className="navbar-text">Office Calendar</h1>
@@ -20,9 +30,10 @@ const NavBar = ({navItems, loggedIn }: NavBarItemProps): JSX.Element =>{
             : null
         }
         </ul>
-        <img alt="" className="profile-img" src={ProfileImg}></img>
+        {loggedIn ? <Link to={"/profile"} className="profile-img"><img alt="" className="profile-img" src={ProfileImg}></img></Link>: null}
+        {loggedIn ? <p className="profile-text">{Username}</p>: null}
     </header>
-    )
+    );
 }
 
-export default NavBar
+export default NavBar;
