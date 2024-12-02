@@ -8,7 +8,7 @@ public class EventController : Controller
     private IEventService _eventservice;
     public EventController(IEventService eventservice)
     {
-        _eventservice=eventservice;
+        _eventservice = eventservice;
     }
 
     [HttpGet("GetAllEvents")]
@@ -23,7 +23,7 @@ public class EventController : Controller
         var Event = await _eventservice.GetById(Id);
         var Reviews = _eventservice.GetReviews(Id);
         Result result = new Result(Event, Reviews);
-        if(Event == null)
+        if (Event == null)
         {
             return NotFound();
         }
@@ -34,12 +34,12 @@ public class EventController : Controller
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(Guid? Id)
     {
-        if(Id == null)
+        if (Id == null)
         {
             return NotFound();
         }
         var result = await _eventservice.DeleteEvent(Id);
-        if(result)
+        if (result)
         {
             return Ok("Deleted succesfully");
         }
@@ -48,14 +48,14 @@ public class EventController : Controller
             return BadRequest();
         }
     }
-    
-    [ServiceFilter(typeof(AuthenticationFilter))]
+
+    // [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {
-        if(NewEvent?.Title == null) return BadRequest();
+        if (NewEvent?.Title == null) return BadRequest();
         var result = await _eventservice.AddEvent(NewEvent);
-        if(result)
+        if (result)
         {
             return Ok("Added");
         }
@@ -67,15 +67,15 @@ public class EventController : Controller
 
     [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpPut("EditEvent")]
-    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery]Guid Id)
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery] Guid Id)
     {
-        if(NewEvent == null)
+        if (NewEvent == null)
         {
             return BadRequest();
         }
-        
+
         var result = await _eventservice.EditEvent(NewEvent, Id);
-        if(result)
+        if (result)
         {
             return Ok();
         }
