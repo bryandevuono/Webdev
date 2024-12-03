@@ -9,6 +9,7 @@ import SignUpScreen from './components/SignUpScreen';
 import ProfilePage from './components/ProfilePage';
 import AdminDashboard from './components/AdminDashboard';
 import { CheckAdmin } from './api/Admin';
+import AdminLogin from './components/AdminLogin';
 
 
 function App(): JSX.Element {
@@ -41,6 +42,7 @@ function App(): JSX.Element {
           <Route path="/calendar" element={Authorized ? <EventCalendar /> : <Navigate to="/" />}></Route>
           <Route path='/profile' element={Authorized ? <ProfilePage setAuthorized={setAuthorized}/>: <Navigate to="/"/>}></Route>
           <Route path='/dashboard' element={IsAdmin ? <AdminDashboard />: <Navigate to="/"/>}></Route>
+          <Route path='/adminlogin' element={<AdminLogin/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

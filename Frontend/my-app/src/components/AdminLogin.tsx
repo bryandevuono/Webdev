@@ -10,18 +10,18 @@ const AdminLogin = (): JSX.Element => {
     const [DuplicateLogin, setDuplicateLogin] = useState(false);
 
     return(
-        <div className="login-box">
+        <div className="">
             <label>
-                Username:{" "}
-                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
+                Username:
+                <input className="input-style" onChange={(event) => setUsername(event.target.value)}/>
             </label>
             <label>
-                Email:{" "}
+                Email:
                 <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
             </label>
             <br/>
             <label>
-                Password:{" "}
+                Password:
                 <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <br/>
