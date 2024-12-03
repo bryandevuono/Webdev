@@ -19,8 +19,8 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
         const CheckAdminLogin = await PostLoginAdmin(AdminInfo);
 
         if(CheckAdminLogin){
-            Navigate("/dashboard");
             props.setAuthorized(true);
+            Navigate("/dashboard");
         }
         else{
             setErrorMessage(true);
