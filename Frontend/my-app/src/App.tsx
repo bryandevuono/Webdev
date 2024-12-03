@@ -34,15 +34,15 @@ function App(): JSX.Element {
   return (
     <div className='Homepage' style={{ height: "95vh" }}>
       <BrowserRouter>
-        <NavBar navItems={['Leaderboard', 'Calendar', 'EventCalendar']} loggedIn={Authorized} />
+        <NavBar navItems={IsAdmin? ['Leaderboard', 'Calendar', "dashboard"] : ['Leaderboard', 'Calendar', 'EventCalendar']} loggedIn={Authorized} />
         <Routes>
           <Route path="/" element={<LoginScreen setAuthorized={setAuthorized} />}></Route>
           <Route path='/signup' element={<SignUpScreen />}></Route>
           <Route path='/Leaderboard' element={Authorized ? <LeaderboardScreen /> : <Navigate to="/" />}></Route>
           <Route path="/calendar" element={Authorized ? <EventCalendar /> : <Navigate to="/" />}></Route>
           <Route path='/profile' element={Authorized ? <ProfilePage setAuthorized={setAuthorized}/>: <Navigate to="/"/>}></Route>
-          <Route path='/dashboard' element={IsAdmin ? <AdminDashboard />: <Navigate to="/"/>}></Route>
-          <Route path='/adminlogin' element={<AdminLogin/>}></Route>
+          <Route path='/dashboard' element={IsAdmin && Authorized ? <AdminDashboard />: <Navigate to="/"/>}></Route>
+          <Route path='/adminlogin' element={<AdminLogin setAuthorized={setAuthorized}/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
