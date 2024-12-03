@@ -21,10 +21,6 @@ const SignUpScreen = (): JSX.Element => {
         !CheckSignUp ? setErrorMessage(true) : setErrorMessage(ErrorMessage); 
     }
 
-    const handleSignUpClick = () => {
-        handleSignUp(FirstName, LastName, Email, Password);
-    }
-
     return(
         <div className="signup-box">
             <label>
@@ -47,7 +43,7 @@ const SignUpScreen = (): JSX.Element => {
                 <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <br/>
-            <button className="login-button" onClick={handleSignUpClick}>Sign up</button>
+            <button className="login-button" onClick={() => handleSignUp(FirstName, LastName, Email, Password)}>Sign up</button>
             
             {ErrorMessage ? <p className="error-text">Missing required fields!</p> : null}
         </div>
