@@ -25,7 +25,7 @@ const NavBar = ({navItems, loggedIn }: NavBarItemProps): JSX.Element =>{
         {
           loggedIn ?
           navItems.map(item =>  
-            <Link to={"/"+ item}><button className="navbar-button">{item}</button></Link>
+            <Link to={"/"+ item}><button key={item} className="navbar-button">{item}</button></Link>
             )
             : null
         }

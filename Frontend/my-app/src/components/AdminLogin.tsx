@@ -10,11 +10,12 @@ const AdminLogin = (): JSX.Element => {
     const [DuplicateLogin, setDuplicateLogin] = useState(false);
 
     return(
-        <div className="">
+        <div className="admin">
             <label>
                 Username:
                 <input className="input-style" onChange={(event) => setUsername(event.target.value)}/>
             </label>
+            <br/>
             <label>
                 Email:
                 <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
@@ -25,7 +26,7 @@ const AdminLogin = (): JSX.Element => {
                 <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
             </label>
             <br/>
-            <button className="login-button" >Login</button>
+            <button className="admin-button" >Login</button>
  
             {ErrorMessage ? <p className="error-text">Something went wrong...</p> : null}
             {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
