@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 public class RankingController : Controller
 {
     private IRankingService _rankingService;
+    private ILoginService _loginService;
 
-    public RankingController(IRankingService rankingService)
+    public RankingController(IRankingService rankingService, ILoginService loginService)
     {
         _rankingService = rankingService;
+        _loginService = loginService;
     }
 
     [HttpGet]
@@ -15,5 +17,13 @@ public class RankingController : Controller
     {
         List<Users> users = await _rankingService.GetUsersOrdered();
         return Ok(users);
+    }
+
+    [HttpGet("user")]
+    public async Task<IActionResult> GetPointsForUser()
+    {
+        Guid id = await _loginService.GetLoggedInUserId();
+        int points = await _rankingService.GetPointsForUser(id);
+        return Ok(points);
     }
 }
