@@ -7,23 +7,38 @@ import LeaderboardScreen from "./components/Leaderboard";
 import { CheckIfLoggedIn, GetUserInfo } from "./api/Login";
 import SignUpScreen from "./components/SignUpScreen";
 import ProfilePage from "./components/ProfilePage";
+import AdminDashboard from "./components/AdminDashboard";
+import { CheckAdmin } from "./api/Admin";
+import AdminLogin from "./components/AdminLogin";
 
 function App(): JSX.Element {
   const [Authorized, setAuthorized] = useState(false);
+  const [IsAdmin, setIsAdmin] = useState(false);
+
   const CheckSession = async () => {
     const IsLoggedIn = await CheckIfLoggedIn();
     setAuthorized(IsLoggedIn);
   };
 
+  const CheckIfUserIsAdmin = async () => {
+    const UserIsAdmin = await CheckAdmin();
+    setIsAdmin(UserIsAdmin);
+  };
+
   useEffect(() => {
     CheckSession();
+    CheckIfUserIsAdmin();
   }, []);
 
   return (
     <div className="Homepage" style={{ height: "95vh" }}>
       <BrowserRouter>
         <NavBar
-          navItems={["Leaderboard", "Calendar", "EventCalendar"]}
+          navItems={
+            IsAdmin
+              ? ["Leaderboard", "Calendar", "dashboard"]
+              : ["Leaderboard", "Calendar", "EventCalendar"]
+          }
           loggedIn={Authorized}
         />
         <Routes>
@@ -49,6 +64,16 @@ function App(): JSX.Element {
                 <Navigate to="/" />
               )
             }
+          ></Route>
+          <Route
+            path="/dashboard"
+            element={
+              IsAdmin && Authorized ? <AdminDashboard /> : <Navigate to="/" />
+            }
+          ></Route>
+          <Route
+            path="/adminlogin"
+            element={<AdminLogin setAuthorized={setAuthorized} />}
           ></Route>
         </Routes>
       </BrowserRouter>
