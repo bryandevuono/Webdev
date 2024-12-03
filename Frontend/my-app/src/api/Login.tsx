@@ -11,15 +11,15 @@ export const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): 
         body: JSON.stringify(UserInfoInput),
     };
 
-        const response = await fetch('http://localhost:5053/api/login/login/user', requestOptions);
-        if (response.ok) {
-            return true;
-        } else {
-            return false; 
-        }
+    const response = await fetch('http://localhost:5053/api/login/login/user', requestOptions);
+    if (response.ok) {
+        return true;
+    } else {
+        return false;
+    }
 };
 
-export const CheckIfLoggedIn = async (): Promise<boolean> => {
+export const CheckIfLoggedIn = async (): Promise<string> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -30,10 +30,10 @@ export const CheckIfLoggedIn = async (): Promise<boolean> => {
 
     const data = await response.json();
     const isLoggedIn = data.isLoggedIn;
-    if(isLoggedIn){
-        return true;
+    if (isLoggedIn) {
+        return data.Role;
     }
-    return false;
+    return "NotLoggedIn";
 }
 
 export const GetUserInfo = async (): Promise<string> => {
