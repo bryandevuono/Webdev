@@ -12,6 +12,18 @@ Content-Type: application/json
 
 POST http://localhost:5053/api/user/adduser
 Content-Type: application/json
+
+{
+    "Firstname": "Proffessor",
+    "Lastname": "McGonagall",
+    "Email": "pm@hogwarts.com",
+    "Password": "Password123!",
+    "RecurringDays": 7
+}
+### Expected Response: 200 OK "User added" | 400 Bad Request "User already exists"
+
+POST http://localhost:5053/api/user/adduser
+Content-Type: application/json
 ### Expected Response: 400 Bad Request "user should not be empty"
 
 GET http://localhost:5053/api/user/getuser

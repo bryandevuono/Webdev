@@ -9,6 +9,7 @@ public class LoginService : ILoginService
 
     private const string SessionKeyUsername = "LoggedInUsername";
     private const string SessionKeyRole = "LoggedInRole";
+    private const string SessionKeyUserId = "LoggedInUserId";
 
     public LoginService(MyDbContext dbContext, IHttpContextAccessor httpContextAccessor)
     {
@@ -29,6 +30,7 @@ public class LoginService : ILoginService
 
         httpContext.Session.SetString(SessionKeyUsername, username);
         httpContext.Session.SetString(SessionKeyRole, "admin");
+        httpContext.Session.SetString(SessionKeyUserId, admin.Id.ToString());
 
         return true;
     }
@@ -45,6 +47,7 @@ public class LoginService : ILoginService
         if (httpContext == null) return false;
         httpContext.Session.SetString(SessionKeyUsername, email);
         httpContext.Session.SetString(SessionKeyRole, "user");
+        httpContext.Session.SetString(SessionKeyUserId, user.Id.ToString());
 
         return true;
     }
@@ -68,12 +71,19 @@ public class LoginService : ILoginService
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
     }
 
+    public async Task<Guid> GetLoggedInUserId()
+    {
+        var userId = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUserId);
+        return Guid.Parse(userId);
+    }
+
     public async Task<bool> Logout()
     {
         var httpContext = _httpContextAccessor.HttpContext;
         if (httpContext == null) return false;
         httpContext.Session.Remove(SessionKeyRole);
         httpContext.Session.Remove(SessionKeyUsername);
+        httpContext.Session.Remove(SessionKeyUserId);
         return true;
     }
 }
