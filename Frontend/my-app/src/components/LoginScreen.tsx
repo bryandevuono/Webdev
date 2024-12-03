@@ -47,7 +47,9 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
             <br/>
             <button className="login-button" onClick={handleLoginClick}>Login</button>
             <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
-            {ErrorMessage ? <p className="error-text">Wrong username/password</p> : null}
+            <Link className="signup-button" to={'/adminlogin'}><p>Login as an admin</p></Link>
+            
+            {ErrorMessage ? <p className="error-text">Something went wrong...</p> : null}
             {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
         </div>
     );
