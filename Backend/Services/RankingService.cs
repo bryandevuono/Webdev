@@ -15,4 +15,12 @@ public class RankingService : IRankingService
         var sortedUsers = users.OrderByDescending(u => u.Points).ToList();
         return sortedUsers;
     }
+
+    public async Task<int> GetPointsForUser(Guid id)
+    {
+        Users? user = await _context.Users.FindAsync(id);
+        if (user != null)
+            return user.Points;
+        return -1;
+    }
 }
