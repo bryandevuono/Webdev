@@ -6,6 +6,16 @@ Content-Type: application/json
     "Password": "Admin123!",
     "Email": "admin@hr.nl"
 }
+###
+
+POST http://localhost:5053/api/admin/addadmin
+Content-Type: application/json
+
+{
+    "Username": "admin",
+    "Password": "iamanadmin",
+    "Email": "pollos@huevos.com"
+}
 ### Expected Response: 200 OK "admin added | 400 Bad Request "Admin already exists"
 
 POST http://localhost:5053/api/admin/addadmin

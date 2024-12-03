@@ -7,7 +7,6 @@ import LeaderboardScreen from "./components/Leaderboard";
 import { CheckIfLoggedIn, GetUserInfo } from "./api/Login";
 import SignUpScreen from "./components/SignUpScreen";
 import ProfilePage from "./components/ProfilePage";
-import ManageEvents from "./components/admin/ManageEvents";
 
 function App(): JSX.Element {
   const [Authorized, setAuthorized] = useState(false);
@@ -24,12 +23,7 @@ function App(): JSX.Element {
     <div className="Homepage" style={{ height: "95vh" }}>
       <BrowserRouter>
         <NavBar
-          navItems={[
-            "Leaderboard",
-            "Calendar",
-            "EventCalendar",
-            "ManageEvents",
-          ]}
+          navItems={["Leaderboard", "Calendar", "EventCalendar"]}
           loggedIn={Authorized}
         />
         <Routes>
@@ -55,10 +49,6 @@ function App(): JSX.Element {
                 <Navigate to="/" />
               )
             }
-          ></Route>
-          <Route
-            path="/ManageEvents"
-            element={Authorized ? <ManageEvents /> : <Navigate to="/" />}
           ></Route>
         </Routes>
       </BrowserRouter>

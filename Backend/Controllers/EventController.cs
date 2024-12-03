@@ -49,7 +49,6 @@ public class EventController : Controller
         }
     }
 
-    // [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {

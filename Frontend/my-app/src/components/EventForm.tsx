@@ -1,5 +1,5 @@
 import { useState, ChangeEvent, FormEvent } from "react";
-import { Event, postEvent } from "../../api/Events";
+import { Event, postEvent } from "../api/Events";
 import "../../EventForm.css";
 
 export function EventForm() {
@@ -17,10 +17,10 @@ export function EventForm() {
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const target = e.target as HTMLInputElement;
-    const { name, value, type, checked } = target;
+    const { name, value } = target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: value,
     }));
   };
 
@@ -112,16 +112,6 @@ export function EventForm() {
             value={formData.Location}
             onChange={handleChange}
             required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="AdminAproval">Admin Approval:</label>
-          <input
-            type="checkbox"
-            id="AdminAproval"
-            name="AdminAproval"
-            checked={formData.AdminAproval}
-            onChange={handleChange}
           />
         </div>
         <button type="submit">Create Event</button>
