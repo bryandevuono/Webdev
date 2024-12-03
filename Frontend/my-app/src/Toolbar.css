@@ -81,3 +81,55 @@
 .popup button[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+
+.rbc-agenda-view table thead {
+    display: table-header-group;
+    vertical-align: middle;
+    unicode-bidi: isolate;
+    border-color: inherit;
+}
+.rbc-agenda-view table tbody tr {
+    border-bottom: 1px solid #ddd; 
+    background-color: #f9f9f9; 
+    display: table-row;
+}
+
+.rbc-agenda-view table tr {
+    align-items: center;
+    display: flex;
+}
+  
+.rbc-agenda-view table tbody tr:hover {
+    background-color: #e3f2fd; 
+    cursor: pointer;
+}
+  
+.rbc-agenda-time-cell {
+    font-weight: bold;
+    color: #333; 
+    width: 20vw;    
+}
+
+.rbc-agenda-date-cell {
+    font-weight: bold;
+    color: #333; 
+    width: 20vw;
+}
+  
+.rbc-agenda-event-cell {
+    color: #0056b3;
+    font-weight: bold;
+    width: 20vw;
+}
+
+.rbc-agenda-table{
+    width: 100%;
+}
+
+.rbc-agenda-view table {
+    table-layout: auto;
+    width: 100%;
+
+}
+
