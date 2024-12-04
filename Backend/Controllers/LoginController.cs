@@ -46,7 +46,7 @@ public class LoginController : Controller
                 IsLoggedIn = true,
                 Username = _loginService.GetLoggedInUsername().Result,
                 Role = _loginService.GetLoggedInUserRole().Result,
-                UserId = _loginService.GetLoggedInUserId().Result
+                Id = _loginService.GetLoggedInUserId().Result
             });
         }
 
