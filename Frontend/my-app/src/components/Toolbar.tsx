@@ -6,7 +6,7 @@ import { PostOfficeAttendace } from "../api/OfficeAttendace";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../Toolbar.css"
 
-type OfficeAttendanceInput = {
+interface OfficeAttendanceInput {
     Start: string;
     End: string;
     UserId: string;
@@ -54,7 +54,6 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
         e.preventDefault();
 
         PostOfficeAttendace(formData, props.onNavigate);
-        console.log("Form Submitted:", formData);
         setShowPopup(false);
     };
 
