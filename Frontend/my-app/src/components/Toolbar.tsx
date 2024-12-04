@@ -106,7 +106,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
                 <button onClick={() => props.onView("month")}>Month</button>
                 <button onClick={() => props.onView("week")}>Week</button>
                 <button onClick={() => props.onView("day")}>Day</button>
-                <button onClick={() => props.onView("agenda")}>Agenda</button>
+                <button onClick={() => props.onView("agenda")}>Events</button>
             </span>
         </div>
     );
