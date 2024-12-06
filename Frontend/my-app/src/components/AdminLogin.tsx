@@ -20,11 +20,11 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
 
         if(CheckAdminLogin){
             props.setAuthorized(true);
-            Navigate("/dashboard");
         }
         else{
             setErrorMessage(true);
         }
+        Navigate("/dashboard");
     }
     return(
         <div className="admin">
@@ -45,8 +45,8 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
             <br/>
             <button className="admin-button" onClick={handleAdminLogin}> Login</button>
  
-            {ErrorMessage ? <p className="error-text">Something went wrong...</p> : null}
-            {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
+            {ErrorMessage ? <p className="error-text-admin">Something went wrong...</p> : null}
+            {DuplicateLogin ? <p className="error-text-admin">Logged in already</p> : null}
         </div>
     );
 }

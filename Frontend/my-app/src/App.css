@@ -316,3 +316,12 @@ input[type=submit]:hover {
   background-color: #3351c9;
   cursor: pointer;
 }
+
+.error-text-admin{
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+  position: absolute;
+  top: 35vh;
+  left: 37.5vw;
+}
