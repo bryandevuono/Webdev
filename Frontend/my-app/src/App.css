@@ -34,7 +34,7 @@ a:link {
   position: relative;
   top: 0px;
   left: 00;
-  box-shadow: 1px 1px 10px rgba(90, 77, 158, 0.825);
+  box-shadow: 1px 1px 10px rgba(96, 90, 125, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

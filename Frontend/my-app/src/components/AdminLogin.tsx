@@ -20,6 +20,7 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
 
         if(CheckAdminLogin){
             props.setAuthorized(true);
+            setDuplicateLogin(true);
         }
         else{
             setErrorMessage(true);
