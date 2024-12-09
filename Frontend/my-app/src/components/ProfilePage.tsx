@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import { GetUserInfo, Logout } from "../api/Login";
+import { getUserInfo, logOut } from "../api/Login";
 import { Link } from "react-router-dom";
 
 interface ProfilePageProps {
@@ -7,27 +7,27 @@ interface ProfilePageProps {
 }
 
 const ProfilePage = ({setAuthorized}: ProfilePageProps): JSX.Element => {
-    const [UserName, setUserName] = useState("");
+    const [userName, setUserName] = useState("");
     
-    const GetUserName = async () =>{
-        const UsernameFromAPI = await GetUserInfo();
-        return setUserName(UsernameFromAPI);
+    const getUserName = async () =>{
+        const usernameFromAPI = await getUserInfo();
+        return setUserName(usernameFromAPI);
     }
 
-    const LogOutAPI = async () => {
+    const logOutAPI = async () => {
         setAuthorized(false);
-        Logout();
+        logOut();
 
     }
     useEffect(() => {
-        GetUserName();
+        getUserName();
     }, []);
 
     return (
         <div className="profile-page">
-            <p className="">E-mail/Username: {UserName}</p>
+            <p className="">E-mail/Username: {userName}</p>
             <p>Points: </p>
-            <Link to={"/"}><button className="login-button" onClick={() => LogOutAPI()}>Log out</button></Link>
+            <Link to={"/"}><button className="login-button" onClick={() => logOutAPI()}>Log out</button></Link>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 
-export const CheckAdmin = async (): Promise<boolean> => {
+export const checkAdmin = async (): Promise<boolean> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -17,19 +17,19 @@ export const CheckAdmin = async (): Promise<boolean> => {
     }
 }
 
-type AdminLoginInfo = {
+type adminLoginInfo = {
     username: string,
     email: string,
     password: string
 }
-export const PostLoginAdmin = async (AdminInfo: AdminLoginInfo): Promise<boolean> => {
+export const postLoginAdmin = async (adminInfo: adminLoginInfo): Promise<boolean> => {
     const response = await fetch('http://localhost:5053/api/login/login/admin', {
         method: 'POST',
         credentials: 'include' as RequestCredentials,
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(AdminInfo)
+        body: JSON.stringify(adminInfo)
     });
     if (response.ok){
         return true;

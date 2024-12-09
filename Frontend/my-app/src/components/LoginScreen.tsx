@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CheckIfLoggedIn, LoginInput , PostLogin} from "../api/Login"
+import { checkIfLoggedIn, loginInput , postLogin} from "../api/Login"
 import { useNavigate, Link } from "react-router-dom";
 
 interface LoginScreenProps {
@@ -8,15 +8,15 @@ interface LoginScreenProps {
 const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
 {
     const Navigate = useNavigate();
-    const [Email, setEmail] = useState("");
-    const [Password, setPassword] = useState("");
-    const [ErrorMessage, setErrorMessage] = useState(false);
-    const [DuplicateLogin, setDuplicateLogin] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [duplicateLogin, setDuplicateLogin] = useState(false);
 
     const handleLogin = async (email: string, password: string) => {
-        const UserInfo: LoginInput = {email: email, password: password};
-        const CheckLogin = await PostLogin(UserInfo, Navigate);
-        if(CheckLogin){
+        const userInfo: loginInput = {email: email, password: password};
+        const checkLogin = await postLogin(userInfo, Navigate);
+        if(checkLogin){
             setAuthorized(true);
             Navigate("/calendar");
         }
@@ -26,12 +26,12 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
     }
 
     const handleLoginClick = async ()=> {
-        const LoginCheck = await CheckIfLoggedIn()
-        if(LoginCheck){
+        const loginCheck = await checkIfLoggedIn()
+        if(loginCheck){
             setDuplicateLogin(true);
             return;
         }
-        handleLogin(Email, Password)
+        handleLogin(email, password)
     }
     return(
         <div className="login-box">
@@ -49,8 +49,8 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
             <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
             <Link className="signup-button" to={'/adminlogin'}><p>Login as an admin</p></Link>
             
-            {ErrorMessage ? <p className="error-text">Something went wrong...</p> : null}
-            {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
+            {errorMessage ? <p className="error-text">Something went wrong...</p> : null}
+            {duplicateLogin ? <p className="error-text">Logged in already</p> : null}
         </div>
     );
 }

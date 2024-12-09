@@ -1,9 +1,9 @@
-export type LoginInput = {
+export type loginInput = {
     email: string;
     password: string;
 };
 
-export const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): Promise<boolean> => {
+export const postLogin = async (UserInfoInput: loginInput, navigate: Function): Promise<boolean> => {
     const requestOptions = {
         method: 'POST',
         credentials: 'include' as RequestCredentials,
@@ -19,7 +19,7 @@ export const PostLogin = async (UserInfoInput: LoginInput, navigate: Function): 
     }
 };
 
-export const CheckIfLoggedIn = async (): Promise<boolean> => {
+export const checkIfLoggedIn = async (): Promise<boolean> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -36,7 +36,7 @@ export const CheckIfLoggedIn = async (): Promise<boolean> => {
     return false;
 }
 
-export const GetUserInfo = async (): Promise<string> => {
+export const getUserInfo = async (): Promise<string> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -49,7 +49,7 @@ export const GetUserInfo = async (): Promise<string> => {
     return data.username;
 }
 
-export const GetUserId = async (): Promise<string> => {
+export const getUserId = async (): Promise<string> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -62,7 +62,7 @@ export const GetUserId = async (): Promise<string> => {
     return data.id;
 }
 
-export const Logout = async () => {
+export const logOut = async () => {
     const response = await fetch('http://localhost:5053/api/login/logout', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,

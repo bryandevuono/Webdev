@@ -1,24 +1,24 @@
 import {useState} from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { PostLoginAdmin } from "../api/Admin";
+import { postLoginAdmin } from "../api/Admin";
 
 const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
     const Navigate = useNavigate();
-    const [Username, setUsername] = useState("");
-    const [Email, setEmail] = useState("");
-    const [Password, setPassword] = useState("");
-    const [ErrorMessage, setErrorMessage] = useState(false);
-    const [DuplicateLogin, setDuplicateLogin] = useState(false);
+    const [userName, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
+    const [duplicateLogin, setDuplicateLogin] = useState(false);
 
     const handleAdminLogin = async () => {
         const AdminInfo = {
-            username: Username,
-            email: Email,
-            password: Password 
+            username: userName,
+            email: email,
+            password: password 
         }
-        const CheckAdminLogin = await PostLoginAdmin(AdminInfo);
+        const checkAdminLogin = await postLoginAdmin(AdminInfo);
 
-        if(CheckAdminLogin){
+        if(checkAdminLogin){
             props.setAuthorized(true);
             Navigate("/dashboard");
         }
@@ -45,8 +45,8 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
             <br/>
             <button className="admin-button" onClick={handleAdminLogin}> Login</button>
  
-            {ErrorMessage ? <p className="error-text">Something went wrong...</p> : null}
-            {DuplicateLogin ? <p className="error-text">Logged in already</p> : null}
+            {errorMessage ? <p className="error-text">Something went wrong...</p> : null}
+            {duplicateLogin ? <p className="error-text">Logged in already</p> : null}
         </div>
     );
 }

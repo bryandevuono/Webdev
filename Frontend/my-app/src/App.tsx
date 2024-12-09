@@ -4,11 +4,11 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import EventCalendar from './components/EventCalendar';
 import LoginScreen from './components/LoginScreen';
 import LeaderboardScreen from './components/Leaderboard';
-import { CheckIfLoggedIn, GetUserInfo } from './api/Login';
+import { checkIfLoggedIn, getUserInfo } from './api/Login';
 import SignUpScreen from './components/SignUpScreen';
 import ProfilePage from './components/ProfilePage';
 import AdminDashboard from './components/AdminDashboard';
-import { CheckAdmin } from './api/Admin';
+import { checkAdmin } from './api/Admin';
 import AdminLogin from './components/AdminLogin';
 import Calendar from './components/Calendar';
 
@@ -18,18 +18,18 @@ function App(): JSX.Element {
   const [IsAdmin, setIsAdmin] = useState(false);
 
   const CheckSession = async () => {
-    const IsLoggedIn = await CheckIfLoggedIn();
+    const IsLoggedIn = await checkIfLoggedIn();
     setAuthorized(IsLoggedIn);
   }
 
   const CheckIfUserIsAdmin = async () => {
-    const UserIsAdmin = await CheckAdmin();
+    const UserIsAdmin = await checkAdmin();
     setIsAdmin(UserIsAdmin);
   }
 
   useEffect(() => {
-    CheckSession();
     CheckIfUserIsAdmin();
+    CheckSession();
   }, []);
 
   return (
