@@ -10,6 +10,7 @@ import ProfilePage from './components/ProfilePage';
 import AdminDashboard from './components/AdminDashboard';
 import { CheckAdmin } from './api/Admin';
 import AdminLogin from './components/AdminLogin';
+import Calendar from './components/Calendar';
 
 
 function App(): JSX.Element {
@@ -34,7 +35,7 @@ function App(): JSX.Element {
   return (
     <div className='Homepage' style={{ height: "95vh" }}>
       <BrowserRouter>
-        <NavBar navItems={IsAdmin ? ['Leaderboard', 'Calendar', "dashboard"] : ['Leaderboard', 'Calendar']} loggedIn={Authorized} />
+        <NavBar navItems={IsAdmin ? ['Calendar','Leaderboard', "Dashboard"] : ["Calendar", "Leaderbord"]} loggedIn={Authorized} />
         <Routes>
           <Route path="/" element={<LoginScreen setAuthorized={setAuthorized} />}></Route>
           <Route path='/signup' element={<SignUpScreen />}></Route>

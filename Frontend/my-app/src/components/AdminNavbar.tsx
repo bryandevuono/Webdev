@@ -1,15 +1,19 @@
 import React from "react";
 import ManageIcon from '../img/planning.png'
-const AdminNavbar = (): JSX.Element => {
+
+interface AdminNavbarProps {
+    UsersToggle: Function,
+    EventsToggle: Function
+}
+
+const AdminNavbar = ({UsersToggle, EventsToggle}: AdminNavbarProps): JSX.Element => {
     return (
         <div>
             <nav className="admin-nav">
                 <ul>
-                    <li className="astext">Manage events</li>
+                    <li className="astext" onClick={() => EventsToggle(true)}>Manage events</li>
                     <br/>
-                    <li className="astext">Reviews</li>
-                    <br/>
-                    <li className="astext">Events</li>
+                    <li className="astext">Manage users</li>
                 </ul>
             </nav>
         </div>

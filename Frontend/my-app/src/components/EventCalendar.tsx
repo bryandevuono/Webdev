@@ -3,18 +3,18 @@ import Calendar from "./Calendar";
 import toolBar from "./Toolbar";
 import { GetAllEvents } from "../api/Events";
 
-interface Event {
+export interface CalendarEvent {
   start: Date;
   end: Date;
   title: string;
 }
 
 export default function EventCalendar(): JSX.Element {
-  const [Events, setEvents] = useState<Event[]>();
+  const [Events, setEvents] = useState<CalendarEvent[]>();
 
   const GetEvents = async () => {
     const AllEvents = await GetAllEvents();
-    setEvents(AllEvents as Event[]);
+    setEvents(AllEvents as CalendarEvent[]);
   };
 
   useEffect(() => {
