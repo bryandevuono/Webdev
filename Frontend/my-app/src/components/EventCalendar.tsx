@@ -3,7 +3,7 @@ import Calendar from "./Calendar";
 import toolBar from "./Toolbar";
 import { GetAllEvents } from "../api/Events";
 
-interface Event {
+export interface Event {
   start: Date;
   end: Date;
   title: string;
