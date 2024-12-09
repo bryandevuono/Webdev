@@ -5,7 +5,7 @@ import { CalendarEvent } from './EventCalendar';
 
 const AdminManageEvents = (): JSX.Element => {
     const [Events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    
+
     const GetEvents = async () => {
         const AllEvents = await GetAllEvents();
         setEvents(AllEvents as CalendarEvent[]);
