@@ -7,9 +7,7 @@ const AdminNavbar = (): JSX.Element => {
                 <ul>
                     <li className="astext">Manage events</li>
                     <br/>
-                    <li className="astext">Reviews</li>
-                    <br/>
-                    <li className="astext">Events</li>
+                    <li className="astext">Manage users</li>
                 </ul>
             </nav>
         </div>

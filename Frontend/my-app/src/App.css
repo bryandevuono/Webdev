@@ -28,13 +28,13 @@ a:link {
   vertical-align: middle; 
 }
 .admin-nav{
-  min-height: 91vh;
+  min-height: 120vh;
   width: 250px;
   background-color: var(--background-color2);
   position: relative;
   top: 0px;
   left: 00;
-  box-shadow: 1px 1px 10px rgba(198, 189, 248, 0.825);
+  box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -52,7 +52,7 @@ a:link {
 }
 
 .navbar-button:hover{
-    color: #00158c;
+    color: #172ca2;
 }
 
 .navbar-text{
@@ -312,6 +312,18 @@ input[type=submit]:hover {
 
 .astext:hover{
   border-left: 5px solid #a2a2a2;
-  background-color: #dadada;
+  background-color: #4767b8;
   cursor: pointer;
+  color: #f6f8fc;
+}
+
+.admin-events{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  position: absolute;
+  top: 35vh;
+  left: 30vw;
 }
