@@ -3,10 +3,11 @@ import { getAllEvents } from '../api/Events';
 import Calendar from './Calendar';
 import { CalendarEvent } from './EventCalendar';
 import { Event as BigCalendarEvent } from 'react-big-calendar';
-import EventPopUp from '../pop-up/EventPopUp';
+import EventPopUp from './EventPopUp';
 
 const AdminManageEvents = (): JSX.Element => {
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
+    const [currentEvent, setCurrentEvent] = useState<BigCalendarEvent | undefined>(undefined);
 
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
@@ -14,7 +15,7 @@ const AdminManageEvents = (): JSX.Element => {
     };
     
     const handleEventClick = (event: BigCalendarEvent) => {
-        console.log(event);
+        setCurrentEvent(event);
     }
 
     useEffect(() => {
@@ -23,6 +24,7 @@ const AdminManageEvents = (): JSX.Element => {
 
     return (
     <>
+        <h1 className='admin-dashboard-text'>Click on one of the event titles to edit:</h1>
         <Calendar 
             events={events} 
             className="admin-events" 
@@ -30,7 +32,7 @@ const AdminManageEvents = (): JSX.Element => {
             onSelectEvent={(event) => handleEventClick(event)}
             toolbar={false}
         />
-        <EventPopUp/>
+        {currentEvent && <EventPopUp currentEvent={currentEvent} popupToggle={true}/>}
     </>
     );
 }

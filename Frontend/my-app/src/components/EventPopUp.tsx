@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { Event} from 'react-big-calendar';
 
-const EventPopUp = (): JSX.Element => {
-    const [showPopup, setShowPopup] = useState(true);
+interface EventPopUpProps {
+    currentEvent: Event;
+    popupToggle: boolean;
+}
+const EventPopUp = ({currentEvent, popupToggle}: EventPopUpProps): JSX.Element => {
+    const [showPopup, setShowPopup] = useState(popupToggle);
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     const [date, setDate] = useState("");
@@ -11,8 +16,9 @@ const EventPopUp = (): JSX.Element => {
     };
 
     return (
-        <div className="">
+        <>
             {showPopup ? 
+            <div className="popup-overlay">
                 <div className="popup">
                     <h2>Edit the Event</h2>
                     <div className="popup-form">
@@ -54,12 +60,12 @@ const EventPopUp = (): JSX.Element => {
                                 </label>
                             </div>
                             <button type="submit">Submit</button>
-                            <button onClick={() => setShowPopup(false)}>Cancel</button>
+                            <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                         </form>
                     </div>
-                </div>
-            : null}       
-        </div>
+                </div>    
+        </div>: null}
+        </>
     );
 }
 
