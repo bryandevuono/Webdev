@@ -9,12 +9,27 @@ a:link {
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: flex-end; 
-    padding: 15px 20px;
+    justify-content: space-between; 
+    padding: 0 5%;
     background-color: #f6f8fc; 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); 
     font-family: Arial, sans-serif;
+    margin-bottom: 2%;
 }
+
+.navbar-button-container {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.navbar-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .navbar-img{
   width: 32px;
   height: 32px;
@@ -55,12 +70,12 @@ a:link {
     color: #172ca2;
 }
 
-.navbar-text{
+.navbar-text a{
+    text-decoration: none;
     color: #0056b3;
-    position: absolute;
-    left: 5%;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
 .option-menu{
     position: absolute;
     top: 50%;
