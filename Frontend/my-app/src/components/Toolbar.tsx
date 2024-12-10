@@ -93,7 +93,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
                     </label>
                   </div>
                   <button type="submit">Submit</button>
-                  <button onClick={togglePopup}>Cancel</button>
+                  <button type="submit" onClick={togglePopup}>Cancel</button>
                 </form>
               </div>
             </div>

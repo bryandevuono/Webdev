@@ -21,6 +21,5 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
         }
         Events.push(EventToAdd);
     }
-    console.log(Events);
     return Events;
 }

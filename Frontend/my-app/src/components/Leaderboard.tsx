@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../Leaderboard.css";
-import { GetUserInfo } from "../api/Login";
+import {getUserInfo } from "../api/Login";
 
 interface User {
   email: string;
@@ -19,7 +19,7 @@ function Leaderboard() {
   }, []);
 
   const GetCurrentUsername = async () => {
-    const username = await GetUserInfo();
+    const username = await getUserInfo();
     setCurrentUser(username);
   };
 

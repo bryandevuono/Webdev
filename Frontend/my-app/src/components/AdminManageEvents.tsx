@@ -8,6 +8,7 @@ import EventPopUp from './EventPopUp';
 const AdminManageEvents = (): JSX.Element => {
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
     const [currentEvent, setCurrentEvent] = useState<BigCalendarEvent | undefined>(undefined);
+    const [showPopup, setShowPopup] = useState(false);
 
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
@@ -16,6 +17,12 @@ const AdminManageEvents = (): JSX.Element => {
     
     const handleEventClick = (event: BigCalendarEvent) => {
         setCurrentEvent(event);
+        setShowPopup(true);
+    }
+
+    const handleSlotClick = (slotInfo: any) => {
+        console.log('Selected slot:', slotInfo);
+        // Add your logic here to handle slot click
     }
 
     useEffect(() => {
@@ -24,15 +31,17 @@ const AdminManageEvents = (): JSX.Element => {
 
     return (
     <>
-        <h1 className='admin-dashboard-text'>Click on one of the event titles to edit:</h1>
-        <Calendar 
+        <h1 className='admin-dashboard-text'>Click on one of the event titles to edit an event:</h1>
+        <Calendar    
+            selectable
+            onSelectSlot={(event) => handleSlotClick(event)}
             events={events} 
             className="admin-events" 
             view="agenda" 
             onSelectEvent={(event) => handleEventClick(event)}
             toolbar={false}
         />
-        {currentEvent && <EventPopUp currentEvent={currentEvent} popupToggle={true}/>}
+        {showPopup ? <EventPopUp setShowPopup={setShowPopup} currentEvent={currentEvent}/> : null}
     </>
     );
 }
