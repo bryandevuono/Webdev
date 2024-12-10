@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { GetUserInfo, Logout } from "../api/Login";
+import {useEffect, useState} from "react";
+import { getUserInfo, logOut } from "../api/Login";
 import { Link } from "react-router-dom";
 import GetPoints from "../api/Ranking";
 
@@ -13,7 +13,7 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
 
   const GetUserName = async () => {
     try {
-      const UsernameFromAPI = await GetUserInfo();
+      const UsernameFromAPI = await getUserInfo();
       setUserName(UsernameFromAPI);
     } catch (error) {
       console.error("Failed to fetch username:", error);
@@ -31,7 +31,7 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
 
   const LogOutAPI = async () => {
     setAuthorized(false);
-    Logout();
+    logOut();
   };
 
   useEffect(() => {

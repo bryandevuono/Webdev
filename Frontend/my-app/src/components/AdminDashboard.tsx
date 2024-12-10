@@ -1,15 +1,16 @@
-import {useState} from "react";
+import { useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import Calendar from "./Calendar";
 import AdminManageEvents from "./AdminManageEvents";
-const AdminDashboard = (): JSX.Element => {
-    const [EventToggle, setEventToggle] = useState(false);
-    const [UserToggle, setUserToggle] = useState(false);
 
-    return(
+const AdminDashboard = (): JSX.Element => {
+    const [eventToggle, setEventToggle] = useState(false);
+    const [userToggle, setUserToggle] = useState(false);
+
+    return (
         <div>
-            <AdminNavbar EventsToggle={setEventToggle} UsersToggle={setUserToggle}/>
-            {EventToggle ? <AdminManageEvents/>: null}
+            <AdminNavbar eventsToggle={setEventToggle} usersToggle={setUserToggle} />
+            {eventToggle ? <AdminManageEvents /> : null}
         </div>
     );
 }

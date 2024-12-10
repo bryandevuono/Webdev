@@ -1,19 +1,19 @@
-import React from "react";
-import ManageIcon from '../img/planning.png'
+import React, { useState } from "react";
+import AdminManageEvents from "./AdminManageEvents";
 
 interface AdminNavbarProps {
-    UsersToggle: Function,
-    EventsToggle: Function
+    usersToggle: Function,
+    eventsToggle: Function
 }
 
-const AdminNavbar = ({UsersToggle, EventsToggle}: AdminNavbarProps): JSX.Element => {
+const AdminNavbar = ({ usersToggle, eventsToggle }: AdminNavbarProps): JSX.Element => {
     return (
         <div>
             <nav className="admin-nav">
                 <ul>
-                    <li className="astext" onClick={() => EventsToggle(true)}>Manage events</li>
+                    <li className="astext" onClick={() => eventsToggle(true)}>Manage events</li>
                     <br/>
-                    <li className="astext">Manage users</li>
+                    <li className="astext" onClick={() => usersToggle(true)}>Manage users</li>
                 </ul>
             </nav>
         </div>

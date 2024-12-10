@@ -1,7 +1,7 @@
 import { Event } from "react-big-calendar"
 import moment from "moment";
 
-export const GetAllEvents = async (): Promise<Array<Event>> => {
+export const getAllEvents = async (): Promise<Array<Event>> => {
     const response = await fetch('http://localhost:5053/api/events/GetAllEvents', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -21,6 +21,5 @@ export const GetAllEvents = async (): Promise<Array<Event>> => {
         }
         Events.push(EventToAdd);
     }
-    console.log(Events);
     return Events;
 }

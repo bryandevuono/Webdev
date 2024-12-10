@@ -5,7 +5,7 @@ export type SignUpInput = {
     Password: string
 }
 
-export const PostSignUp = async (UserInfoInput: SignUpInput, navigate: Function): Promise<boolean> => {
+export const postSignUp = async (UserInfoInput: SignUpInput, navigate: Function): Promise<boolean> => {
     const requestOptions = {
         method: 'POST',
         credentials: 'include' as RequestCredentials,

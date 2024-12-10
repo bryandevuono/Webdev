@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Calendar from "./Calendar";
 import toolBar from "./Toolbar";
-import { GetAllEvents } from "../api/Events";
+import { getAllEvents } from "../api/Events";
 
 export interface CalendarEvent {
   start: Date;
@@ -10,16 +10,16 @@ export interface CalendarEvent {
 }
 
 export default function EventCalendar(): JSX.Element {
-  const [Events, setEvents] = useState<CalendarEvent[]>();
+  const [events, setEvents] = useState<CalendarEvent[]>();
 
-  const GetEvents = async () => {
-    const AllEvents = await GetAllEvents();
+  const getEvents = async () => {
+    const AllEvents = await getAllEvents();
     setEvents(AllEvents as CalendarEvent[]);
   };
 
   useEffect(() => {
-    GetEvents();
+    getEvents();
   }, []);
 
-  return <Calendar events={Events} components={{ toolbar: toolBar }} />;
+  return <Calendar events={events} components={{ toolbar: toolBar }} />;
 }

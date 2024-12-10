@@ -51,9 +51,10 @@
 }
 
 .popup label {
-    display: block;
+    display: flex;
     margin-bottom: 5px;
-    text-align: left;
+    text-align: center;
+    position: relative;
 }
 
 .popup-form {
@@ -73,7 +74,7 @@
     background-color: #007bff;
     color: white;
     padding: 5px 10px;
-    border: none;
+    border: 10px 15px;
     border-radius: 4px;
     cursor: pointer;
 }

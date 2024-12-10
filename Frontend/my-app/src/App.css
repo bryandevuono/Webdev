@@ -327,3 +327,12 @@ input[type=submit]:hover {
   top: 35vh;
   left: 30vw;
 }
+
+.admin-dashboard-text{
+  color: #0056b3;
+  font-size: 20px;
+  position: absolute;
+  top: 22vh;
+  left: 48vw;
+
+}

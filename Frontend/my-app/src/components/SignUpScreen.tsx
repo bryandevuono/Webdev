@@ -1,53 +1,54 @@
-import {useState} from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PostSignUp, SignUpInput } from "../api/Signup";
-const SignUpScreen = (): JSX.Element => {
-    const Navigate = useNavigate();
-    const [FirstName, setFirstName] = useState("");
-    const [LastName, setLastName] = useState("");
-    const [Email, setEmail] = useState("");
-    const [Password, setPassword] = useState("");
-    const [ErrorMessage, setErrorMessage] = useState(false);
+import { postSignUp, SignUpInput } from "../api/Signup";
 
-    const handleSignUp = async (firstname: string, lastname: string, email: string, password: string) => {
-        const UserInfo: SignUpInput = {
-            FirstName: firstname,
-            Lastname: lastname,
+const SignUpScreen = (): JSX.Element => {
+    const navigate = useNavigate();
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(false);
+
+    const handleSignUp = async (firstName: string, lastName: string, email: string, password: string) => {
+        const userInfo: SignUpInput = {
+            FirstName: firstName,
+            Lastname: lastName,
             Email: email,
             Password: password
-        }
+        };
 
-        const CheckSignUp = await PostSignUp(UserInfo, Navigate);
-        !CheckSignUp ? setErrorMessage(true) : setErrorMessage(ErrorMessage); 
-    }
+        const checkSignUp = await postSignUp(userInfo, navigate);
+        !checkSignUp ? setErrorMessage(true) : setErrorMessage(errorMessage); 
+    };
 
-    return(
+    return (
         <div className="signup-box">
             <label>
                 Firstname:
-                <input className="input-style" onChange={(event) => setFirstName(event.target.value)}/>
+                <input className="input-style" onChange={(event) => setFirstName(event.target.value)} />
             </label>
-            <br/>
+            <br />
             <label>
                 Lastname:
-                <input className="input-style" onChange={(event) => setLastName(event.target.value)}/>
+                <input className="input-style" onChange={(event) => setLastName(event.target.value)} />
             </label>
-            <br/>
+            <br />
             <label>
                 Username:
-                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
+                <input className="input-style" onChange={(event) => setEmail(event.target.value)} />
             </label>
-            <br/>
+            <br />
             <label>
                 Password:
-                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
+                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)} />
             </label>
-            <br/>
-            <button className="login-button" onClick={() => handleSignUp(FirstName, LastName, Email, Password)}>Sign up</button>
+            <br />
+            <button className="login-button" onClick={() => handleSignUp(firstName, lastName, email, password)}>Sign up</button>
             
-            {ErrorMessage ? <p className="error-text">Missing required fields!</p> : null}
+            {errorMessage ? <p className="error-text">Missing required fields!</p> : null}
         </div>
     );
-}
+};
 
 export default SignUpScreen;

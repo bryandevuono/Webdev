@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ToolbarProps } from "react-big-calendar";
-import { GetUserId } from "../api/Login";
+import { getUserId } from "../api/Login";
 import { PostOfficeAttendace } from "../api/OfficeAttendace";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../Toolbar.css";
@@ -22,7 +22,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
 
   useEffect(() => {
     const GetId = async () => {
-      const UserId = await GetUserId();
+      const UserId = await getUserId();
       setId(UserId);
     };
     GetId();
@@ -93,7 +93,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
                     </label>
                   </div>
                   <button type="submit">Submit</button>
-                  <button onClick={togglePopup}>Cancel</button>
+                  <button type="submit" onClick={togglePopup}>Cancel</button>
                 </form>
               </div>
             </div>
