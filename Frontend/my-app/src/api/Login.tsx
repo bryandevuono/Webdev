@@ -11,12 +11,15 @@ export const postLogin = async (UserInfoInput: loginInput, navigate: Function): 
         body: JSON.stringify(UserInfoInput),
     };
 
-    const response = await fetch('http://localhost:5053/api/login/login/user', requestOptions);
-    if (response.ok) {
-        return true;
-    } else {
-        return false;
-    }
+  const response = await fetch(
+    "http://localhost:5053/api/login/login/user",
+    requestOptions
+  );
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const checkIfLoggedIn = async (): Promise<boolean> => {
@@ -28,13 +31,13 @@ export const checkIfLoggedIn = async (): Promise<boolean> => {
         }
     });
 
-    const data = await response.json();
-    const isLoggedIn = data.isLoggedIn;
-    if (isLoggedIn) {
-        return true;
-    }
-    return false;
-}
+  const data = await response.json();
+  const isLoggedIn = data.isLoggedIn;
+  if (isLoggedIn) {
+    return true;
+  }
+  return false;
+};
 
 export const getUserInfo = async (): Promise<string> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
@@ -45,9 +48,9 @@ export const getUserInfo = async (): Promise<string> => {
         }
     });
 
-    const data = await response.json();
-    return data.username;
-}
+  const data = await response.json();
+  return data.username;
+};
 
 export const getUserId = async (): Promise<string> => {
     const response = await fetch('http://localhost:5053/api/login/session', {
@@ -58,9 +61,9 @@ export const getUserId = async (): Promise<string> => {
         }
     });
 
-    const data = await response.json();
-    return data.id;
-}
+  const data = await response.json();
+  return data.id;
+};
 
 export const logOut = async () => {
     const response = await fetch('http://localhost:5053/api/login/logout', {
