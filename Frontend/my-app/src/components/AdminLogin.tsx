@@ -27,26 +27,28 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
         }
     }
     return(
-        <div className="admin">
-            <label>
-                Username:
-                <input className="input-style" onChange={(event) => setUsername(event.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Email:
-                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Password:
-                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
-            </label>
-            <br/>
-            <button className="admin-button" onClick={handleAdminLogin}> Login</button>
- 
-            {errorMessage ? <p className="error-text">Something went wrong...</p> : null}
-            {duplicateLogin ? <p className="error-text">Logged in already</p> : null}
+        <div className="flexbox">
+            <div className="login-box">
+                <label>
+                    Username:
+                    <input className="input-style" onChange={(event) => setUsername(event.target.value)}/>
+                </label>
+                <br/>
+                <label>
+                    Email:
+                    <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
+                </label>
+                <br/>
+                <label>
+                    Password:
+                    <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
+                </label>
+                <br/>
+                <button className="admin-button" onClick={handleAdminLogin}> Login</button>
+    
+                {errorMessage ? <p className="error-text">Something went wrong...</p> : null}
+                {duplicateLogin ? <p className="error-text">Logged in already</p> : null}
+            </div>
         </div>
     );
 }
