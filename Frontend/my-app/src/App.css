@@ -270,13 +270,12 @@ input[type=submit]:hover {
 }
 
 .admin{
-  width: 50vw;
-  display: inline-grid;
-  align-content: space-evenly;
-  align-items: stretch;
-  justify-items: end;
-  top: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:flex-end;
   position: absolute;
+  top: 40%;
 }
 
 .admin-button {
@@ -304,7 +303,7 @@ input[type=submit]:hover {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 20%;
+  width: 40%;
   left: -3vw;
   position: relative;
 }

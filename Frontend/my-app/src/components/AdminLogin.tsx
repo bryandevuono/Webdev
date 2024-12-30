@@ -28,7 +28,7 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
     }
     return(
         <div className="flexbox">
-            <div className="login-box">
+            <div className="admin">
                 <label>
                     Username:
                     <input className="input-style" onChange={(event) => setUsername(event.target.value)}/>
