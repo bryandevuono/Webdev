@@ -2,7 +2,7 @@ import {useState} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { postLoginAdmin } from "../api/Admin";
 
-const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
+const AdminLogin = (props: {setAuthorized: Function, setIsAdmin: Function}): JSX.Element => {
     const Navigate = useNavigate();
     const [userName, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -20,6 +20,8 @@ const AdminLogin = (props: {setAuthorized: Function}): JSX.Element => {
 
         if(checkAdminLogin){
             props.setAuthorized(true);
+            props.setIsAdmin(true);
+            setDuplicateLogin(true);
             Navigate("/dashboard");
         }
         else{

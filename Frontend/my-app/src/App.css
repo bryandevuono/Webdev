@@ -1,7 +1,4 @@
-body{
-  width: 100%;
-  height: 100%;
-}
+
 ul {
   list-style-type: none;
 }
@@ -47,11 +44,11 @@ a:link {
   vertical-align: middle; 
 }
 .admin-nav{
-  min-height: 120vh;
+  min-height: 180vh;
   width: 250px;
   background-color: var(--background-color2);
   position: relative;
-  top: 0px;
+  top: -30px;
   left: 00;
   box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
   display: flex;
@@ -117,6 +114,7 @@ a:link {
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
 }
 
 .login-box{
@@ -239,9 +237,6 @@ a:link {
   justify-content: center;
   align-items: center;
   gap: 4px;
-  top: 35vh;
-  left: 42vw;
-  position: absolute;
 }
 
 input[type=text], select {
