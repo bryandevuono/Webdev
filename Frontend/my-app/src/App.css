@@ -116,6 +116,7 @@ a:link {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
 
 .login-box{
@@ -124,7 +125,6 @@ a:link {
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 35%;
 }
 
 .login-button {
