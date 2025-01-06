@@ -8,18 +8,19 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
         headers: {
             'Content-Type': 'application/json'
         }
-
     });
-    const data = await response.json()
+
+    const data = await response.json();
     const Events: Array<Event> = [];
 
-    for (let i = 0; i<data.length; i++){
+    for (let i = 0; i < data.length; i++) {
         const EventToAdd: Event = {
-            start: new Date(moment(data[i].StartTime).format("YYYY-MM-DD HH:mm:ss")),
-            end: new Date(moment(data[i].EndTime).format("YYYY-MM-DD HH:mm:ss")),
+            start: new Date(data[i].startTime),
+            end: new Date(data[i].endTime),
             title: data[i].title
-        }
+        };
         Events.push(EventToAdd);
+        console.log(EventToAdd);
     }
     return Events;
-}
+};

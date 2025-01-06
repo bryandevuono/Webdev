@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Calendar from "./Calendar";
+import { momentLocalizer } from "react-big-calendar";
 import toolBar from "./Toolbar";
+import moment from "moment";
 import { getAllEvents } from "../api/Events";
 
 export interface CalendarEvent {
@@ -8,6 +10,7 @@ export interface CalendarEvent {
   end: Date;
   title: string;
 }
+const localizer = momentLocalizer(moment);
 
 export default function EventCalendar(): JSX.Element {
   const [events, setEvents] = useState<CalendarEvent[]>();
