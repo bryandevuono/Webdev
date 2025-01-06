@@ -17,10 +17,35 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
         const EventToAdd: Event = {
             start: new Date(data[i].startTime),
             end: new Date(data[i].endTime),
-            title: data[i].title
+            title: data[i].title,
         };
         Events.push(EventToAdd);
-        console.log(EventToAdd);
     }
     return Events;
 };
+
+export type EventRequestBody = {
+    title: string,
+    description: string,
+    location: string,
+    startTime: string,
+    endTime: string
+} 
+
+export const editEvent = async (eventTitle: string, eventInfo: EventRequestBody): Promise<boolean> => {
+    const response = await fetch(`http://localhost:5053/api/events/EditEvent?Title=${eventTitle}`, {
+        method: 'PUT',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventInfo)
+    });
+
+    if (response.ok){
+        return true;
+    }
+    else{
+        return false;
+    }
+}

@@ -6,7 +6,7 @@ ul {
 a:link { 
   text-decoration: none; 
 } 
-
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
 .navbar {
     display: flex;
     align-items: center;
@@ -15,7 +15,6 @@ a:link {
     background-color: #f6f8fc; 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); 
     font-family: Arial, sans-serif;
-    margin-bottom: 2%;
 }
 
 .navbar-button-container {
@@ -48,7 +47,6 @@ a:link {
   width: 250px;
   background-color: var(--background-color2);
   position: relative;
-  top: -4vh;
   left: 00;
   box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
   display: flex;
@@ -68,7 +66,7 @@ a:link {
 }
 
 .navbar-button:hover{
-    color: #172ca2;
+    color: #ffffff;
 }
 
 .navbar-text a{
@@ -299,7 +297,7 @@ input[type=submit]:hover {
   -webkit-user-select: none;
   touch-action: manipulation;
   width: 40%;
-  left: -3vw;
+  left: 27%;
   position: relative;
 }
 
@@ -332,6 +330,12 @@ input[type=submit]:hover {
   top: 35vh;
   left: 30vw;
 }
+.admin-dashboard{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .admin-dashboard-text{
   color: #0056b3;
@@ -340,4 +344,12 @@ input[type=submit]:hover {
   top: 22vh;
   left: 48vw;
 
+}
+
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+  position: absolute;
+  top: 20%;
+  left: 55%;
 }

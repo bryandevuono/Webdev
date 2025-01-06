@@ -33,56 +33,50 @@
     z-index: 1000;
 }
 
-.popup {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    width: 500px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.popup h2 {
-    margin-bottom: 20px;
-}
-
-.popup form div {
-    margin-bottom: 10px;
-}
-
-.popup label {
-    display: flex;
-    margin-bottom: 5px;
-    text-align: center;
-    position: relative;
-}
-
+/* Style for the form */
 .popup-form {
+    background-color: white;  /* Optional: add a background color to the form */
+    padding: 20px;            /* Optional: padding inside the form */
+    border-radius: 10px;      /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Optional: soft shadow around the form */
     display: flex;
-    justify-content: space-around;
-}
-
-.popup input {
-    width: calc(100% - 80px);
-    padding: 5px;
-    margin-left: 10px;
+    flex-direction: column;   /* Stack form elements vertically */
+    gap: 10px;                /* Space between form elements */
+    width: 330px;             /* Adjust width of form */
+  }
+  
+  /* Input and label styling */
+  .input-style {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.popup button[type="submit"] {
+    width: 93%;
+  }
+  
+  button {
+    padding: 10px;
     background-color: #007bff;
     color: white;
-    padding: 5px 10px;
-    border: 10px 15px;
-    border-radius: 4px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-}
-
-.popup button[type="submit"]:hover {
+  }
+  
+  button:hover {
     background-color: #0056b3;
-}
-
+  }
+  
+  /* Optional: Style for the datetime inputs */
+  .popup-date input {
+    padding: 8px;
+  }
+  .popup-date{
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    width: 93%;
+  }
 
 .rbc-agenda-view table thead {
     display: table-header-group;

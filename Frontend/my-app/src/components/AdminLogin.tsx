@@ -30,14 +30,14 @@ const AdminLogin = (props: {setAuthorized: Function, setIsAdmin: Function}): JSX
     }
     return(
         <div className="flexbox">
-            <div className="admin">
+            <div>
                 <label>
                     Username:
                     <input className="input-style" onChange={(event) => setUsername(event.target.value)}/>
                 </label>
                 <br/>
                 <label>
-                    Email:
+                    E-mail :    
                     <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
                 </label>
                 <br/>

@@ -5,9 +5,11 @@ import { CalendarEvent } from './EventCalendar';
 import { Event as BigCalendarEvent } from 'react-big-calendar';
 import EventPopUp from './EventPopUp';
 
+
 const AdminManageEvents = (): JSX.Element => {
+    const [succes, setSuccess] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    const [currentEvent, setCurrentEvent] = useState<BigCalendarEvent | undefined>(undefined);
+    const [currentEvent, setCurrentEvent] = useState<string>("");
     const [showPopup, setShowPopup] = useState(false);
 
     const getEvents = async () => {
@@ -16,33 +18,36 @@ const AdminManageEvents = (): JSX.Element => {
     };
     
     const handleEventClick = (event: BigCalendarEvent) => {
-        setCurrentEvent(event);
+        setCurrentEvent(String(event.title) || "");
         setShowPopup(true);
-    }
-
-    const handleSlotClick = (slotInfo: any) => {
-        console.log('Selected slot:', slotInfo);
-        // Add your logic here to handle slot click
+        setSuccess(false);
     }
 
     useEffect(() => {
         getEvents();
-    }, []);
+    }, [showPopup]);
 
     return (
-    <>
+    <div className='admin-dashboard'>
         <h1 className='admin-dashboard-text'>Click on one of the event titles to edit an event:</h1>
         <Calendar    
-            selectable
-            onSelectSlot={(event) => handleSlotClick(event)}
             events={events} 
             className="admin-events" 
             view="agenda" 
             onSelectEvent={(event) => handleEventClick(event)}
             toolbar={false}
+            onSelectSlot={(event) => handleEventClick(event)}  
+            selectable={true} 
         />
-        {showPopup ? <EventPopUp setShowPopup={setShowPopup} currentEvent={currentEvent}/> : null}
-    </>
+        {showPopup ? <EventPopUp setSuccess={setSuccess} setShowPopup={setShowPopup} currentEvent={currentEvent}/> : null}
+        
+        {succes ? 
+            <div className="success-msg">
+                <i className="fa fa-check"></i>
+                Succesfully edited the event!
+            </div> 
+        : null}
+    </div>
     );
 }
 
