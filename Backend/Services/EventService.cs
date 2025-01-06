@@ -43,9 +43,9 @@ public class EventService: IEventService
         return false;
     }
 
-    public async Task<bool> EditEvent(Events _event, Guid Id)
+    public async Task<bool> EditEvent(Events _event, string _title)
     {
-        var ToEditEvent = await _context.Events.FindAsync(Id);
+        var ToEditEvent = await _context.Events.SingleOrDefaultAsync(_ => _.Title == _title);
     	if(ToEditEvent == null)
         {
             return false;

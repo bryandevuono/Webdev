@@ -40,14 +40,16 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
   }, []);
 
   return (
-    <div className="profile-page">
-      <p className="">E-mail/Username: {UserName}</p>
-      <p>Points: {Points}</p>
-      <Link to={"/"}>
-        <button className="login-button" onClick={() => LogOutAPI()}>
-          Log out
-        </button>
-      </Link>
+    <div className="flexbox">
+      <div className="profile-page">
+        <p className="">E-mail/Username: {UserName}</p>
+        <p>Points: {Points}</p>
+        <Link to={"/"}>
+          <button className="login-button" onClick={() => LogOutAPI()}>
+            Log out
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

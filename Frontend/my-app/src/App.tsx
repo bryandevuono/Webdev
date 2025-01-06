@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import NavBar from "./components/NavBar";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate} from "react-router-dom";
 import EventCalendar from "./components/EventCalendar";
 import LoginScreen from "./components/LoginScreen";
 import Leaderboard from "./components/Leaderboard";
@@ -10,7 +10,6 @@ import ProfilePage from "./components/ProfilePage";
 import AdminDashboard from "./components/AdminDashboard";
 import { checkAdmin } from "./api/Admin";
 import AdminLogin from "./components/AdminLogin";
-import Calendar from "./components/Calendar";
 
 function App(): JSX.Element {
   const [Authorized, setAuthorized] = useState(false);
@@ -27,8 +26,8 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
-    CheckIfUserIsAdmin();
     CheckSession();
+    CheckIfUserIsAdmin();
   }, []);
 
   return (
@@ -74,7 +73,7 @@ function App(): JSX.Element {
           ></Route>
           <Route
             path="/adminlogin"
-            element={<AdminLogin setAuthorized={setAuthorized} />}
+            element={<AdminLogin setAuthorized={setAuthorized} setIsAdmin={setIsAdmin}/>}
           ></Route>
         </Routes>
       </BrowserRouter>

@@ -34,23 +34,25 @@ const LoginScreen = ({setAuthorized}: LoginScreenProps) : JSX.Element =>
         handleLogin(email, password)
     }
     return(
-        <div className="login-box">
-            <label>
-                username:{" "}
-                <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Password:{" "}
-                <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
-            </label>
-            <br/>
-            <button className="login-button" onClick={handleLoginClick}>Login</button>
-            <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
-            <Link className="signup-button" to={'/adminlogin'}><p>Login as an admin</p></Link>
-            
-            {errorMessage ? <p className="error-text">Something went wrong...</p> : null}
-            {duplicateLogin ? <p className="error-text">Logged in already</p> : null}
+        <div className="flexbox">
+            <div className="login-box">
+                <label>
+                    Username:{" "}
+                    <input className="input-style" onChange={(event) => setEmail(event.target.value)}/>
+                </label>
+                <br/>
+                <label>
+                    Password:{" "}
+                    <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)}/>
+                </label>
+                <br/>
+                <button className="login-button" onClick={handleLoginClick}>Login</button>
+                <Link className="signup-button" to={'/signup'}><p>Sign up</p></Link>
+                <Link className="signup-button" to={'/adminlogin'}><p>Login as an admin</p></Link>
+                
+                {errorMessage ? <p className="error-text">Something went wrong...</p> : null}
+                {duplicateLogin ? <p className="error-text">Logged in already</p> : null}
+            </div>
         </div>
     );
 }

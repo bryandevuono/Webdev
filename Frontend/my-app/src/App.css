@@ -1,3 +1,4 @@
+
 ul {
   list-style-type: none;
 }
@@ -5,7 +6,7 @@ ul {
 a:link { 
   text-decoration: none; 
 } 
-
+@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css');
 .navbar {
     display: flex;
     align-items: center;
@@ -14,7 +15,6 @@ a:link {
     background-color: #f6f8fc; 
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.3); 
     font-family: Arial, sans-serif;
-    margin-bottom: 2%;
 }
 
 .navbar-button-container {
@@ -43,11 +43,10 @@ a:link {
   vertical-align: middle; 
 }
 .admin-nav{
-  min-height: 120vh;
+  min-height: 200vh;
   width: 250px;
   background-color: var(--background-color2);
   position: relative;
-  top: 0px;
   left: 00;
   box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
   display: flex;
@@ -57,17 +56,17 @@ a:link {
   padding: 30px 0px 10px;
 }
 .navbar-button {
-    color: #0056b3;
-    background:none;
-    border:none;
-    margin:0;
-    padding: 8px;
-    cursor: pointer;
-    font-size: 15px;
+  color: #0056b3;
+  background:none;
+  border:none;
+  margin:0;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 15px;
 }
 
 .navbar-button:hover{
-    color: #172ca2;
+    color: #ffffff;
 }
 
 .navbar-text a{
@@ -106,27 +105,21 @@ a:link {
         background-color: #007bff;
       }
     }
-  }
-
-.login-box{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-    top: 35vh;
-    left: 40.5vw;
-    position: absolute;
 }
 
-.signup-box{
+.flexbox{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.login-box{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 4px;
-  top: 35vh;
-  left: 40.5vw;
   position: absolute;
 }
 
@@ -242,9 +235,6 @@ a:link {
   justify-content: center;
   align-items: center;
   gap: 4px;
-  top: 35vh;
-  left: 42vw;
-  position: absolute;
 }
 
 input[type=text], select {
@@ -273,14 +263,12 @@ input[type=submit]:hover {
 }
 
 .admin{
-  width: 50vw;
-  display: inline-grid;
-  align-content: space-evenly;
-  align-items: stretch;
-  justify-items: end;
-  top: 40vh;
-  left: 8vw;  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:flex-end;
   position: absolute;
+  top: 40%;
 }
 
 .admin-button {
@@ -308,8 +296,8 @@ input[type=submit]:hover {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 20%;
-  left: -3vw;
+  width: 40%;
+  left: 27%;
   position: relative;
 }
 
@@ -342,6 +330,12 @@ input[type=submit]:hover {
   top: 35vh;
   left: 30vw;
 }
+.admin-dashboard{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 .admin-dashboard-text{
   color: #0056b3;
@@ -350,4 +344,12 @@ input[type=submit]:hover {
   top: 22vh;
   left: 48vw;
 
+}
+
+.success-msg {
+  color: #270;
+  background-color: #DFF2BF;
+  position: absolute;
+  top: 20%;
+  left: 55%;
 }
