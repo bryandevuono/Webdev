@@ -35,48 +35,56 @@
 
 /* Style for the form */
 .popup-form {
-    background-color: white;  /* Optional: add a background color to the form */
-    padding: 20px;            /* Optional: padding inside the form */
-    border-radius: 10px;      /* Optional: rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Optional: soft shadow around the form */
+    background-color: white;
+    /* Optional: add a background color to the form */
+    padding: 20px;
+    /* Optional: padding inside the form */
+    border-radius: 10px;
+    /* Optional: rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Optional: soft shadow around the form */
     display: flex;
-    flex-direction: column;   /* Stack form elements vertically */
-    gap: 10px;                /* Space between form elements */
-    width: 330px;             /* Adjust width of form */
-  }
-  
-  /* Input and label styling */
-  .input-style {
+    flex-direction: column;
+    /* Stack form elements vertically */
+    gap: 10px;
+    /* Space between form elements */
+    width: auto;
+    /* Adjust width of form */
+}
+
+/* Input and label styling */
+.input-style {
     padding: 8px;
     margin: 5px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
     width: 93%;
-  }
-  
-  button {
+}
+
+button {
     padding: 10px;
     background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  button:hover {
+}
+
+button:hover {
     background-color: #0056b3;
-  }
-  
-  /* Optional: Style for the datetime inputs */
-  .popup-date input {
+}
+
+/* Optional: Style for the datetime inputs */
+.popup-date input {
     padding: 8px;
-  }
-  .popup-date{
+}
+
+.popup-date {
     padding: 8px;
     margin: 5px 0;
     border-radius: 5px;
     width: 93%;
-  }
+}
 
 .rbc-agenda-view table thead {
     display: table-header-group;
@@ -84,9 +92,10 @@
     unicode-bidi: isolate;
     border-color: inherit;
 }
+
 .rbc-agenda-view table tbody tr {
-    border-bottom: 1px solid #ddd; 
-    background-color: #f9f9f9; 
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
     display: table-row;
 }
 
@@ -94,31 +103,31 @@
     align-items: center;
     display: flex;
 }
-  
+
 .rbc-agenda-view table tbody tr:hover {
-    background-color: #e3f2fd; 
+    background-color: #e3f2fd;
     cursor: pointer;
 }
-  
+
 .rbc-agenda-time-cell {
     font-weight: bold;
-    color: #333; 
-    width: 20vw;    
+    color: #333;
+    width: 20vw;
 }
 
 .rbc-agenda-date-cell {
     font-weight: bold;
-    color: #333; 
+    color: #333;
     width: 20vw;
 }
-  
+
 .rbc-agenda-event-cell {
     color: #0056b3;
     font-weight: bold;
     width: 20vw;
 }
 
-.rbc-agenda-table{
+.rbc-agenda-table {
     width: 100%;
 }
 
@@ -127,4 +136,3 @@
     width: 100%;
 
 }
-

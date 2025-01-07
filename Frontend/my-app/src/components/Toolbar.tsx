@@ -64,38 +64,36 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
         <button onClick={togglePopup}>Add office attendance</button>
         {showPopup && (
           <div className="popup-overlay">
-            <div className="popup">
+            <div className="popup-form">
               <h2>Add an office attendance to the calendar</h2>
-              <div className="popup-form">
-                <form onSubmit={handleSubmit}>
-                  <div className="popup-descriptions">
-                    <label>
-                      Start Time:
-                      <input
-                        type="datetime-local"
-                        name="Start"
-                        value={formData.Start}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </label>
-                  </div>
-                  <div className="popup-date">
-                    <label>
-                      End Time:
-                      <input
-                        type="datetime-local"
-                        name="End"
-                        value={formData.End}
-                        onChange={handleInputChange}
-                        required
-                      />
-                    </label>
-                  </div>
-                  <button type="submit">Submit</button>
-                  <button type="submit" onClick={togglePopup}>Cancel</button>
-                </form>
-              </div>
+              <form onSubmit={handleSubmit}>
+                <div className="popup-descriptions">
+                  <label>
+                    Start Time:
+                    <input
+                      type="datetime-local"
+                      name="Start"
+                      value={formData.Start}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <div className="popup-date">
+                  <label>
+                    End Time:
+                    <input
+                      type="datetime-local"
+                      name="End"
+                      value={formData.End}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <button type="submit">Submit</button>
+                <button type="submit" onClick={togglePopup}>Cancel</button>
+              </form>
             </div>
           </div>
         )}
