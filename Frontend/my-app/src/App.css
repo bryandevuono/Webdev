@@ -217,6 +217,11 @@ a:link {
   font-size: 14px;
   margin-top: 5px;
 }
+.success-text{
+  color: green;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
 .profile-img{
   width: 2vw;
