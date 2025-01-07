@@ -1,10 +1,33 @@
-type OfficeAttendanceInput = {
+type OfficeAttendance = {
     Start: string;
     End: string;
     UserId: string;
 }
 
-export const PostOfficeAttendace = async (UserInfoInput: OfficeAttendanceInput, navigate: Function): Promise<boolean> => {
+export const GetAllOfficeAttendace = async (): Promise<Array<OfficeAttendance>> => {
+    const response = await fetch('http://localhost:5053/api/officeattendance', {
+        method: 'GET',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const data = await response.json();
+    const OfficeAttendances: Array<OfficeAttendance> = [];
+
+    for (let i = 0; i < data.length; i++) {
+        const OfficeAttendanceToAdd: OfficeAttendance = {
+            Start: data[i].start,
+            End: data[i].end,
+            UserId: data[i].userId
+        };
+        OfficeAttendances.push(OfficeAttendanceToAdd);
+    }
+    return OfficeAttendances;
+};
+
+export const PostOfficeAttendace = async (UserInfoInput: OfficeAttendance, navigate: Function): Promise<boolean> => {
     UserInfoInput.Start = new Date(UserInfoInput.Start).toISOString();
     UserInfoInput.End = new Date(UserInfoInput.End).toISOString();
 
@@ -24,3 +47,18 @@ export const PostOfficeAttendace = async (UserInfoInput: OfficeAttendanceInput, 
         return false;
     }
 };
+
+export const GetUserName = async (UserId: string): Promise<string> => {
+    const response = await fetch(`http://localhost:5053/api/user/getuserbyid?userId=${UserId}`, {
+        method: 'GET',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const data = await response.json();
+    console.log(data);
+    const name = `${data.firstname} ${data.lastname}`;
+    return name;
+}
