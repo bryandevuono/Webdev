@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
 import { getAllEvents } from '../api/Events';
 import Calendar from './Calendar';
-import { CalendarEvent } from './EventCalendar';
 import { Event as BigCalendarEvent } from 'react-big-calendar';
 import EventPopUp from './EventPopUp';
+import { CalendarEvent } from './EventCalendar';
 
 
 const AdminManageEvents = (): JSX.Element => {
@@ -15,6 +15,7 @@ const AdminManageEvents = (): JSX.Element => {
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
         setEvents(AllEvents as CalendarEvent[]);
+        console.log(events);
     };
     
     const handleEventClick = (event: BigCalendarEvent) => {
