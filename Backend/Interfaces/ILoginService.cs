@@ -5,5 +5,6 @@ public interface ILoginService
     public Task<bool> IsSessionActive();
     public Task<string> GetLoggedInUsername();
     public Task<string> GetLoggedInUserRole();
+    public Task<Guid> GetLoggedInUserId();
     public Task<bool> Logout();
 }

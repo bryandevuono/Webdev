@@ -1,153 +1,112 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ToolbarProps } from "react-big-calendar";
+import { getUserId } from "../api/Login";
+import { PostOfficeAttendace } from "../api/OfficeAttendace";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../Toolbar.css"
-interface FormData {
-    title: string;
-    description: string;
-    date: string;
-    starttime: string;
-    endtime: string;
-    location: string;
+import "../Toolbar.css";
+
+interface OfficeAttendanceInput {
+  Start: string;
+  End: string;
+  UserId: string;
 }
 
 const CustomToolbar = (props: ToolbarProps): JSX.Element => {
-    const [showPopup, setShowPopup] = useState(false);
-    const [formData, setFormData] = useState<FormData>({
-        title: "",
-        description: "",
-        date: "",
-        starttime: "",
-        endtime: "",
-        location: "",
-    });
+  const [Id, setId] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [formData, setFormData] = useState<OfficeAttendanceInput>({
+    Start: "",
+    End: "",
+    UserId: "",
+  });
 
-    const togglePopup = () => {
-        if (showPopup) {
-            setFormData({
-                title: "",
-                description: "",
-                date: "",
-                starttime: "",
-                endtime: "",
-                location: "",
-            });
-        }
-        setShowPopup(!showPopup);
+  useEffect(() => {
+    const GetId = async () => {
+      const UserId = await getUserId();
+      setId(UserId);
     };
+    GetId();
+  }, []);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prevData) => ({ ...prevData, [name]: value }));
-    };
+  useEffect(() => {
+    if (Id) {
+      setFormData((prev) => ({ ...prev, UserId: Id }));
+    }
+  }, [Id]);
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Form Submitted:", formData);
-        setShowPopup(false);
-    };
+  const togglePopup = () => {
+    setFormData((prev) => ({
+      ...prev,
+      Start: "",
+      End: "",
+      UserId: Id,
+    }));
+    setShowPopup((prev) => !prev);
+  };
 
-    return (
-        <div className="rbc-toolbar">
-            <span className="rbc-btn-group">
-                <button onClick={() => props.onNavigate("PREV")}>Back</button>
-                <button onClick={() => props.onNavigate("NEXT")}>Next</button>
-                <button onClick={togglePopup}>Add event</button>
-                {showPopup && (
-                    <div className="popup-overlay">
-                        <div className="popup">
-                            <h2>Add an event to the calendar</h2>
-                            <div className="popup-form">
-                                <form onSubmit={handleSubmit}>
-                                    <div className="popup-title">
-                                        <label>
-                                            Title:
-                                            <input
-                                                type="text"
-                                                name="title"
-                                                value={formData.title}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-                                    <div className="popup-descriptions">
-                                        <label>
-                                            Description:
-                                            <input
-                                                type="text"
-                                                name="description"
-                                                value={formData.description}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-                                    <div className="popup-date">
-                                        <label>
-                                            Date:
-                                            <input
-                                                type="date"
-                                                name="date"
-                                                value={formData.date}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-                                    <div className="popup-starttime">
-                                        <label>
-                                            Start Time:
-                                            <input
-                                                type="time"
-                                                name="starttime"
-                                                value={formData.starttime}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-                                    <div className="popup-endtime">
-                                        <label>
-                                            End Time:
-                                            <input
-                                                type="time"
-                                                name="endtime"
-                                                value={formData.endtime}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-                                    <div className="popup-location">
-                                        <label>
-                                            Location:
-                                            <input
-                                                type="text"
-                                                name="location"
-                                                value={formData.location}
-                                                onChange={handleChange}
-                                                required
-                                            />
-                                        </label>
-                                    </div>
-                                    <button type="submit">Submit</button>
-                                    <button onClick={togglePopup}>Cancel</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                )}
-            </span>
-            <span className="rbc-toolbar-label">{props.label}</span>
-            <span className="rbc-btn-group">
-                <button onClick={() => props.onView("month")}>Month</button>
-                <button onClick={() => props.onView("week")}>Week</button>
-                <button onClick={() => props.onView("day")}>Day</button>
-                <button onClick={() => props.onView("agenda")}>Agenda</button>
-            </span>
-        </div>
-    );
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    PostOfficeAttendace(formData, props.onNavigate);
+    setShowPopup(false);
+  };
+
+  return (
+    <div className="rbc-toolbar">
+      <span className="rbc-btn-group">
+        <button onClick={() => props.onNavigate("PREV")}>Back</button>
+        <button onClick={() => props.onNavigate("NEXT")}>Next</button>
+        <button onClick={togglePopup}>Add office attendance</button>
+        {showPopup && (
+          <div className="popup-overlay">
+            <div className="popup-form">
+              <h2>Add an office attendance to the calendar</h2>
+              <form onSubmit={handleSubmit}>
+                <div className="popup-descriptions">
+                  <label>
+                    Start Time:
+                    <input
+                      type="datetime-local"
+                      name="Start"
+                      value={formData.Start}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <div className="popup-date">
+                  <label>
+                    End Time:
+                    <input
+                      type="datetime-local"
+                      name="End"
+                      value={formData.End}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </label>
+                </div>
+                <button type="submit">Submit</button>
+                <button type="submit" onClick={togglePopup}>Cancel</button>
+              </form>
+            </div>
+          </div>
+        )}
+      </span>
+      <span className="rbc-toolbar-label">{props.label}</span>
+      <span className="rbc-btn-group">
+        <button onClick={() => props.onView("month")}>Month</button>
+        <button onClick={() => props.onView("week")}>Week</button>
+        <button onClick={() => props.onView("day")}>Day</button>
+        <button onClick={() => props.onView("agenda")}>Events</button>
+      </span>
+    </div>
+  );
 };
 
 export default CustomToolbar;

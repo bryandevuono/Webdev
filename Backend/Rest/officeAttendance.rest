@@ -14,7 +14,7 @@ Content-Type: application/json
 {
     "Start": "2024-10-08T08:00:00Z",
     "End": "2024-10-08T17:00:00Z",
-    "UserId": "c6406c54-d6fd-4382-bf2a-a53cde700f45"
+    "UserId": "acd727ee-c141-4ff4-bf1b-5ce7758f21b2"
 }
 ### Should return: 200 Ok
 
