@@ -1,8 +1,5 @@
 import { useState } from "react";
-import { Event} from 'react-big-calendar';
-import { useNavigate } from "react-router-dom";
-import { EventRequestBody, editEvent} from "../api/Events";
-import { Event as BigCalendarEvent } from 'react-big-calendar';
+import { EventRequestBody, editEvent, deleteEvent} from "../api/Events";
 
 interface EventPopUpProps {
     currentEvent: string;
@@ -29,6 +26,13 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
         setShowPopup(false);
         setSuccess(true);
     };
+
+    const handleDeleteClick = () => {
+        deleteEvent(currentEvent);
+        setShowPopup(false);
+        setSuccess(true);
+    }
+
     return (
         <div className="popup-overlay">
             <div className="popup">
@@ -59,7 +63,6 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
                                 name="start"
                                 value={startTime}
                                 onChange={(e) => setStartTime(e.target.value)}
-                                required
                             />
                         </label>
 
@@ -70,13 +73,13 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
                                 name="end"
                                 value={endTime}
                                 onChange={(e) => setEndTime(e.target.value)}
-                                required
                             />
                         </label>
 
                         <br/>
 
                         <button type="submit">Submit</button>
+                        <button onClick={() => handleDeleteClick()}>Delete Event</button>
                         <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                     </form>
                 </div>

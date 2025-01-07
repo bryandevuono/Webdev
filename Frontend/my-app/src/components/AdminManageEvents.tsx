@@ -15,18 +15,17 @@ const AdminManageEvents = (): JSX.Element => {
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
         setEvents(AllEvents as CalendarEvent[]);
-        console.log(events);
     };
     
     const handleEventClick = (event: BigCalendarEvent) => {
         setCurrentEvent(String(event.title) || "");
         setShowPopup(true);
         setSuccess(false);
-    }
+    };
 
     useEffect(() => {
         getEvents();
-    }, [showPopup]);
+    }, [succes]);
 
     return (
     <div className='admin-dashboard'>
@@ -40,12 +39,14 @@ const AdminManageEvents = (): JSX.Element => {
             onSelectSlot={(event) => handleEventClick(event)}  
             selectable={true} 
         />
-        {showPopup ? <EventPopUp setSuccess={setSuccess} setShowPopup={setShowPopup} currentEvent={currentEvent}/> : null}
+        {showPopup ? 
+            <EventPopUp setSuccess={setSuccess} setShowPopup={setShowPopup} currentEvent={currentEvent}/> 
+        : null}
         
         {succes ? 
             <div className="success-msg">
                 <i className="fa fa-check"></i>
-                Succesfully edited the event!
+                Changes saved!
             </div> 
         : null}
     </div>

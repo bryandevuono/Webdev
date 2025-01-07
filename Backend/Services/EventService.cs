@@ -16,9 +16,9 @@ public class EventService: IEventService
         var Event = await _context.Events.FindAsync(Id);
         return Event;
     }
-    public async Task<bool> DeleteEvent(Guid? Id)
+    public async Task<bool> DeleteEvent(string? Title)
     {
-        var Event = _context.Events.SingleOrDefault(_ => _.Id == Id);
+        var Event = _context.Events.SingleOrDefault(_ => _.Title == Title);
         if(Event == null)
         {
             return false;

@@ -49,3 +49,20 @@ export const editEvent = async (eventTitle: string, eventInfo: EventRequestBody)
         return false;
     }
 }
+
+export const deleteEvent = async (eventTitle: string): Promise<boolean> => {
+    const response = await fetch(`http://localhost:5053/api/events/DeleteEvent/${eventTitle}`, {
+        method: 'DELETE',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (response.ok){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
