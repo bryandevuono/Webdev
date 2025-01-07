@@ -29,6 +29,11 @@ public class UserService : IUserService
         return await _dbContext.Users.ToListAsync();
     }
 
+    public async Task<Users> GetUserById(Guid userId)
+    {
+        return await _dbContext.Users.FirstOrDefaultAsync(u => u.Id == userId);
+    }
+
     public async Task<bool> DeleteUser([FromBody] Users user)
     {
         var userToDelete = _dbContext.Users.FirstOrDefault(u => u.Email == user.Email);
