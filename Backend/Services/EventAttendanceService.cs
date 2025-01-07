@@ -23,13 +23,21 @@ public class EventAttendanceService : IEventAttService
         return true;
     }
 
-    public async Task<List<EventAttendance>> GetAttendeesByEventId(Guid eventId)
+    public async Task<List<EventAttendance>> GetAttendeesByEventTitle(string title)
     {
-        var eventAttendances = await _context.EventAttendance
-        .Where(a => a.EventId == eventId)
-        .ToListAsync();
+        var eventEntity = await _context.Events
+        .FirstOrDefaultAsync(e => e.Title == title);
 
-        return eventAttendances;
+        if (eventEntity == null)
+        {
+            return null;
+        }
+
+        var attendees = await _context.EventAttendance
+            .Where(ea => ea.EventId == eventEntity.Id)
+            .ToListAsync();
+
+        return attendees;
     }
     public async Task<bool> AddFeedback(EventAttendance att)
     {
