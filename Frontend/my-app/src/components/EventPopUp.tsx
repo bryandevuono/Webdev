@@ -5,10 +5,9 @@ interface EventPopUpProps {
     currentEvent: string;
     setShowPopup: Function;
     setSuccess: Function;
-    setRefresh: Function;
 }
 
-const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setRefresh}: EventPopUpProps): JSX.Element => {
+const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): JSX.Element => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
@@ -26,14 +25,12 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setRefresh}: EventP
         editEvent(currentEvent, updatedEvent);
         setShowPopup(false);
         setSuccess(true);
-        setRefresh(true);
     };
 
     const handleDeleteClick = () => {
         deleteEvent(currentEvent);
         setShowPopup(false);
         setSuccess(true);
-        setRefresh(true);
     }
 
     return (
@@ -81,8 +78,8 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setRefresh}: EventP
 
                         <br/>
 
-                        <button onClick={() => handleDeleteClick()}>Delete Event</button>
                         <button type="submit">Submit</button>
+                        <button onClick={() => handleDeleteClick()}>Delete Event</button>
                         <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                     </form>
                 </div>
