@@ -8,7 +8,6 @@ import { CalendarEvent } from './EventCalendar';
 
 const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
-    const [fail, setFail] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
     const [currentEvent, setCurrentEvent] = useState<string>("");
     const [showPopup, setShowPopup] = useState(false);
@@ -48,13 +47,6 @@ const AdminManageEvents = (): JSX.Element => {
             <div className="success-msg">
                 <i className="fa fa-check"></i>
                 Changes saved!
-            </div> 
-        : null}
-
-        {fail ? 
-            <div className="fail-msg">
-                <i className="fa fa-times"></i>
-                Something went wrong!
             </div> 
         : null}
     </div>
