@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { EventRequestBody, editEvent, deleteEvent} from "../api/Events";
+import { EventRequestBody, editEvent} from "../api/Events";
 
 interface EventPopUpProps {
     currentEvent: string;
     setShowPopup: Function;
     setSuccess: Function;
+    setConfirmDelete: Function;
 }
 
-const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): JSX.Element => {
+const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: EventPopUpProps): JSX.Element => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
@@ -28,9 +29,8 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
     };
 
     const handleDeleteClick = () => {
-        deleteEvent(currentEvent);
+        setConfirmDelete(true);
         setShowPopup(false);
-        setSuccess(true);
     }
 
     return (

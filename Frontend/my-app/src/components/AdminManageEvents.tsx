@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import { getAllEvents } from '../api/Events';
+import { deleteEvent, getAllEvents } from '../api/Events';
 import Calendar from './Calendar';
 import { Event as BigCalendarEvent } from 'react-big-calendar';
 import EventPopUp from './EventPopUp';
@@ -8,6 +8,7 @@ import { CalendarEvent } from './EventCalendar';
 
 const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
     const [currentEvent, setCurrentEvent] = useState<string>("");
     const [showPopup, setShowPopup] = useState(false);
@@ -21,6 +22,12 @@ const AdminManageEvents = (): JSX.Element => {
         setCurrentEvent(String(event.title) || "");
         setShowPopup(true);
         setSuccess(false);
+    };
+
+    const handleDeleteClick = () => {
+        setConfirmDelete(false);
+        deleteEvent(currentEvent);
+        setSuccess(true);
     };
 
     useEffect(() => {
@@ -40,7 +47,12 @@ const AdminManageEvents = (): JSX.Element => {
             selectable={true} 
         />
         {showPopup ? 
-            <EventPopUp setSuccess={setSuccess} setShowPopup={setShowPopup} currentEvent={currentEvent}/> 
+            <EventPopUp 
+                setSuccess={setSuccess} 
+                setShowPopup={setShowPopup} 
+                currentEvent={currentEvent}
+                setConfirmDelete={setConfirmDelete}
+            /> 
         : null}
         
         {succes ? 
@@ -48,6 +60,16 @@ const AdminManageEvents = (): JSX.Element => {
                 <i className="fa fa-check"></i>
                 Changes saved!
             </div> 
+        : null}
+
+        {confirmDelete ? 
+            <div className="popup-overlay">
+                <div className="popup-form">
+                    <h2>Are you sure you want to delete this event?</h2>
+                    <button onClick={() => setConfirmDelete(false)}>No</button>
+                    <button onClick={() => handleDeleteClick()}>Yes</button>
+                </div>
+            </div>
         : null}
     </div>
     );
