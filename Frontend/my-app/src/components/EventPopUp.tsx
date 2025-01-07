@@ -1,16 +1,14 @@
 import { useState } from "react";
-import { Event} from 'react-big-calendar';
-import { useNavigate } from "react-router-dom";
-import { EventRequestBody, editEvent} from "../api/Events";
-import { Event as BigCalendarEvent } from 'react-big-calendar';
+import { EventRequestBody, editEvent, deleteEvent} from "../api/Events";
 
 interface EventPopUpProps {
     currentEvent: string;
     setShowPopup: Function;
     setSuccess: Function;
+    setRefresh: Function;
 }
 
-const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): JSX.Element => {
+const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setRefresh}: EventPopUpProps): JSX.Element => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
@@ -28,7 +26,16 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
         editEvent(currentEvent, updatedEvent);
         setShowPopup(false);
         setSuccess(true);
+        setRefresh(true);
     };
+
+    const handleDeleteClick = () => {
+        deleteEvent(currentEvent);
+        setShowPopup(false);
+        setSuccess(true);
+        setRefresh(true);
+    }
+
     return (
         <div className="popup-overlay">
             <div className="popup">
@@ -59,7 +66,6 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
                                 name="start"
                                 value={startTime}
                                 onChange={(e) => setStartTime(e.target.value)}
-                                required
                             />
                         </label>
 
@@ -70,12 +76,12 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
                                 name="end"
                                 value={endTime}
                                 onChange={(e) => setEndTime(e.target.value)}
-                                required
                             />
                         </label>
 
                         <br/>
 
+                        <button onClick={() => handleDeleteClick()}>Delete Event</button>
                         <button type="submit">Submit</button>
                         <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                     </form>
