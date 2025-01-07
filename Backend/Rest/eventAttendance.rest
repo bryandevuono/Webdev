@@ -1,5 +1,5 @@
 ### Get specific event attendences: 200 Ok
-GET http://localhost:5053/api/eventattendance/e69eb5c0-5f62-41bc-9e16-3fda8acabf69/attendees
+GET http://localhost:5053/api/eventattendance/title%202/attendees
 
 ### Post attendee: 200 Ok
 POST http://localhost:5053/api/eventattendance/attend HTTP/1.1

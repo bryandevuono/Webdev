@@ -27,10 +27,10 @@ public class AttendanceController : Controller
         return Ok($"User {eventAttendance.UserId} is now attending event {eventAttendance.EventId}");
     }
 
-    [HttpGet("{eventId}/attendees")]
-    public async Task<IActionResult> GetAttendees(Guid eventId)
+    [HttpGet("{title}/attendees")]
+    public async Task<IActionResult> GetAttendees(string title)
     {
-        var attendees = await _attendanceService.GetAttendeesByEventId(eventId);
+        var attendees = await _attendanceService.GetAttendeesByEventTitle(title);
         if (attendees == null || !attendees.Any())
         {
             return NotFound("No attendees found for this event.");
