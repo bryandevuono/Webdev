@@ -221,6 +221,7 @@ a:link {
   color: green;
   font-size: 14px;
   margin-top: 5px;
+  position: relative;
 }
 
 .profile-img{
