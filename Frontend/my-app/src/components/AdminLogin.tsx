@@ -45,7 +45,9 @@ const AdminLogin = (props: {
             onChange={(event) => setUsername(event.target.value)}
           />
         </label>
+
         <br />
+
         <label>
           E-mail :
           <input
@@ -53,7 +55,9 @@ const AdminLogin = (props: {
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
+
         <br />
+
         <label>
           Password:
           <input
@@ -62,7 +66,9 @@ const AdminLogin = (props: {
             onChange={(event) => setPassword(event.target.value)}
           />
         </label>
+
         <br />
+        
         <button className="admin-button" onClick={handleAdminLogin}>
           {" "}
           Login

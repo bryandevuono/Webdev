@@ -46,6 +46,7 @@ const AdminManageEvents = (): JSX.Element => {
             onSelectSlot={(event) => handleEventClick(event)}  
             selectable={true} 
         />
+        
         {showPopup ? 
             <EventPopUp 
                 setSuccess={setSuccess} 

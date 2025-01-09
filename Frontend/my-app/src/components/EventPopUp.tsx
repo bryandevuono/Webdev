@@ -14,6 +14,7 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: 
     const [location, setLocation] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
+    
     const handleSubmit = () => {
         const updatedEvent: EventRequestBody = {
             title: title,

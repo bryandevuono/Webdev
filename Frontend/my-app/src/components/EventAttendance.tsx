@@ -7,17 +7,17 @@ interface EventAttendanceProps {
     setShowEventAttendance: Function
     currentEvent: CalendarEvent
     setAttendanceSuccess: Function
+    setAttendanceError: Function
 }
 
-const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess}: EventAttendanceProps): JSX.Element => {
+const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
     const toggle = () => {
         setShowEventAttendance(false);
     }
 
     const handleSubmit = () => {
-        AttendEvent(currentEvent.title);
+        AttendEvent(currentEvent.title, setAttendanceSuccess, setAttendanceError);
         setShowEventAttendance(false);
-        setAttendanceSuccess(true);
     }
     return (
         <div className="popup-overlay">

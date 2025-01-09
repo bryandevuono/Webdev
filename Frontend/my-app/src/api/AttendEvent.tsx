@@ -9,7 +9,7 @@ type AttendEventBody = {
     FeedBack: string
 }
 
-export const AttendEvent = async (event: string): Promise<boolean> => {
+export const AttendEvent = async (event: string, setAttendanceSuccess:Function, setAttendanceError: Function): Promise<boolean> => {
     console.log(await getEventId(event));
     const body: AttendEventBody = {
         UserId: await getUserId(),
@@ -28,9 +28,10 @@ export const AttendEvent = async (event: string): Promise<boolean> => {
   const response = await fetch("http://localhost:5053/api/eventattendance/attend", requestOptions);
   
   if (response.ok) {
-    console.log(response);
+    setAttendanceSuccess(true);
     return true;
   } else {
+    setAttendanceError(true);
     return false;
   }
 };

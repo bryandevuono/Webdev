@@ -29,22 +29,30 @@ const SignUpScreen = (): JSX.Element => {
                     Firstname:
                     <input className="input-style" onChange={(event) => setFirstName(event.target.value)} />
                 </label>
+
                 <br />
+
                 <label>
                     Lastname:
                     <input className="input-style" onChange={(event) => setLastName(event.target.value)} />
                 </label>
+
                 <br />
+
                 <label>
                     Username:
                     <input className="input-style" onChange={(event) => setEmail(event.target.value)} />
                 </label>
+
                 <br />
+
                 <label>
                     Password:
                     <input type="password" className="input-style" onChange={(event) => setPassword(event.target.value)} />
                 </label>
+
                 <br />
+                
                 <button className="login-button" onClick={() => handleSignUp(firstName, lastName, email, password)}>Sign up</button>
                 
                 {errorMessage ? <p className="error-text">Missing required fields!</p> : null}

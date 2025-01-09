@@ -39,6 +39,7 @@ const LoginScreen = ({ setAuthorized }: LoginScreenProps): JSX.Element => {
   return (
     <div className="flexbox">
       <div className="login-box">
+        
         <label>
           Username:{" "}
           <input
@@ -46,7 +47,9 @@ const LoginScreen = ({ setAuthorized }: LoginScreenProps): JSX.Element => {
             onChange={(event) => setEmail(event.target.value)}
           />
         </label>
+
         <br />
+
         <label>
           Password:{" "}
           <input
@@ -56,12 +59,15 @@ const LoginScreen = ({ setAuthorized }: LoginScreenProps): JSX.Element => {
           />
         </label>
         <br />
+
         <button className="login-button" onClick={handleLoginClick}>
           Login
         </button>
+
         <Link className="signup-button" to={"/signup"}>
           <p>Sign up</p>
         </Link>
+        
         <Link className="signup-button" to={"/adminlogin"}>
           <p>Login as an admin</p>
         </Link>
