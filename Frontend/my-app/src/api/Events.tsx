@@ -76,6 +76,5 @@ export const getEventId = async (eventTitle: string): Promise<string> => {
     });
 
     const data = await response.text();
-    console.log(data);
-    return data;
+    return data.replace(/^"|"$/g, '');;
 }

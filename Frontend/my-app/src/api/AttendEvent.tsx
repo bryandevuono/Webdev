@@ -10,10 +10,10 @@ type AttendEventBody = {
 }
 
 export const AttendEvent = async (event: string): Promise<boolean> => {
-    console.log(event);
+    console.log(await getEventId(event));
     const body: AttendEventBody = {
         UserId: await getUserId(),
-        EventId: await getEventId(event as string),
+        EventId: await getEventId(event),
         Rating: "",
         FeedBack: ""
     }
@@ -24,7 +24,7 @@ export const AttendEvent = async (event: string): Promise<boolean> => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
     };
-
+    console.log(requestOptions.body);
   const response = await fetch("http://localhost:5053/api/eventattendance/attend", requestOptions);
   
   if (response.ok) {
