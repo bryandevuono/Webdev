@@ -22,13 +22,12 @@ public class Program
             options.UseNpgsql(builder.Configuration.GetConnectionString("PostgreSqlConnection")));
 
         builder.Services.AddDistributedMemoryCache();
+
         builder.Services.AddSession(options =>
         {
             options.IdleTimeout = TimeSpan.FromMinutes(30);
             options.Cookie.HttpOnly = true;
             options.Cookie.IsEssential = true;
-            options.Cookie.SameSite = SameSiteMode.None; 
-            options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
         });
 
         builder.Services.AddControllers();
