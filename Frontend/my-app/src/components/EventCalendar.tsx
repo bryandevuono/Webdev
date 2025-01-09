@@ -3,6 +3,7 @@ import Calendar from "./Calendar";
 import { momentLocalizer } from "react-big-calendar";
 import toolBar from "./Toolbar";
 import moment from "moment";
+import {Event as BigCalendarEvent} from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendance from "./EventAttendance";
@@ -18,6 +19,7 @@ export default function EventCalendar(): JSX.Element {
   const [events, setEvents] = useState<CalendarEvent[]>();
   const [officeAttendace, setOfficeAttendace] = useState<CalendarEvent[]>();
   const [showEventAttendance, setShowEventAttendance] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState<BigCalendarEvent|undefined> (undefined);
 
   const getEvents = async () => {
     const AllEvents = await getAllEvents();
@@ -34,6 +36,10 @@ export default function EventCalendar(): JSX.Element {
     setOfficeAttendace(convertedOfficeAttendace as CalendarEvent[]);
   };
 
+  const handleEventClick = (event: BigCalendarEvent) => {
+    setCurrentEvent(event);
+    setShowEventAttendance(true);
+  }
   useEffect(() => {
     getEvents();
     getOfficeAttendace();
@@ -44,11 +50,14 @@ export default function EventCalendar(): JSX.Element {
       <Calendar 
         events={[...(events || []), ...(officeAttendace || [])]} 
         components={{ toolbar: toolBar }} 
-        onSelectEvent={() => setShowEventAttendance(true)}
+        onSelectEvent={(event) => handleEventClick(event)}
       />
 
       {showEventAttendance ?
-        <EventAttendance setShowEventAttendance={setShowEventAttendance}/>
+        <EventAttendance 
+          setShowEventAttendance={setShowEventAttendance}
+          currentEvent={currentEvent as CalendarEvent}
+        />
       : null}
     </>
   );
