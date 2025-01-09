@@ -1,3 +1,4 @@
+
 import {useEffect, useState} from "react";
 import { getUserInfo, logOut } from "../api/Login";
 import { Link } from "react-router-dom";
@@ -15,6 +16,7 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
     try {
       const UsernameFromAPI = await getUserInfo();
       setUserName(UsernameFromAPI);
+      console.log(UserName);
     } catch (error) {
       console.error("Failed to fetch username:", error);
     }

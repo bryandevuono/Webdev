@@ -11,7 +11,6 @@ const AdminDashboard = (): JSX.Element => {
         <div>
             <AdminNavbar eventsToggle={setEventToggle} usersToggle={setUserToggle} />
             {eventToggle ? <AdminManageEvents /> : null}
-            
         </div>
     );
 }

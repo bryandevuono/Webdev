@@ -37,6 +37,17 @@ public class AttendanceController : Controller
         }
         return Ok(attendees);
     }
+    
+    [HttpGet("getId/{title}")]
+    public async Task<IActionResult> GetEventId(string title)
+    {
+        var eventObj = await _attendanceService.GetIdByTitle(title);
+        if (eventObj == null)
+        {
+            return NotFound("Event not found.");
+        }
+        return Ok(eventObj);
+    }
 
     [HttpDelete("{userId}/{eventId}")]
     public async Task<IActionResult> DeleteAttendance([FromRoute] Guid userId, [FromRoute] Guid eventId)
