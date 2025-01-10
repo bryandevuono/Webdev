@@ -57,10 +57,6 @@ export default function EventCalendar(): JSX.Element {
 
   const makeEventCategories = (event: CalendarEvent) => {
     let backgroundColor = '';
-
-    if (event.kind == 'event' && currentView == 'MONTH') {
-      backgroundColor = 'blue';
-    } 
     if (event.kind == 'event' && currentView == 'agenda') {
       backgroundColor = 'white';
     }
