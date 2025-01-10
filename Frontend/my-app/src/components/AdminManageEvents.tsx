@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
-import { deleteEvent, getAllEvents } from '../api/Events';
+import { deleteEvent, getAllEvents, OfficeEvent } from '../api/Events';
 import Calendar from './Calendar';
-import { Event as BigCalendarEvent } from 'react-big-calendar';
 import EventPopUp from './EventPopUp';
 import { CalendarEvent } from './EventCalendar';
 
@@ -18,7 +17,7 @@ const AdminManageEvents = (): JSX.Element => {
         setEvents(AllEvents as CalendarEvent[]);
     };
     
-    const handleEventClick = (event: BigCalendarEvent) => {
+    const handleEventClick = (event: OfficeEvent) => {
         setCurrentEvent(String(event.title) || "");
         setShowPopup(true);
         setSuccess(false);
@@ -41,9 +40,8 @@ const AdminManageEvents = (): JSX.Element => {
             events={events} 
             className="admin-events" 
             view="agenda" 
-            onSelectEvent={(event) => handleEventClick(event)}
+            onSelectEvent={(event) => handleEventClick(event as OfficeEvent)}
             toolbar={false}
-            onSelectSlot={(event) => handleEventClick(event)}  
             selectable={true} 
         />
         

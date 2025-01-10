@@ -31,14 +31,14 @@ public class EventController : Controller
     }
 
     [ServiceFilter(typeof(AuthenticationFilter))]
-    [HttpDelete("DeleteEvent/{Title}")]
-    public async Task<IActionResult> DeleteEvent(string Title)
+    [HttpDelete("DeleteEvent/{Id}")]
+    public async Task<IActionResult> DeleteEvent(Guid? Id)
     {
-        if(Title == null)
+        if(Id == null)
         {
             return NotFound();
         }
-        var result = await _eventservice.DeleteEvent(Title);
+        var result = await _eventservice.DeleteEvent(Id);
         if(result)
         {
             return Ok("Deleted succesfully");

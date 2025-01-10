@@ -1,7 +1,8 @@
 import { Event } from "react-big-calendar"
+import { CalendarEvent } from "../components/EventCalendar";
 
-export type OfficeEvent = Event & {
-    type: "event",
+export type OfficeEvent = CalendarEvent & {
+    kind: "event",
     eventId: string
 }
 
@@ -19,7 +20,7 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
 
     for (let i = 0; i < data.length; i++) {
         const EventToAdd: OfficeEvent = {
-            type: "event",
+            kind: "event",
             start: new Date(data[i].startTime),
             end: new Date(data[i].endTime),
             title: data[i].title,
@@ -56,8 +57,8 @@ export const editEvent = async (eventTitle: string, eventInfo: EventRequestBody)
     }
 }
 
-export const deleteEvent = async (eventTitle: string): Promise<boolean> => {
-    const response = await fetch(`http://localhost:5053/api/eventattendance/getId/${eventTitle}`, {
+export const deleteEvent = async (eventId: string): Promise<boolean> => {
+    const response = await fetch(`http://localhost:5053/api/events/DeleteEvent/${eventId}`, {
         method: 'DELETE',
         credentials: 'include' as RequestCredentials,
         headers: {
@@ -71,17 +72,4 @@ export const deleteEvent = async (eventTitle: string): Promise<boolean> => {
     else{
         return false;
     }
-}
-
-export const getEventId = async (eventTitle: string): Promise<string> => {
-    const response = await fetch(`http://localhost:5053/api/eventattendance/getId/${eventTitle}`, {
-        method: 'GET',
-        credentials: 'include' as RequestCredentials,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    });
-
-    const data = await response.text();
-    return data.replace(/^"|"$/g, '');;
 }

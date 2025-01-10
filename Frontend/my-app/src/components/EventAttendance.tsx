@@ -1,11 +1,12 @@
 import React from "react";
 import { AttendEvent } from "../api/AttendEvent";
-import Event from "react-big-calendar";
+import { Event } from "react-big-calendar";
 import { CalendarEvent } from "./EventCalendar";
+import { OfficeEvent } from "../api/Events";
 
 interface EventAttendanceProps {
     setShowEventAttendance: Function
-    currentEvent: CalendarEvent
+    currentEvent: OfficeEvent
     setAttendanceSuccess: Function
     setAttendanceError: Function
 }
@@ -16,7 +17,7 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
     }
 
     const handleSubmit = () => {
-        AttendEvent(currentEvent.title, setAttendanceSuccess, setAttendanceError);
+        AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
         setShowEventAttendance(false);
     }
     return (
