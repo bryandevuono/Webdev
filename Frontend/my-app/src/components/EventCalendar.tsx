@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Calendar from "./Calendar";
 import toolBar from "./Toolbar";
+import { OfficeEvent } from "../api/Events";
+import Legend from "./Legend";
 import {Event as BigCalendarEvent} from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
@@ -29,6 +31,7 @@ export default function EventCalendar(): JSX.Element {
   const getOfficeAttendace = async () => {
     const AllOfficeAttendace = await GetAllOfficeAttendace();
     const convertedOfficeAttendace = await Promise.all(AllOfficeAttendace.map(async (attendance) => ({
+      type: 'office attendance',
       start: new Date(attendance.Start),
       end: new Date(attendance.End),
       title: await GetUserName(attendance.UserId),
@@ -46,14 +49,26 @@ export default function EventCalendar(): JSX.Element {
     getOfficeAttendace();
   }, []);
 
+  const makeEventCategories = (event: BigCalendarEvent) => {
+    let backgroundColor = '';
+    if ('type' in event && event.type === 'event') {
+      backgroundColor = 'blue';
+    } else {
+      backgroundColor = 'grey';
+    }
+    return { style: { backgroundColor } };
+  };
+
   return (
     <>
       <Calendar 
         events={[...(events || []), ...(officeAttendace || [])]} 
         components={{ toolbar: toolBar }} 
         onSelectEvent={(event) => handleEventClick(event)}
+        eventPropGetter={makeEventCategories}
       />
 
+      <Legend/>
       {showEventAttendance ?
         <EventAttendance 
           setShowEventAttendance={setShowEventAttendance}

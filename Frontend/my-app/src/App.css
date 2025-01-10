@@ -359,3 +359,34 @@ input[type=submit]:hover {
   top: 20%;
   left: 55%;
 }
+
+.legend {
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
+}
+
+.legend p {
+  font-weight: bold;
+  margin: 0;
+  font-size: 14px; /* Slightly adjust the font size for consistency */
+}
+
+.legend-item-1,
+.legend-item-2 {
+  display: flex;
+  align-items: center; /* Ensures vertical alignment of the block with the text */
+  margin-bottom: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.legend-item-1 p,
+.legend-item-2 p {
+  margin: 0;
+  font-size: 14px; 
+}

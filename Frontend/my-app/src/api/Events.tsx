@@ -1,6 +1,7 @@
 import { Event } from "react-big-calendar"
 
 export type OfficeEvent = Event & {
+    type: "event",
     eventId: string
 }
 
@@ -18,6 +19,7 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
 
     for (let i = 0; i < data.length; i++) {
         const EventToAdd: OfficeEvent = {
+            type: "event",
             start: new Date(data[i].startTime),
             end: new Date(data[i].endTime),
             title: data[i].title,
