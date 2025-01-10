@@ -115,6 +115,15 @@ a:link {
   width: 100%;
 }
 
+.card{
+  border: solid 1px rgb(177, 167, 167);
+  border-radius: 16px;
+  padding: 16px;
+  width: 50%;
+  margin: 16px;
+  border-color: rgb(193, 181, 181);
+}
+
 .login-box{
   display: flex;
   flex-direction: column;
