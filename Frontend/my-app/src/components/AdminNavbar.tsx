@@ -14,6 +14,8 @@ const AdminNavbar = ({ usersToggle, eventsToggle }: AdminNavbarProps): JSX.Eleme
                     <li className="astext" onClick={() => eventsToggle(true)}>Manage events</li>
                     <br/>
                     <li className="astext" onClick={() => usersToggle(true)}>Manage users</li>
+                    <br/>
+                    <li className="astext" onClick={() => usersToggle(true)}>Statistics</li>
                 </ul>
             </nav>
         </div>
