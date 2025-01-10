@@ -1,19 +1,17 @@
 import { Event } from "react-big-calendar";
 import { getUserId } from "./Login";
-import { getEventId } from "./Events";
 
 type AttendEventBody = {
-    UserId: string,
-    EventId: string,
-    Rating: string,
-    FeedBack: string
+  UserId: string,
+  EventId: string,
+  Rating: string,
+  FeedBack: string
 }
 
-export const AttendEvent = async (event: string, setAttendanceSuccess:Function, setAttendanceError: Function): Promise<boolean> => {
-    console.log(await getEventId(event));
+export const AttendEvent = async (eventId: string, setAttendanceSuccess:Function, setAttendanceError: Function): Promise<boolean> => {
     const body: AttendEventBody = {
         UserId: await getUserId(),
-        EventId: await getEventId(event),
+        EventId: eventId,
         Rating: "",
         FeedBack: ""
     }
@@ -24,7 +22,7 @@ export const AttendEvent = async (event: string, setAttendanceSuccess:Function, 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
     };
-    console.log(requestOptions.body);
+    
   const response = await fetch("http://localhost:5053/api/eventattendance/attend", requestOptions);
   
   if (response.ok) {

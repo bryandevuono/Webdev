@@ -16,9 +16,9 @@ public class EventService: IEventService
         var Event = await _context.Events.FindAsync(Id);
         return Event;
     }
-    public async Task<bool> DeleteEvent(string? Title)
+    public async Task<bool> DeleteEvent(Guid? Id)
     {
-        var Event = _context.Events.SingleOrDefault(_ => _.Title == Title);
+        var Event = _context.Events.SingleOrDefault(_ => _.Id == Id);
         if(Event == null)
         {
             return false;
@@ -43,9 +43,9 @@ public class EventService: IEventService
         return false;
     }
 
-    public async Task<bool> EditEvent(Events _event, string _title)
+    public async Task<bool> EditEvent(Events _event, Guid Id)
     {
-        var ToEditEvent = await _context.Events.SingleOrDefaultAsync(_ => _.Title == _title);
+        var ToEditEvent = await _context.Events.SingleOrDefaultAsync(_ => _.Id == Id);
     	if(ToEditEvent == null)
         {
             return false;

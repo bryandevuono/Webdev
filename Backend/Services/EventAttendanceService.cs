@@ -129,17 +129,4 @@ public class EventAttendanceService : IEventAttService
         return (false, "Points not saved");
 
     }
-
-    public async Task<Guid?> GetIdByTitle(string title)
-    {
-        var eventEntity = await _context.Events
-        .FirstOrDefaultAsync(e => e.Title == title);
-
-        if (eventEntity == null)
-        {
-            return Guid.Empty;
-        }
-
-        return eventEntity.Id;
-    }
 }

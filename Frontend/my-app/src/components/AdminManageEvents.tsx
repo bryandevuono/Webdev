@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
-import { deleteEvent, getAllEvents } from '../api/Events';
+import { deleteEvent, getAllEvents, OfficeEvent } from '../api/Events';
 import Calendar from './Calendar';
-import { Event as BigCalendarEvent } from 'react-big-calendar';
 import EventPopUp from './EventPopUp';
 import { CalendarEvent } from './EventCalendar';
 
@@ -10,7 +9,7 @@ const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    const [currentEvent, setCurrentEvent] = useState<string>("");
+    const [currentEvent, setCurrentEvent] = useState<OfficeEvent|undefined>(undefined);
     const [showPopup, setShowPopup] = useState(false);
 
     const getEvents = async () => {
@@ -18,16 +17,18 @@ const AdminManageEvents = (): JSX.Element => {
         setEvents(AllEvents as CalendarEvent[]);
     };
     
-    const handleEventClick = (event: BigCalendarEvent) => {
-        setCurrentEvent(String(event.title) || "");
+    const handleEventClick = (event: OfficeEvent) => {
+        setCurrentEvent(event);
         setShowPopup(true);
         setSuccess(false);
     };
 
     const handleDeleteClick = () => {
         setConfirmDelete(false);
-        deleteEvent(currentEvent);
-        setSuccess(true);
+        if (currentEvent !== undefined && currentEvent.kind === "event") {
+            deleteEvent(currentEvent.eventId);
+            setSuccess(true);
+        }
     };
 
     useEffect(() => {
@@ -41,9 +42,8 @@ const AdminManageEvents = (): JSX.Element => {
             events={events} 
             className="admin-events" 
             view="agenda" 
-            onSelectEvent={(event) => handleEventClick(event)}
+            onSelectEvent={(event) => handleEventClick(event as OfficeEvent)}
             toolbar={false}
-            onSelectSlot={(event) => handleEventClick(event)}  
             selectable={true} 
         />
         
@@ -51,7 +51,7 @@ const AdminManageEvents = (): JSX.Element => {
             <EventPopUp 
                 setSuccess={setSuccess} 
                 setShowPopup={setShowPopup} 
-                currentEvent={currentEvent}
+                currentEvent={currentEvent as OfficeEvent}
                 setConfirmDelete={setConfirmDelete}
             /> 
         : null}
