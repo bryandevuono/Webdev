@@ -50,7 +50,6 @@ export default function EventCalendar(): JSX.Element {
   useEffect(() => {
     getEvents();
     getOfficeAttendace();
-    console.log(events);
   }, []);
 
   const makeEventCategories = (event: CalendarEvent) => {

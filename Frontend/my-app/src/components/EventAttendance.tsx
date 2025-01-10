@@ -1,7 +1,5 @@
 import React from "react";
 import { AttendEvent } from "../api/AttendEvent";
-import { Event } from "react-big-calendar";
-import { CalendarEvent } from "./EventCalendar";
 import { OfficeEvent } from "../api/Events";
 
 interface EventAttendanceProps {
@@ -17,8 +15,12 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
     }
 
     const handleSubmit = () => {
-        AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
-        setShowEventAttendance(false);
+        if (currentEvent.kind === "event") {
+            AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
+            setShowEventAttendance(false);
+        } else {
+            setAttendanceError(true);
+        }
     }
     return (
         <div className="popup-overlay">

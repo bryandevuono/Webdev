@@ -9,7 +9,7 @@ const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    const [currentEvent, setCurrentEvent] = useState<string>("");
+    const [currentEvent, setCurrentEvent] = useState<OfficeEvent|undefined>(undefined);
     const [showPopup, setShowPopup] = useState(false);
 
     const getEvents = async () => {
@@ -18,15 +18,17 @@ const AdminManageEvents = (): JSX.Element => {
     };
     
     const handleEventClick = (event: OfficeEvent) => {
-        setCurrentEvent(String(event.title) || "");
+        setCurrentEvent(event);
         setShowPopup(true);
         setSuccess(false);
     };
 
     const handleDeleteClick = () => {
         setConfirmDelete(false);
-        deleteEvent(currentEvent);
-        setSuccess(true);
+        if (currentEvent !== undefined && currentEvent.kind === "event") {
+            deleteEvent(currentEvent.eventId);
+            setSuccess(true);
+        }
     };
 
     useEffect(() => {
@@ -49,7 +51,7 @@ const AdminManageEvents = (): JSX.Element => {
             <EventPopUp 
                 setSuccess={setSuccess} 
                 setShowPopup={setShowPopup} 
-                currentEvent={currentEvent}
+                currentEvent={currentEvent as OfficeEvent}
                 setConfirmDelete={setConfirmDelete}
             /> 
         : null}

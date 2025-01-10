@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { EventRequestBody, editEvent} from "../api/Events";
+import { EventRequestBody, OfficeEvent, editEvent} from "../api/Events";
 
 interface EventPopUpProps {
-    currentEvent: string;
+    currentEvent: OfficeEvent;
     setShowPopup: Function;
     setSuccess: Function;
     setConfirmDelete: Function;
@@ -24,7 +24,7 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: 
             endTime: endTime
         }
         
-        editEvent(currentEvent, updatedEvent);
+        editEvent(currentEvent.eventId, updatedEvent);
         setShowPopup(false);
         setSuccess(true);
     };

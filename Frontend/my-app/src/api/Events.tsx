@@ -39,8 +39,8 @@ export type EventRequestBody = {
     endTime: string
 } 
 
-export const editEvent = async (eventTitle: string, eventInfo: EventRequestBody): Promise<boolean> => {
-    const response = await fetch(`http://localhost:5053/api/events/EditEvent?Title=${eventTitle}`, {
+export const editEvent = async (eventId: string, eventInfo: EventRequestBody): Promise<boolean> => {
+    const response = await fetch(`http://localhost:5053/api/events/EditEvent?Id=${eventId}`, {
         method: 'PUT',
         credentials: 'include' as RequestCredentials,
         headers: {
@@ -48,7 +48,7 @@ export const editEvent = async (eventTitle: string, eventInfo: EventRequestBody)
         },
         body: JSON.stringify(eventInfo)
     });
-
+    console.log(response);
     if (response.ok){
         return true;
     }
@@ -65,8 +65,9 @@ export const deleteEvent = async (eventId: string): Promise<boolean> => {
             'Content-Type': 'application/json'
         }
     });
-
+    console.log(response);
     if (response.ok){
+        console.log("deleted event");
         return true;
     }
     else{

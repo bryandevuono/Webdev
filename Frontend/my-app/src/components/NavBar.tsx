@@ -14,7 +14,6 @@ const NavBar = ({ navItems, loggedIn }: NavBarItemProps): JSX.Element => {
   const getUserName = async () => {
     const userName = await getUserInfo();
     setUsername(userName);
-    console.log(userName);
   };
 
   useEffect(() => {
