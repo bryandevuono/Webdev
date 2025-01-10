@@ -20,6 +20,7 @@ export default function EventCalendar(): JSX.Element {
   const [officeAttendace, setOfficeAttendace] = useState<CalendarEvent[]>();
   const [showEventAttendance, setShowEventAttendance] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<CalendarEvent|undefined> (undefined);
+  const [currentView , setCurrentView] = useState('month');
   
   const [attendanceSuccess, setAttendanceSuccess] = useState(false);
   const [attendanceError, setAttendanceError] = useState(false);
@@ -43,8 +44,10 @@ export default function EventCalendar(): JSX.Element {
   };
 
   const handleEventClick = (event: CalendarEvent) => {
-    setCurrentEvent(event);
-    setShowEventAttendance(true);
+    if(event.kind == 'event') {
+      setCurrentEvent(event);
+      setShowEventAttendance(true);
+    }
   }
 
   useEffect(() => {
@@ -54,9 +57,10 @@ export default function EventCalendar(): JSX.Element {
 
   const makeEventCategories = (event: CalendarEvent) => {
     let backgroundColor = '';
-    if (event.kind == 'event') {
-      backgroundColor = 'blue';
-    } else {
+    if (event.kind == 'event' && currentView == 'agenda') {
+      backgroundColor = 'white';
+    }
+    if(event.kind == 'office attendance') {
       backgroundColor = 'grey';
     }
     return { style: { backgroundColor } };
@@ -69,6 +73,7 @@ export default function EventCalendar(): JSX.Element {
         components={{ toolbar: toolBar }} 
         onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
         eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
+        onView={(view) => setCurrentView(view)}
       />
 
       <Legend/>

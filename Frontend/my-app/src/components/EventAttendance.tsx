@@ -15,7 +15,7 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
     }
 
     const handleSubmit = () => {
-        if (currentEvent.kind === "event") {
+        if (currentEvent.kind == "event") {
             AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
             setShowEventAttendance(false);
         } else {
