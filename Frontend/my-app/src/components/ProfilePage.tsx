@@ -43,8 +43,8 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
 
   return (
     <div className="flexbox">
-      <div className="profile-page">
-        <p className="">E-mail/Username: {UserName}</p>
+      <div className="card">
+        <h1>Hi, {UserName}!</h1>
         <p>Points: {Points}</p>
         <Link to={"/"}>
           <button className="login-button" onClick={() => LogOutAPI()}>
