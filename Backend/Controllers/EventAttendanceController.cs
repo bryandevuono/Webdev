@@ -50,4 +50,15 @@ public class AttendanceController : Controller
         return Ok($"User {userId} is no longer attending event {eventId}");
     }
 
+    [HttpPut()]
+    public async Task<IActionResult> PutEventAttendance([FromBody] EventAttendance attendance)
+    {
+        var succes = await _attendanceService.PutEventAttendance(attendance);
+        if (!succes)
+        {
+            return NotFound("Attendance not found.");
+        }
+        return Ok(succes);
+    }
+
 }

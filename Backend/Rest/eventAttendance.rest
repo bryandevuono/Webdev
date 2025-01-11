@@ -6,11 +6,11 @@ POST http://localhost:5053/api/eventattendance/attend HTTP/1.1
 Content-type: application/json
 
 {
-    "Id": "4d7c5205-c943-4f87-8f82-71581ba21b60",
-    "UserId": "1bc45817-9880-4c7a-aef8-5c03f2b9ea5d",
+    "UserId": "0b144a50-ebf0-4009-a7c7-751436e3d09f",
     "EventId": "e69eb5c0-5f62-41bc-9e16-3fda8acabf69",
-    "Rating": "3 Sterren",
-    "FeedBack": ""
+    "AttendedOn": ,
+    "Rating": "3",
+    "FeedBack": "Cool"
 }
 
 ### Post attendee non-existent Id: 400 BadRequest
@@ -28,3 +28,15 @@ DELETE http://localhost:5053/api/eventattendance/1bc45817-9880-4c7a-aef8-5c03f2b
 
 ### Remove attendee: 400 NotFound
 DELETE http://localhost:5053/api/eventattendance/7198120a-c606-4302-ac8f-ddf39101171c/c99a86da7-d49e-452b-b5f7-3d96ec8eb601 HTTP/1.1
+
+### Put attendance: 200 Ok
+PUT http://localhost:5053/api/eventattendance HTTP/1.1
+Content-type: application/json
+
+{
+    "Id": "ce0fbbc3-2fde-4dc2-83b1-82f52732a98a",
+    "UserId": "c6406c54-d6fd-4382-bf2a-a53cde700f45",
+    "EventId": "f4b911a8-582b-4e9e-8d1a-bb5cf3d2bb81",
+    "Rating": "5",
+    "FeedBack": "Greatly organized!"
+}
