@@ -7,6 +7,8 @@ Content-type: application/json
 {
     "UserId": "1bc45817-9880-4c7a-aef8-5c03f2b9ea5d",
     "EventId": "e69eb5c0-5f62-41bc-9e16-3fda8acabf69",
+    "Rating": "",
+    "FeedBack": ""
 
 }
 
