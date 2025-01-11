@@ -67,14 +67,14 @@ public class EventController : Controller
 
     [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpPut("EditEvent")]
-    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery]string Title)
+    public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery]Guid Id)
     {
         if(NewEvent == null)
         {
             return BadRequest();
         }
         
-        var result = await _eventservice.EditEvent(NewEvent, Title);
+        var result = await _eventservice.EditEvent(NewEvent, Id);
         if(result)
         {
             return Ok();

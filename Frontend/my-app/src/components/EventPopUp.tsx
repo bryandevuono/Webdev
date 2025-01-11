@@ -1,21 +1,20 @@
 import { useState } from "react";
-import { Event} from 'react-big-calendar';
-import { useNavigate } from "react-router-dom";
-import { EventRequestBody, editEvent} from "../api/Events";
-import { Event as BigCalendarEvent } from 'react-big-calendar';
+import { EventRequestBody, OfficeEvent, editEvent} from "../api/Events";
 
 interface EventPopUpProps {
-    currentEvent: string;
+    currentEvent: OfficeEvent;
     setShowPopup: Function;
     setSuccess: Function;
+    setConfirmDelete: Function;
 }
 
-const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): JSX.Element => {
+const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: EventPopUpProps): JSX.Element => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
+    
     const handleSubmit = () => {
         const updatedEvent: EventRequestBody = {
             title: title,
@@ -25,10 +24,16 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
             endTime: endTime
         }
         
-        editEvent(currentEvent, updatedEvent);
+        editEvent(currentEvent.eventId, updatedEvent);
         setShowPopup(false);
         setSuccess(true);
     };
+
+    const handleDeleteClick = () => {
+        setConfirmDelete(true);
+        setShowPopup(false);
+    }
+
     return (
         <div className="popup-overlay">
             <div className="popup">
@@ -59,7 +64,6 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
                                 name="start"
                                 value={startTime}
                                 onChange={(e) => setStartTime(e.target.value)}
-                                required
                             />
                         </label>
 
@@ -70,13 +74,13 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess}: EventPopUpProps): 
                                 name="end"
                                 value={endTime}
                                 onChange={(e) => setEndTime(e.target.value)}
-                                required
                             />
                         </label>
 
                         <br/>
 
                         <button type="submit">Submit</button>
+                        <button onClick={() => handleDeleteClick()}>Delete Event</button>
                         <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                     </form>
                 </div>

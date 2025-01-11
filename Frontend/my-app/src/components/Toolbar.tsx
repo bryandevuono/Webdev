@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../Toolbar.css";
 
 interface OfficeAttendanceInput {
+  type: "office attendance";
   Start: string;
   End: string;
   UserId: string;
@@ -15,6 +16,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
   const [Id, setId] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState<OfficeAttendanceInput>({
+    type: "office attendance",
     Start: "",
     End: "",
     UserId: "",

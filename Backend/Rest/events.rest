@@ -11,7 +11,7 @@ GET http://localhost:5053/api/events?Id=c99a86a7-d49e-452b-b5f7-3d96ec8eb601
 GET http://localhost:5053/api/events?Id=25324156341
 
 ### Removes an event by ID: 200 Ok
-DELETE http://localhost:5053/api/events/DeleteEvent/c99a86a7-d49e-452b-b5f7-3d96ec8eb601
+DELETE http://localhost:5053/api/events/DeleteEvent/8a2b380d-41ea-48aa-b48b-7ddb96a4a394
 
 ### Removes an event by ID with an invalid Id: 404 NotFound
 DELETE http://localhost:5053/api/events/DeleteEvent/1456

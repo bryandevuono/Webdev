@@ -71,11 +71,23 @@ public class LoginService : ILoginService
         return _httpContextAccessor.HttpContext.Session.GetString(SessionKeyRole);
     }
 
-    public async Task<Guid> GetLoggedInUserId()
+public async Task<Guid> GetLoggedInUserId()
+{
+    var userId = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUserId);
+
+    if (string.IsNullOrEmpty(userId))
     {
-        var userId = _httpContextAccessor.HttpContext.Session.GetString(SessionKeyUserId);
-        return Guid.Parse(userId);
+        throw new InvalidOperationException("User ID is not found in the session.");
     }
+
+    if (!Guid.TryParse(userId, out var parsedUserId))
+    {
+        throw new FormatException("The User ID in the session is not a valid GUID.");
+    }
+
+    return parsedUserId;
+}
+
 
     public async Task<bool> Logout()
     {

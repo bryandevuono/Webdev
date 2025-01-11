@@ -23,6 +23,7 @@ public class RankingController : Controller
     public async Task<IActionResult> GetPointsForUser()
     {
         Guid id = await _loginService.GetLoggedInUserId();
+        Console.WriteLine(id);
         int points = await _rankingService.GetPointsForUser(id);
         return Ok(points);
     }

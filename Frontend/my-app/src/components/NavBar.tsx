@@ -25,6 +25,7 @@ const NavBar = ({ navItems, loggedIn }: NavBarItemProps): JSX.Element => {
       <h1 className="navbar-text">
         <Link to={"/Calendar"}>Office Calendar</Link>
       </h1>
+
       <div className="navbar-button-container">
         <ul className="navbar-buttons">
           {loggedIn
@@ -37,12 +38,17 @@ const NavBar = ({ navItems, loggedIn }: NavBarItemProps): JSX.Element => {
               ))
             : null}
         </ul>
+
         {loggedIn ? (
           <Link to={"/profile"} className="profile-img">
             <img alt="" className="profile-img" src={ProfileImg}></img>
           </Link>
         ) : null}
-        {loggedIn ? <p className="profile-text">{username}</p> : null}
+
+        {loggedIn ? 
+          <p className="profile-text">{username}</p> 
+        : null}
+        
       </div>
     </header>
   );

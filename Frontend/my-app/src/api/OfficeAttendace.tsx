@@ -1,4 +1,5 @@
 type OfficeAttendance = {
+    type: "office attendance";
     Start: string;
     End: string;
     UserId: string;
@@ -18,6 +19,7 @@ export const GetAllOfficeAttendace = async (): Promise<Array<OfficeAttendance>> 
 
     for (let i = 0; i < data.length; i++) {
         const OfficeAttendanceToAdd: OfficeAttendance = {
+            type: "office attendance",
             Start: data[i].start,
             End: data[i].end,
             UserId: data[i].userId

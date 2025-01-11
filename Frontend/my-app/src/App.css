@@ -115,6 +115,15 @@ a:link {
   width: 100%;
 }
 
+.card{
+  border: solid 1px rgb(177, 167, 167);
+  border-radius: 16px;
+  padding: 16px;
+  width: 50%;
+  margin: 16px;
+  border-color: rgb(193, 181, 181);
+}
+
 .login-box{
   display: flex;
   flex-direction: column;
@@ -221,6 +230,7 @@ a:link {
   color: green;
   font-size: 14px;
   margin-top: 5px;
+  position: relative;
 }
 
 .profile-img{
@@ -358,6 +368,38 @@ input[type=submit]:hover {
   top: 20%;
   left: 55%;
 }
+
+.legend {
+  margin: 10px 0;
+  font-family: Arial, sans-serif;
+}
+
+.legend p {
+  font-weight: bold;
+  margin: 0;
+  font-size: 14px; /* Slightly adjust the font size for consistency */
+}
+
+.legend-item-1,
+.legend-item-2 {
+  display: flex;
+  align-items: center; /* Ensures vertical alignment of the block with the text */
+  margin-bottom: 8px;
+}
+
+.legend-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 4px;
+}
+
+.legend-item-1 p,
+.legend-item-2 p {
+  margin: 0;
+  font-size: 14px; 
+}
+
 
 .event-details {
   display: flex;

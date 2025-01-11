@@ -1,32 +1,39 @@
 import {useEffect, useState} from 'react';
-import { getAllEvents } from '../api/Events';
+import { deleteEvent, getAllEvents, OfficeEvent } from '../api/Events';
 import Calendar from './Calendar';
-import { Event as BigCalendarEvent } from 'react-big-calendar';
 import EventPopUp from './EventPopUp';
 import { CalendarEvent } from './EventCalendar';
 
 
 const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
+    const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    const [currentEvent, setCurrentEvent] = useState<string>("");
+    const [currentEvent, setCurrentEvent] = useState<OfficeEvent|undefined>(undefined);
     const [showPopup, setShowPopup] = useState(false);
 
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
         setEvents(AllEvents as CalendarEvent[]);
-        console.log(events);
     };
     
-    const handleEventClick = (event: BigCalendarEvent) => {
-        setCurrentEvent(String(event.title) || "");
+    const handleEventClick = (event: OfficeEvent) => {
+        setCurrentEvent(event);
         setShowPopup(true);
         setSuccess(false);
-    }
+    };
+
+    const handleDeleteClick = () => {
+        setConfirmDelete(false);
+        if (currentEvent !== undefined && currentEvent.kind === "event") {
+            deleteEvent(currentEvent.eventId);
+            setSuccess(true);
+        }
+    };
 
     useEffect(() => {
         getEvents();
-    }, [showPopup]);
+    }, [succes]);
 
     return (
     <div className='admin-dashboard'>
@@ -35,18 +42,35 @@ const AdminManageEvents = (): JSX.Element => {
             events={events} 
             className="admin-events" 
             view="agenda" 
-            onSelectEvent={(event) => handleEventClick(event)}
+            onSelectEvent={(event) => handleEventClick(event as OfficeEvent)}
             toolbar={false}
-            onSelectSlot={(event) => handleEventClick(event)}  
             selectable={true} 
         />
-        {showPopup ? <EventPopUp setSuccess={setSuccess} setShowPopup={setShowPopup} currentEvent={currentEvent}/> : null}
+        
+        {showPopup ? 
+            <EventPopUp 
+                setSuccess={setSuccess} 
+                setShowPopup={setShowPopup} 
+                currentEvent={currentEvent as OfficeEvent}
+                setConfirmDelete={setConfirmDelete}
+            /> 
+        : null}
         
         {succes ? 
             <div className="success-msg">
                 <i className="fa fa-check"></i>
-                Succesfully edited the event!
+                Changes saved!
             </div> 
+        : null}
+
+        {confirmDelete ? 
+            <div className="popup-overlay">
+                <div className="popup-form">
+                    <h2>Are you sure you want to delete this event?</h2>
+                    <button onClick={() => setConfirmDelete(false)}>No</button>
+                    <button onClick={() => handleDeleteClick()}>Yes</button>
+                </div>
+            </div>
         : null}
     </div>
     );
