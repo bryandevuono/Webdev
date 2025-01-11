@@ -4,16 +4,29 @@ import AdminManageEvents from "./AdminManageEvents";
 import AdminSeeAttendees from "./AdminSeeAttendees";
 
 const AdminDashboard = (): JSX.Element => {
-    const [eventToggle, setEventToggle] = useState(false);
-    const [userToggle, setUserToggle] = useState(false);
-    const [attendeeToggle, setAttendeeToggle] = useState(false);
+    const [activeSection, setActiveSection] = useState<string | null>(null);
+
+    const handleEventsToggle = () => {
+        setActiveSection('events');
+    };
+
+    const handleUsersToggle = () => {
+        setActiveSection('users');
+    };
+
+    const handleAttendeesToggle = () => {
+        setActiveSection('attendees');
+    };
 
     return (
         <div>
-            <AdminNavbar eventsToggle={setEventToggle} usersToggle={setUserToggle} attendeeToggle={setAttendeeToggle} />
-            {eventToggle ? <AdminManageEvents /> : null}
-            
-            {attendeeToggle ? <AdminSeeAttendees /> : null}
+            <AdminNavbar 
+                eventsToggle={handleEventsToggle} 
+                usersToggle={handleUsersToggle} 
+                attendeeToggle={handleAttendeesToggle} 
+            />
+            {activeSection === 'events' && <AdminManageEvents />}
+            {activeSection === 'attendees' && <AdminSeeAttendees />}
         </div>
     );
 }

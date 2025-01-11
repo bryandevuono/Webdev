@@ -5,6 +5,7 @@ import { getUserData } from '../api/Users';
 import Calendar from './Calendar';
 import { Event as BigCalendarEvent } from 'react-big-calendar';
 import { CalendarEvent } from './EventCalendar';
+import UserListPopup from './UserListPopup';
 
 interface OfficeEvent extends BigCalendarEvent {
     eventId: string;
@@ -16,6 +17,7 @@ const AdminSeeAttendees = (): JSX.Element => {
     const [attendees, setAttendees] = useState<string[]>([]);
     const [userNames, setUserNames] = useState<string[]>([]);
     const [error, setError] = useState<string | null>(null);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const getEvents = async () => {
         try {
@@ -39,12 +41,14 @@ const AdminSeeAttendees = (): JSX.Element => {
                 throw new Error('Invalid attendees data');
             }
 
-            setAttendees(eventAttendees);
+            const userIds = eventAttendees.map((attendee) => attendee.userId);
+            setAttendees(userIds);
             setCurrentEvent({ ...event, kind: "event", eventId: (event as OfficeEvent).eventId } as OfficeEvent);
 
-            const userDetails = await Promise.all(eventAttendees.map(async (userId) => {
+            const userDetails = await Promise.all(userIds.map(async (userId) => {
                 try {
                     const userInfo = await getUserData(userId);
+                    console.log(`User data for ID ${userId}:`, userInfo);
                     return `${userInfo.firstName} ${userInfo.lastName}`;
                 } catch (userError) {
                     console.error(`Error fetching user data for ID ${userId}:`, userError);
@@ -53,6 +57,7 @@ const AdminSeeAttendees = (): JSX.Element => {
             }));
 
             setUserNames(userDetails);
+            setIsPopupOpen(true);
         } catch (err: unknown) {
             console.error("Error fetching attendees or user data:", err);
             setError("Failed to fetch attendees. Please try again later.");
@@ -71,22 +76,18 @@ const AdminSeeAttendees = (): JSX.Element => {
             <Calendar    
                 events={events} 
                 className="admin-events" 
-                view="agenda" 
+                defaultView="agenda" 
                 onSelectEvent={(event) => handleEventClick(event)}
                 toolbar={false}
                 selectable={true} 
             />
-  
-            {currentEvent && userNames.length > 0 && (
-                <div className="attendees-list">
-                    <h2>Attendees for {currentEvent.title}:</h2>
-                    <ul>
-                        {userNames.map((userName, index) => (
-                            <li key={index}>{userName}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+
+            <UserListPopup
+                isOpen={isPopupOpen}
+                onClose={() => setIsPopupOpen(false)}
+                users={userNames}
+                eventTitle={typeof currentEvent?.title === 'string' ? currentEvent.title : ''}
+            />
         </div>
     );
 };
