@@ -1,16 +1,19 @@
 import {useEffect, useState} from 'react';
 import { deleteEvent, getAllEvents, OfficeEvent } from '../api/Events';
 import Calendar from './Calendar';
-import EventPopUp from './EventPopUp';
+import EditEventPopUp from './EditEventPopUp';
 import { CalendarEvent } from './EventCalendar';
+import AddEventPopUp from './AddEventPopUp';
 
 
 const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
+    const [failed, setFailed] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    const [currentEvent, setCurrentEvent] = useState<OfficeEvent|undefined>(undefined);
-    const [showPopup, setShowPopup] = useState(false);
+    const [currentEvent, setCurrentEvent] = useState<OfficeEvent | undefined>(undefined);
+    const [showEditPopup, setShowEditPopup] = useState(false);
+    const [showAddPopup, setShowAddPopup] = useState(false);
 
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
@@ -19,7 +22,7 @@ const AdminManageEvents = (): JSX.Element => {
     
     const handleEventClick = (event: OfficeEvent) => {
         setCurrentEvent(event);
-        setShowPopup(true);
+        setShowEditPopup(true);
         setSuccess(false);
     };
 
@@ -47,20 +50,34 @@ const AdminManageEvents = (): JSX.Element => {
             selectable={true} 
         />
         
-        {showPopup ? 
-            <EventPopUp 
+        <button className='add-button' onClick={() => setShowAddPopup(true)}>+</button>
+
+        {showEditPopup ? 
+            <EditEventPopUp 
                 setSuccess={setSuccess} 
-                setShowPopup={setShowPopup} 
+                setShowPopup={setShowEditPopup} 
                 currentEvent={currentEvent as OfficeEvent}
                 setConfirmDelete={setConfirmDelete}
+                setFailed={setFailed}
             /> 
         : null}
         
+        {showAddPopup ? 
+            <AddEventPopUp setShowPopup={setShowAddPopup} setSuccess={setSuccess} setFailed={setFailed}/>
+        : null}
+
         {succes ? 
             <div className="success-msg">
                 <i className="fa fa-check"></i>
                 Changes saved!
             </div> 
+        : null}
+
+        {failed ?
+            <div className="error-msg">
+                <i className="fa fa-times"></i>
+                Error saving changes!
+                </div>
         : null}
 
         {confirmDelete ? 
