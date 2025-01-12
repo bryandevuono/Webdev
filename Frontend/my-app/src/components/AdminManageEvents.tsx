@@ -35,7 +35,7 @@ const AdminManageEvents = (): JSX.Element => {
 
     useEffect(() => {
         getEvents();
-    }, []);
+    }, [succes]);
 
     return (
     <div className='admin-dashboard'>

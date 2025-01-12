@@ -8,11 +8,12 @@ import { checkAdmin } from "../api/Admin";
 
 interface ProfilePageProps {
   setAuthorized: Function;
+  setIsAdmin: Function;
 }
 
-const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
+const ProfilePage = ({ setAuthorized, setIsAdmin}: ProfilePageProps): JSX.Element => {
   const [userName, setUserName] = useState("");
-  const [IsAdmin, setIsAdmin] = useState(false);
+  const [adminPageToggle, setAdminPageToggle] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [Points, setPoints] = useState<number>(0);
@@ -34,12 +35,13 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
   };
 
   const LogOutAPI = async () => {
+    setIsAdmin(false);
     setAuthorized(false);
     logOut();
   };
 
   const CheckIfUserIsAdmin = async () => {
-    setIsAdmin(await checkAdmin());
+    setAdminPageToggle(await checkAdmin());
   };
 
   useEffect(() => {
@@ -50,8 +52,8 @@ const ProfilePage = ({ setAuthorized }: ProfilePageProps): JSX.Element => {
   return (
     <div className="flexbox">
       <div className="card">
-        <h1>Hi, {IsAdmin ? "Admin" : userName}!</h1>
-        {!IsAdmin && (
+        <h1>Hi, {adminPageToggle ? "Admin" : userName}!</h1>
+        {!adminPageToggle && (
           <>
             <p>Name: {firstName}</p>
             <p>Lastname: {lastName}</p>

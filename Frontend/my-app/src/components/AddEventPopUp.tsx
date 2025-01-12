@@ -14,7 +14,8 @@ export default function AddEventPopUp({setShowPopup, setSuccess}: AddEventPopUpP
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault()
         const eventInfo = {
             title: title,
             description: description,
@@ -73,7 +74,7 @@ export default function AddEventPopUp({setShowPopup, setSuccess}: AddEventPopUpP
 
                         <br/>
 
-                        <button type="submit">Submit</button>
+                        <button type="submit" onClick={(event) => handleSubmit(event)}>Submit</button>
                         <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                     </form>
                 </div>
