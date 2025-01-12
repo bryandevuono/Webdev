@@ -6,16 +6,18 @@ interface EventPopUpProps {
     setShowPopup: Function;
     setSuccess: Function;
     setConfirmDelete: Function;
+    setFailed: Function;
 }
 
-const EditEventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: EventPopUpProps): JSX.Element => {
+const EditEventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete, setFailed}: EventPopUpProps): JSX.Element => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
     
-    const handleSubmit = () => {
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
         const updatedEvent: EventRequestBody = {
             title: title,
             description: description,
@@ -24,7 +26,13 @@ const EditEventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelet
             endTime: endTime
         }
         
-        editEvent(currentEvent.eventId, updatedEvent);
+        const Edit = await editEvent(currentEvent.eventId, updatedEvent);
+        if (!Edit){
+            setFailed(true);
+            setShowPopup(false);
+            return;
+        }
+
         setShowPopup(false);
         setSuccess(true);
     };

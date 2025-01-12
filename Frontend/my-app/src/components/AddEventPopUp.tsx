@@ -5,9 +5,10 @@ import { addEvent } from '../api/Events';
 interface AddEventPopUpProps {
     setShowPopup: Function;
     setSuccess: Function;
+    setFailed: Function;
 }
 
-export default function AddEventPopUp({setShowPopup, setSuccess}: AddEventPopUpProps): JSX.Element {
+export default function AddEventPopUp({setShowPopup, setSuccess, setFailed}: AddEventPopUpProps): JSX.Element {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
@@ -24,7 +25,14 @@ export default function AddEventPopUp({setShowPopup, setSuccess}: AddEventPopUpP
             endTime: endTime
         };
 
-        await addEvent(eventInfo);
+        const Add = await addEvent(eventInfo);
+        
+        if (!Add){
+            setFailed(true);
+            setShowPopup(false);
+            return;
+        }
+
         setSuccess(true);
         setShowPopup(false);
     };

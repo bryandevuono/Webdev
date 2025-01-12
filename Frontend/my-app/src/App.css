@@ -414,3 +414,11 @@ input[type=submit]:hover {
   align-self: center;     
   cursor: pointer;         
 }
+
+.error-msg {
+  color: rgb(119, 0, 0);
+  background-color: #f87a7a;
+  position: absolute;
+  top: 20%;
+  left: 55%;
+}

@@ -8,6 +8,7 @@ import AddEventPopUp from './AddEventPopUp';
 
 const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
+    const [failed, setFailed] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
     const [currentEvent, setCurrentEvent] = useState<OfficeEvent | undefined>(undefined);
@@ -57,11 +58,12 @@ const AdminManageEvents = (): JSX.Element => {
                 setShowPopup={setShowEditPopup} 
                 currentEvent={currentEvent as OfficeEvent}
                 setConfirmDelete={setConfirmDelete}
+                setFailed={setFailed}
             /> 
         : null}
         
         {showAddPopup ? 
-            <AddEventPopUp setShowPopup={setShowAddPopup} setSuccess={setSuccess}/>
+            <AddEventPopUp setShowPopup={setShowAddPopup} setSuccess={setSuccess} setFailed={setFailed}/>
         : null}
 
         {succes ? 
@@ -69,6 +71,13 @@ const AdminManageEvents = (): JSX.Element => {
                 <i className="fa fa-check"></i>
                 Changes saved!
             </div> 
+        : null}
+
+        {failed ?
+            <div className="error-msg">
+                <i className="fa fa-times"></i>
+                Error saving changes!
+                </div>
         : null}
 
         {confirmDelete ? 

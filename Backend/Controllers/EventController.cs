@@ -53,7 +53,10 @@ public class EventController : Controller
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {
-        if(NewEvent?.Title == null) return BadRequest();
+        if(NewEvent.Title == null | NewEvent.StartTime == null | NewEvent.EndTime == null | NewEvent.Description == null)
+        {
+            return BadRequest();
+        }
         var result = await _eventservice.AddEvent(NewEvent);
         if(result)
         {
@@ -69,7 +72,7 @@ public class EventController : Controller
     [HttpPut("EditEvent")]
     public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery]Guid Id)
     {
-        if(NewEvent == null)
+        if(NewEvent.Title == null | NewEvent.StartTime == null | NewEvent.EndTime == null | NewEvent.Description == null)
         {
             return BadRequest();
         }
