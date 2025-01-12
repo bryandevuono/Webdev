@@ -399,3 +399,12 @@ input[type=submit]:hover {
   margin: 0;
   font-size: 14px; 
 }
+
+.add-button{
+  position: absolute;
+  top: 30%;
+  width: 120px;
+  background-color: #0056b3;
+  color: #ffffff;
+  left: 78%;
+}

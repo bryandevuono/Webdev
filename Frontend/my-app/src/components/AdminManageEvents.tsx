@@ -47,6 +47,8 @@ const AdminManageEvents = (): JSX.Element => {
             selectable={true} 
         />
         
+        <button className='add-button'>Add Event</button>
+
         {showPopup ? 
             <EventPopUp 
                 setSuccess={setSuccess} 
