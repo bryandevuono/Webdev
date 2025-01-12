@@ -1,15 +1,32 @@
 import { useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import AdminManageEvents from "./AdminManageEvents";
+import AdminSeeAttendees from "./AdminSeeAttendees";
 
 const AdminDashboard = (): JSX.Element => {
-    const [eventToggle, setEventToggle] = useState(false);
-    const [userToggle, setUserToggle] = useState(false);
+    const [activeSection, setActiveSection] = useState<string | null>(null);
+
+    const handleEventsToggle = () => {
+        setActiveSection('events');
+    };
+
+    const handleUsersToggle = () => {
+        setActiveSection('users');
+    };
+
+    const handleAttendeesToggle = () => {
+        setActiveSection('attendees');
+    };
 
     return (
         <div>
-            <AdminNavbar eventsToggle={setEventToggle} usersToggle={setUserToggle} />
-            {eventToggle ? <AdminManageEvents /> : null}
+            <AdminNavbar 
+                eventsToggle={handleEventsToggle} 
+                usersToggle={handleUsersToggle} 
+                attendeeToggle={handleAttendeesToggle} 
+            />
+            {activeSection === 'events' && <AdminManageEvents />}
+            {activeSection === 'attendees' && <AdminSeeAttendees />}
         </div>
     );
 }
