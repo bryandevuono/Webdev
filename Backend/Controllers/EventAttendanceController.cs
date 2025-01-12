@@ -13,16 +13,28 @@ public class AttendanceController : Controller
     [HttpPost("attend")]
     public async Task<IActionResult> AttendEvent([FromBody] EventAttendance eventAttendance)
     {
+
+        if (eventAttendance == null)
+        {
+            return BadRequest("Invalid event attendance data.");
+        }
+
         var eventObj = await _attendanceService.GetEventById(eventAttendance.EventId);
         if (eventObj == null)
         {
             return NotFound("Event not found.");
         }
 
+        var isAttending = await _attendanceService.IsUserAttendingEvent(eventAttendance.UserId, eventAttendance.EventId);
+        if (isAttending)
+        {
+            return BadRequest("User is already attending this event.");
+        }
+
         var succes = await _attendanceService.AttendEvent(eventAttendance);
         if (!succes)
         {
-            return BadRequest("User is already registered for this event.");
+            return BadRequest("Failed to register user to this event.");
         }
         return Ok($"User {eventAttendance.UserId} is now attending event {eventAttendance.EventId}");
     }

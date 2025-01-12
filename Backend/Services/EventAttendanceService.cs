@@ -9,6 +9,11 @@ public class EventAttendanceService : IEventAttService
         _context = context;
     }
 
+    public async Task<bool> IsUserAttendingEvent(Guid userId, Guid eventId)
+    {
+        return await _context.EventAttendance.AnyAsync(ea => ea.UserId == userId && ea.EventId == eventId);
+    }
+
     public async Task<bool> AttendEvent(EventAttendance att)
     {
         var alreadyAttending = await _context.EventAttendance

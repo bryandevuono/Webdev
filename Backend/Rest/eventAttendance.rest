@@ -7,9 +7,9 @@ Content-type: application/json
 {
     "UserId": "0b144a50-ebf0-4009-a7c7-751436e3d09f",
     "EventId": "e69eb5c0-5f62-41bc-9e16-3fda8acabf69",
-    "AttendedOn": ,
-    "Rating": "3",
-    "FeedBack": "Cool"
+    "Rating": "",
+    "FeedBack": ""
+
 }
 
 ### Post attendee non-existent Id: 400 BadRequest
