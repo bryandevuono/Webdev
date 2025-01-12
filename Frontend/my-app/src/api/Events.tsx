@@ -74,3 +74,21 @@ export const deleteEvent = async (eventId: string): Promise<boolean> => {
         return false;
     }
 }
+
+export const addEvent = async (eventInfo: EventRequestBody): Promise<boolean> => {
+    const response = await fetch('http://localhost:5053/api/events/AddEvent', {
+        method: 'POST',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventInfo)
+    });
+    console.log(response);
+    if (response.ok){
+        return true;
+    }
+    else{
+        return false;
+    }
+}

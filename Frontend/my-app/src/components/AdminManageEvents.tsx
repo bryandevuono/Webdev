@@ -1,16 +1,18 @@
 import {useEffect, useState} from 'react';
 import { deleteEvent, getAllEvents, OfficeEvent } from '../api/Events';
 import Calendar from './Calendar';
-import EventPopUp from './EventPopUp';
+import EditEventPopUp from './EditEventPopUp';
 import { CalendarEvent } from './EventCalendar';
+import AddEventPopUp from './AddEventPopUp';
 
 
 const AdminManageEvents = (): JSX.Element => {
     const [succes, setSuccess] = useState(false);
     const [confirmDelete, setConfirmDelete] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[] | undefined>(undefined);
-    const [currentEvent, setCurrentEvent] = useState<OfficeEvent|undefined>(undefined);
-    const [showPopup, setShowPopup] = useState(false);
+    const [currentEvent, setCurrentEvent] = useState<OfficeEvent | undefined>(undefined);
+    const [showEditPopup, setShowEditPopup] = useState(false);
+    const [showAddPopup, setShowAddPopup] = useState(false);
 
     const getEvents = async () => {
         const AllEvents = await getAllEvents();
@@ -19,7 +21,7 @@ const AdminManageEvents = (): JSX.Element => {
     
     const handleEventClick = (event: OfficeEvent) => {
         setCurrentEvent(event);
-        setShowPopup(true);
+        setShowEditPopup(true);
         setSuccess(false);
     };
 
@@ -33,7 +35,7 @@ const AdminManageEvents = (): JSX.Element => {
 
     useEffect(() => {
         getEvents();
-    }, [succes]);
+    }, []);
 
     return (
     <div className='admin-dashboard'>
@@ -47,17 +49,21 @@ const AdminManageEvents = (): JSX.Element => {
             selectable={true} 
         />
         
-        <button className='add-button'>Add Event</button>
+        <button className='add-button' onClick={() => setShowAddPopup(true)}>+</button>
 
-        {showPopup ? 
-            <EventPopUp 
+        {showEditPopup ? 
+            <EditEventPopUp 
                 setSuccess={setSuccess} 
-                setShowPopup={setShowPopup} 
+                setShowPopup={setShowEditPopup} 
                 currentEvent={currentEvent as OfficeEvent}
                 setConfirmDelete={setConfirmDelete}
             /> 
         : null}
         
+        {showAddPopup ? 
+            <AddEventPopUp setShowPopup={setShowAddPopup} setSuccess={setSuccess}/>
+        : null}
+
         {succes ? 
             <div className="success-msg">
                 <i className="fa fa-check"></i>

@@ -8,7 +8,7 @@ interface EventPopUpProps {
     setConfirmDelete: Function;
 }
 
-const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: EventPopUpProps): JSX.Element => {
+const EditEventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: EventPopUpProps): JSX.Element => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
@@ -89,4 +89,4 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: 
     );
 }
 
-export default EventPopUp;
+export default EditEventPopUp;
