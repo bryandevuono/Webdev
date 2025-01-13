@@ -14,6 +14,19 @@ public class EventAttendanceService : IEventAttService
         return await _context.EventAttendance.AnyAsync(ea => ea.UserId == userId && ea.EventId == eventId);
     }
 
+    public async Task<Guid> GetIdByUserIdEventId(Guid userId, Guid eventId)
+    {
+        var attendance = await _context.EventAttendance
+        .FirstOrDefaultAsync(a => a.UserId == userId && a.EventId == eventId);
+
+        if (attendance == null)
+        {
+            return Guid.Empty;
+        }
+
+        return attendance.Id;
+    }
+
     public async Task<bool> AttendEvent(EventAttendance att)
     {
         var alreadyAttending = await _context.EventAttendance
@@ -45,22 +58,25 @@ public class EventAttendanceService : IEventAttService
         return attendees;
     }
 
-    public async Task<bool> PutEventAttendance(EventAttendance att)
+    public async Task<EventAttendance> PutEventAttendance(EventAttendance att)
     {
         var attendance = await _context.EventAttendance
         .FirstOrDefaultAsync(x => x.UserId == att.UserId && x.EventId == att.EventId);
 
         if (attendance == null)
         {
-            return false;
+            return null;
         }
-        
+
+        attendance.UserId = att.UserId;
+        attendance.EventId = att.EventId;
+        attendance.AttendedOn = att.AttendedOn;
         attendance.Rating = att.Rating;
         attendance.FeedBack = att.FeedBack;
 
         await _context.SaveChangesAsync();
 
-        return true;
+        return attendance;
     }
 
     public async Task<bool> RemoveAttendance(Guid userId, Guid eventId)

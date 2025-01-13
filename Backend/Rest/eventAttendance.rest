@@ -33,13 +33,24 @@ PUT http://localhost:5053/api/eventattendance HTTP/1.1
 Content-type: application/json
 
 {
-    "Id": "ce0fbbc3-2fde-4dc2-83b1-82f52732a98a",
-    "UserId": "c6406c54-d6fd-4382-bf2a-a53cde700f45",
-    "EventId": "f4b911a8-582b-4e9e-8d1a-bb5cf3d2bb81",
+    "Id": "5462d9e4-5769-4aab-be0c-5338cf3859e3",
     "Rating": "5",
-    "FeedBack": "Greatly organized!"
+    "FeedBack": "Wejoooo"
+}
+
+### Put attendance: 404 Attendance not found
+PUT http://localhost:5053/api/eventattendance HTTP/1.1
+Content-type: application/json
+
+{
+    "Id": "ce0fbbc3-2fde-4dc2-83b1-82f52732a98b",
+    "Rating": "2",
+    "FeedBack": "Wack!"
 }
 ###
 DELETE http://localhost:5053/api/eventattendance/ad69d0e5-e057-47c4-bfac-d4a39129ecac/e0s89e0a2-d0ba-4aea-9418-e18eea88a005
 ###
 GET http://localhost:5053/api/eventattendance/isUserRegistered/e089e0a2-d0ba-4aea-9418-e18eea88a005/ad69d0e5-e057-47c4-bfac-d4a39129ecac
+
+###
+GET http://localhost:5053/api/eventattendance/getid/0b144a50-ebf0-4009-a7c7-751436e3d09f/4bf48225-1940-4ee4-ad98-1140088a041c
