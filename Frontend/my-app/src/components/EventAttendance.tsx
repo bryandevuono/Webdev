@@ -1,7 +1,6 @@
 import React from "react";
 import { AttendEvent } from "../api/AttendEvent";
 import { OfficeEvent } from "../api/Events";
-import { getEvent } from "../api/Events";
 
 interface EventAttendanceProps {
     setShowEventAttendance: Function
@@ -33,6 +32,7 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
                 <button>Unsubscribe</button>
                 <button onClick={() => setShowEventAttendance(false)}>Cancel</button>
             </form>
+            {}
         </div>
     );
 } 

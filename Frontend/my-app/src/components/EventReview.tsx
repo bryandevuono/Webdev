@@ -5,10 +5,7 @@ interface EventReviewProps {
   setShowPopup: Function;
 }
 
-const EventReview = ({
-  currentEvent,
-  setShowPopup,
-}: EventReviewProps): JSX.Element => {
+const EventReview = ({currentEvent, setShowPopup}: EventReviewProps): JSX.Element => {
   const handleExit = () => {
     setShowPopup(false);
   };
