@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Calendar from "./Calendar";
-import toolBar from "./Toolbar";
+import CustomToolbar from "./Toolbar";
 import { OfficeEvent } from "../api/Events";
 import Legend from "./Legend";
 import { Event } from "react-big-calendar";
@@ -17,7 +17,7 @@ export interface CalendarEvent extends Event {
 
 export default function EventCalendar(): JSX.Element {
   const [events, setEvents] = useState<CalendarEvent[]>();
-  const [officeAttendace, setOfficeAttendace] = useState<CalendarEvent[]>();
+  const [officeAttendance, setOfficeAttendance] = useState<CalendarEvent[]>();
   const [showEventAttendance, setShowEventAttendance] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<CalendarEvent | undefined>(undefined);
   const [currentView, setCurrentView] = useState('month');
@@ -30,7 +30,7 @@ export default function EventCalendar(): JSX.Element {
     setEvents(AllEvents as CalendarEvent[]);
   };
 
-  const getOfficeAttendace = async () => {
+  const getOfficeAttendance = async () => {
     const AllOfficeAttendace = await GetAllOfficeAttendace();
 
     const convertedOfficeAttendace = await Promise.all(AllOfficeAttendace.map(async (attendance) => ({
@@ -40,8 +40,7 @@ export default function EventCalendar(): JSX.Element {
       title: await GetUserName(attendance.UserId),
     })));
 
-    setOfficeAttendace(convertedOfficeAttendace as CalendarEvent[]);
-    refrechData();
+    setOfficeAttendance(convertedOfficeAttendace as CalendarEvent[]);
   };
 
   const handleEventClick = (event: CalendarEvent) => {
@@ -51,14 +50,9 @@ export default function EventCalendar(): JSX.Element {
     }
   }
 
-  const refrechData = async () => {
-    await getEvents();
-    await getOfficeAttendace();
-  }
-
   useEffect(() => {
     getEvents();
-    getOfficeAttendace();
+    getOfficeAttendance();
   }, []);
 
   const makeEventCategories = (event: CalendarEvent) => {
@@ -75,8 +69,8 @@ export default function EventCalendar(): JSX.Element {
   return (
     <>
       <Calendar
-        events={[...(events || []), ...(officeAttendace || [])]}
-        components={{ toolbar: toolBar }}
+        events={[...(events || []), ...(officeAttendance || [])]}
+        components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
         onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
         eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
         onView={(view) => setCurrentView(view)}
