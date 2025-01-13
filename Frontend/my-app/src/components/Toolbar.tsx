@@ -76,7 +76,7 @@ const CustomToolbar = (props: CustomToolbarProps): JSX.Element => {
             <div className="popup-form">
               <h2>Add an office attendance to the calendar</h2>
               <form onSubmit={handleSubmit}>
-                <div className="popup-descriptions">
+                <div className="popup-date">
                   <label>
                     Start Time:
                     <input
@@ -100,6 +100,9 @@ const CustomToolbar = (props: CustomToolbarProps): JSX.Element => {
                     />
                   </label>
                 </div>
+
+                <br/>
+                
                 <button type="submit">Submit</button>
                 <button type="button" onClick={togglePopup}>Cancel</button>
               </form>
