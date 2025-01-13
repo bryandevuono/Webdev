@@ -4,6 +4,7 @@ import { getUserId } from "../api/Login";
 import { PostOfficeAttendace } from "../api/OfficeAttendace";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../Toolbar.css";
+import { useNavigate } from "react-router-dom";
 
 interface OfficeAttendanceInput {
   type: "office attendance";
@@ -12,7 +13,12 @@ interface OfficeAttendanceInput {
   UserId: string;
 }
 
-const CustomToolbar = (props: ToolbarProps): JSX.Element => {
+interface CustomToolbarProps extends ToolbarProps {
+  refreshOfficeAttendance: () => void;
+}
+
+const CustomToolbar = (props: CustomToolbarProps): JSX.Element => {
+  const Navigate = useNavigate();
   const [Id, setId] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState<OfficeAttendanceInput>({
@@ -51,10 +57,11 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    PostOfficeAttendace(formData, props.onNavigate);
+    await PostOfficeAttendace(formData, Navigate);
+    props.refreshOfficeAttendance();
     setShowPopup(false);
   };
 
@@ -69,7 +76,7 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
             <div className="popup-form">
               <h2>Add an office attendance to the calendar</h2>
               <form onSubmit={handleSubmit}>
-                <div className="popup-descriptions">
+                <div className="popup-date">
                   <label>
                     Start Time:
                     <input
@@ -93,8 +100,11 @@ const CustomToolbar = (props: ToolbarProps): JSX.Element => {
                     />
                   </label>
                 </div>
+
+                <br/>
+                
                 <button type="submit">Submit</button>
-                <button type="submit" onClick={togglePopup}>Cancel</button>
+                <button type="button" onClick={togglePopup}>Cancel</button>
               </form>
             </div>
           </div>

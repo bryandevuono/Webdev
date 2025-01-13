@@ -39,3 +39,7 @@ Content-type: application/json
     "Rating": "5",
     "FeedBack": "Greatly organized!"
 }
+###
+DELETE http://localhost:5053/api/eventattendance/ad69d0e5-e057-47c4-bfac-d4a39129ecac/e0s89e0a2-d0ba-4aea-9418-e18eea88a005
+###
+GET http://localhost:5053/api/eventattendance/isUserRegistered/e089e0a2-d0ba-4aea-9418-e18eea88a005/ad69d0e5-e057-47c4-bfac-d4a39129ecac
