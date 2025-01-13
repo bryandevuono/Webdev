@@ -19,7 +19,7 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
     });
 
     const data = await response.json();
-    const Events: Array<Event> = [];
+    let Events: Array<Event> = [];
 
     for (let i = 0; i < data.length; i++) {
         const EventToAdd: OfficeEvent = {
@@ -32,7 +32,7 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
             location: data[i].location,
             date: data[i].date
         };
-        Events.push(EventToAdd);
+        Events = [...Events, EventToAdd];
     }
     return Events;
 };
