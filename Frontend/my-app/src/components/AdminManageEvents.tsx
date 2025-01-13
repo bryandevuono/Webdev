@@ -4,6 +4,7 @@ import Calendar from './Calendar';
 import EditEventPopUp from './EditEventPopUp';
 import { CalendarEvent } from './EventCalendar';
 import AddEventPopUp from './AddEventPopUp';
+import { get } from 'http';
 
 
 const AdminManageEvents = (): JSX.Element => {
@@ -31,6 +32,7 @@ const AdminManageEvents = (): JSX.Element => {
         if (currentEvent !== undefined && currentEvent.kind === "event") {
             deleteEvent(currentEvent.eventId);
             setSuccess(true);
+            getEvents();
         }
     };
 
