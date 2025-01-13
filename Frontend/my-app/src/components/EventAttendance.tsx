@@ -8,9 +8,6 @@ interface EventAttendanceProps {
     currentEvent: OfficeEvent
     setAttendanceSuccess: Function
     setAttendanceError: Function
-    setUnsubscribeSuccess: Function
-    setUnsubscribeError: Function
-    isRegistered: boolean
 }
 
 const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
