@@ -76,7 +76,7 @@ const LoginScreen = ({ setAuthorized }: LoginScreenProps): JSX.Element => {
           <p className="success-text">Logged in successfully!</p>
         ) : null}
         {errorMessage ? (
-          <p className="error-text">Something went wrong...</p>
+          <p className="error-text">Wrong username/password!</p>
         ) : null}
         {duplicateLogin ? (
           <p className="error-text">Logged in already</p>
