@@ -22,7 +22,7 @@ const EventAttendanceMenu = ({
   setShowUnsubscribeMessage,
   setShowUnsubscribeError
 }: EventAttendanceProps): JSX.Element => {
-  
+
   const [isAttending, setIsAttending] = useState(false);
   const [showReview, setShowReview] = useState(false);
 

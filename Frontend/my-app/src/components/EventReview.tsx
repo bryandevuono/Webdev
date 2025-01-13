@@ -1,7 +1,7 @@
 import React from "react";
 import { OfficeEvent } from "../api/Events";
-import "../App.css"; // Import the CSS file
-
+import { updateEventAttendance } from "../api/EventAttendance";
+import { getUserId } from "../api/Login";
 interface EventReviewProps {
   currentEvent: OfficeEvent;
   setShowReview: Function;
@@ -9,10 +9,17 @@ interface EventReviewProps {
 }
 
 const EventReview = ({ currentEvent, setShowReview, setEventMenu }: EventReviewProps): JSX.Element => {
-  const handleReview = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleReview = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setEventMenu(false);
-    setShowReview(false);
+    const response = await updateEventAttendance(currentEvent.eventId, await getUserId(), "", "");
+    
+    if(response){
+      alert("Review submitted!");
+      setEventMenu(false);
+      setShowReview(false);
+    } else {
+    alert("Something went wrong while submitting your review...");
+    }
   };
 
   return (
