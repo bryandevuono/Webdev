@@ -32,7 +32,6 @@ const EventReview = ({
     const userId = await getUserId();
     const eventId = currentEvent.eventId;
 
-    // create review object
     const reviewInfo: Review = {
       userId: userId,
       eventId: eventId,
@@ -40,7 +39,6 @@ const EventReview = ({
       FeedBack: review,
     };
 
-    // post review
     if ((await ReviewEvent(reviewInfo)) === false) {
       alert("Failed to submit review");
     } else {
@@ -52,18 +50,19 @@ const EventReview = ({
 
   return (
     <div className="event-details">
+      
       <div className="event-details-top">
         <h1>{currentEvent.title}</h1>
         <button className="exit-button" onClick={handleExit}>
           X
         </button>
       </div>
+
       <div className="event-details-bottom">
-        <p>Event details</p>
         <div className="review">
           <h4>Give this event a review</h4>
           <form onSubmit={handleReview}>
-            <label htmlFor="1">1</label>
+            <label htmlFor="1">1⭐</label>
             <input
               type="radio"
               id="1"
@@ -71,7 +70,7 @@ const EventReview = ({
               value={1}
               onChange={(e) => setStarRating(e.target.value)}
             />
-            <label htmlFor="2">2</label>
+            <label htmlFor="2">2⭐</label>
             <input
               type="radio"
               id="2"
@@ -79,7 +78,7 @@ const EventReview = ({
               value={2}
               onChange={(e) => setStarRating(e.target.value)}
             />
-            <label htmlFor="3">3</label>
+            <label htmlFor="3">3⭐</label>
             <input
               type="radio"
               id="3"
@@ -87,7 +86,7 @@ const EventReview = ({
               value={3}
               onChange={(e) => setStarRating(e.target.value)}
             />
-            <label htmlFor="4">4</label>
+            <label htmlFor="4">4⭐</label>
             <input
               type="radio"
               id="4"
@@ -95,7 +94,7 @@ const EventReview = ({
               value={4}
               onChange={(e) => setStarRating(e.target.value)}
             />
-            <label htmlFor="5">5</label>
+            <label htmlFor="5">5⭐</label>
             <input
               type="radio"
               id="5"
@@ -103,6 +102,7 @@ const EventReview = ({
               value={5}
               onChange={(e) => setStarRating(e.target.value)}
             />
+            <br/>
             <textarea
               rows={5}
               cols={50}
