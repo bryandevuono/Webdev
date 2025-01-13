@@ -2,16 +2,12 @@ import React from "react";
 import { AttendEvent } from "../api/AttendEvent";
 import { UnsubscribeEvent } from "../api/UnsubscribeEvent";
 import { OfficeEvent } from "../api/Events";
-import { getEvent } from "../api/Events";
 
 interface EventAttendanceProps {
     setShowEventAttendance: Function
     currentEvent: OfficeEvent
     setAttendanceSuccess: Function
     setAttendanceError: Function
-    setUnsubscribeSuccess: Function
-    setUnsubscribeError: Function
-    isRegistered: boolean
 }
 
 const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
@@ -37,6 +33,7 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
                 <button>Unsubscribe</button>
                 <button onClick={() => setShowEventAttendance(false)}>Cancel</button>
             </form>
+            {}
         </div>
     );
 } 
