@@ -37,8 +37,9 @@ const EventAttendance = ({
     <div className="popup-overlay">
       {showReviewPopup && (
         <EventReview
-          currentEvent={currentEvent.title}
-          setShowPopup={setShowReviewPopup}
+          currentEvent={currentEvent}
+          setShowReview={setShowReviewPopup}
+          setEventMenu={setShowEventAttendance}
         />
       )}
       {!showReviewPopup && (

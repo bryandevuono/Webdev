@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { Review, ReviewEvent } from "../api/EventAttendance";
+import { OfficeEvent } from "../api/Events";
 
 interface EventReviewProps {
   currentEvent: OfficeEvent;
@@ -10,13 +11,13 @@ interface EventReviewProps {
 
 const EventReview = ({
   currentEvent,
-  setShowPopup,
+  setShowReview,
 }: EventReviewProps): JSX.Element => {
   const [starRating, setStarRating] = useState(0);
   const [review, setReview] = useState("");
 
   const handleExit = () => {
-    setShowPopup(false);
+    setShowReview(false);
   };
 
   const handleReview = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -31,19 +32,19 @@ const EventReview = ({
     console.log(reviewInfo);
     console.log(currentEvent);
     // post review
-    if ((await ReviewEvent(currentEvent, reviewInfo)) === false) {
+    if ((await ReviewEvent(currentEvent.eventId, reviewInfo)) === false) {
       alert("Failed to submit review");
     } else {
       alert("Review submitted");
     }
 
-    setShowPopup(false);
+    setShowReview(false);
   };
 
   return (
     <div className="event-details">
       <div className="event-details-top">
-        <h1>{currentEvent}</h1>
+        <h1>{currentEvent.title}</h1>
         <button className="exit-button" onClick={handleExit}>
           X
         </button>
