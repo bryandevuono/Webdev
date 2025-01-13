@@ -1,48 +1,25 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { EventAttendance, AddFeedback } from "../api/EventAttendance";
 
-interface EventDetailsProps {
+interface EventReviewProps {
   currentEvent: string;
   setShowPopup: Function;
 }
 
-type Event = {
-  Id: string;
-  Title: string;
-  Description: string;
-  Date: string;
-  StartTime: string;
-  EndTime: string;
-  Location: string;
-  AdminApproval: boolean;
-};
-
-const EventDetails = ({
+const EventReview = ({
   currentEvent,
   setShowPopup,
-}: EventDetailsProps): JSX.Element => {
-  const [event, setEvent] = useState<Event>({
-    Id: "",
-    Title: "",
-    Description: "",
-    Date: "",
-    StartTime: "",
-    EndTime: "",
-    Location: "",
-    AdminApproval: true,
-  });
-
-  useEffect(() => {
-    // Get event
-  });
-
+}: EventReviewProps): JSX.Element => {
   const handleExit = () => {
     setShowPopup(false);
   };
 
   const handleReview = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    // review event
+
     setShowPopup(false);
   };
 
@@ -83,4 +60,4 @@ const EventDetails = ({
   );
 };
 
-export default EventDetails;
+export default EventReview;

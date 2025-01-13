@@ -7,8 +7,6 @@ import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendance from "./EventAttendance";
-import { getUserId } from "../api/Login";
-import EventDetails from "./EventDetails";
 
 export interface CalendarEvent extends Event {
   kind: string;
@@ -28,9 +26,6 @@ export default function EventCalendar(): JSX.Element {
 
   const [attendanceSuccess, setAttendanceSuccess] = useState(false);
   const [attendanceError, setAttendanceError] = useState(false);
-
-  const [eventsTwo, setEventsTwo] = useState<OfficeEvent[]>([]);
-  const userId = getUserId();
 
   const getEvents = async () => {
     const AllEvents = await getAllEvents();
@@ -55,16 +50,6 @@ export default function EventCalendar(): JSX.Element {
   const handleEventClick = (event: CalendarEvent) => {
     if (event.kind == "event") {
       setCurrentEvent(event);
-      // kijk hier of de user al is aangemeld voor dit event
-      // als dat zo is moet je event details laten zien
-      const eventWithId = currentEvent as OfficeEvent;
-      if (events !== undefined) {
-        for (let i = 0; i < events.length; i++) {
-          if (events) {
-          }
-        }
-      }
-
       setShowEventAttendance(true);
     }
   };
