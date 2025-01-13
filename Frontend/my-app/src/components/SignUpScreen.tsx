@@ -18,6 +18,11 @@ const SignUpScreen = (): JSX.Element => {
             Password: password
         };
 
+        if(firstName === "" || lastName === "" || email === "" || password === "") {
+            setErrorMessage(true);
+            return;
+        }
+        
         const checkSignUp = await postSignUp(userInfo, navigate);
         !checkSignUp ? setErrorMessage(true) : setErrorMessage(errorMessage); 
     };
