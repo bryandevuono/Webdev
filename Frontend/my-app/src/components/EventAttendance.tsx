@@ -11,8 +11,6 @@ interface EventAttendanceProps {
 }
 
 const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
-    const [showDetails, setShowDetails] = React.useState(false);
-
     const handleSubmit = (event: React.FormEvent) => {
         if (currentEvent.kind == "event") {
             AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
