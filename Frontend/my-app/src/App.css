@@ -405,13 +405,11 @@ input[type=submit]:hover {
 .event-details {
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   position: absolute;
-  top: 30vh;
-  left: 30vw;
-  height: 55vh;
-  width: 40vw;
   background-color: #fdfdfd;  
+  width: 40vw;
+  height: 40vh;
   border-radius: 10px;
   box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
 }
