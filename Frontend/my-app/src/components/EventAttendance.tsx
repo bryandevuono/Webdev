@@ -10,10 +10,13 @@ interface EventAttendanceProps {
     currentEvent: OfficeEvent
     setAttendanceSuccess: Function
     setAttendanceError: Function
+    setShowUnsubscribeMessage: Function
+    setShowUnsubscribeError: Function
 }
 
-const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
+const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError, setShowUnsubscribeError, setShowUnsubscribeMessage}: EventAttendanceProps): JSX.Element => {
     const [isAttending, setIsAttending] = React.useState(false);
+    
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         if (currentEvent.kind == "event") {
@@ -24,8 +27,20 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
         }
     }
 
+    const handleUnsubsribe = async (event: React.FormEvent) => {
+        event.preventDefault();
+        const response = await UnsubscribeEvent(currentEvent.eventId);
+        if (response) {
+            setShowEventAttendance(false);
+            setShowUnsubscribeMessage(true);
+        }
+        else {
+            setShowUnsubscribeError(true);
+        }
+    }
+
     const checkIfAttending = async () => {
-        const response = await checkUserRegistration(currentEvent.eventId, await getUserId());
+        const response = await checkUserRegistration(await getUserId(), currentEvent.eventId);
         setIsAttending(response);
         console.log(response);
     }
@@ -48,14 +63,13 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
                 : null}
 
                 {isAttending ? 
-                    <button onClick={() => UnsubscribeEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError)}>Unsubscribe</button> 
+                    <button onClick={(event) => handleUnsubsribe(event)}>Unsubscribe</button> 
                 : 
                     <button onClick={(event) => handleSubmit(event)}>Attend this Event</button>
                 }
 
                 <button onClick={() => setShowEventAttendance(false)}>Cancel</button>
             </form>
-            {}
         </div>
     );
 } 

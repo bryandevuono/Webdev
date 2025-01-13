@@ -24,6 +24,8 @@ export default function EventCalendar(): JSX.Element {
 
   const [attendanceSuccess, setAttendanceSuccess] = useState(false);
   const [attendanceError, setAttendanceError] = useState(false);
+  const [showUnsubscribeMessage, setShowUnsubscribeMessage] = useState(false);
+  const [showUnsubscribeError, setShowUnsubscribeError] = useState(false);
 
   const getEvents = async () => {
     const AllEvents = await getAllEvents();
@@ -84,6 +86,8 @@ export default function EventCalendar(): JSX.Element {
           currentEvent={currentEvent as OfficeEvent}
           setAttendanceSuccess={setAttendanceSuccess}
           setAttendanceError={setAttendanceError}
+          setShowUnsubscribeMessage={setShowUnsubscribeMessage}
+          setShowUnsubscribeError={setShowUnsubscribeError}
         />
         : null}
 
@@ -105,6 +109,24 @@ export default function EventCalendar(): JSX.Element {
           </div>
         </div>
         : null}
+
+      {showUnsubscribeMessage ? 
+      <div className="popup-overlay">
+        <div className="popup-form">
+          <p>You have unsubscribed from this event</p>
+          <button onClick={() => setShowUnsubscribeMessage(false)}>Close</button>
+        </div> 
+      </div>
+      : null}
+
+      {showUnsubscribeError ? 
+        <div className="popup-overlay">
+          <div className="popup-form">
+            <p>There was an error unsubscribing from this event</p>
+            <button onClick={() => setShowUnsubscribeError(false)}>Close</button>
+          </div>
+        </div>
+      : null}
     </>
   );
 }

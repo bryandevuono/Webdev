@@ -43,6 +43,10 @@ public class AttendanceController : Controller
     public async Task<IActionResult> IsUserRegistered(Guid userId, Guid eventId)
     {
         var isRegistered = await _attendanceService.IsUserAttendingEvent(userId, eventId);
+        if (!isRegistered)
+        {
+            return NotFound("User is not registered for this event.");
+        }
         return Ok(isRegistered);
     }
 

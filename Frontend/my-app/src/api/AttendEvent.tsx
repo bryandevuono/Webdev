@@ -38,8 +38,7 @@ export const checkUserRegistration = async (userId: string, eventId: string): Pr
   const response = await fetch(`http://localhost:5053/api/eventattendance/isUserRegistered/${userId}/${eventId}`);
   if (response.ok) {
     return true;
-  }
-  else{ 
+  } else {
     return false;
   }
 };
