@@ -10,6 +10,28 @@ export const getEventAttendees = async (
   return response.json();
 };
 
+export const updateEventAttendance = async (
+  eventId: string,
+  userId: string,
+  rating: string,
+  feedback: string
+): Promise<boolean> => {
+  const body = JSON.stringify({ userId, eventId, rating, feedback });
+  const response = await fetch(`http://localhost:5053/api/eventattendance`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body,
+  });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export type Review = {
   starRating: number;
   review: string;

@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Review, ReviewEvent } from "../api/EventAttendance";
 
 interface EventReviewProps {
-  currentEvent: string;
-  setShowPopup: Function;
+  currentEvent: OfficeEvent;
+  setShowReview: Function;
+  setEventMenu: Function;
 }
 
 const EventReview = ({
