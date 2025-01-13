@@ -1,5 +1,6 @@
 import React from "react";
 import { AttendEvent } from "../api/AttendEvent";
+import { UnsubscribeEvent } from "../api/UnsubscribeEvent";
 import { OfficeEvent } from "../api/Events";
 import { getEvent } from "../api/Events";
 
@@ -8,6 +9,9 @@ interface EventAttendanceProps {
     currentEvent: OfficeEvent
     setAttendanceSuccess: Function
     setAttendanceError: Function
+    setUnsubscribeSuccess: Function
+    setUnsubscribeError: Function
+    isRegistered: boolean
 }
 
 const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
