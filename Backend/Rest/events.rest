@@ -24,7 +24,7 @@ content-type: application/json
     "Title": "title",
     "Description": "lorem ipsum",
     "Date": "2025-01-15T11:13:00Z",
-    "StartTime": "January 15, 2025 11:13:00",
+    "StartTime": "January 16, 2025 11:13:00",
     "EndTime": "January 15, 2025 11:13:00",
     "Location": "New York",
     "AdminAproval": true

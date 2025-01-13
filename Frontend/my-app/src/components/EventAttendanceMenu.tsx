@@ -12,6 +12,7 @@ interface EventAttendanceProps {
   setAttendanceError: Function;
   setShowUnsubscribeMessage: Function;
   setShowUnsubscribeError: Function;
+  getEvents: Function;
 }
 
 const EventAttendanceMenu = ({
@@ -20,7 +21,8 @@ const EventAttendanceMenu = ({
   setAttendanceSuccess,
   setAttendanceError,
   setShowUnsubscribeMessage,
-  setShowUnsubscribeError
+  setShowUnsubscribeError,
+  getEvents
 }: EventAttendanceProps): JSX.Element => {
 
   const [isAttending, setIsAttending] = useState(false);
@@ -31,6 +33,7 @@ const EventAttendanceMenu = ({
     if (currentEvent.kind === "event") {
       await AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
       setShowEventAttendance(false);
+      getEvents();
     } else {
       setAttendanceError(true);
     }
@@ -47,6 +50,7 @@ const EventAttendanceMenu = ({
     if (response) {
       setShowUnsubscribeMessage(true);
       setShowEventAttendance(false);
+      getEvents();
     } else {
       setShowUnsubscribeError(true);
       setShowEventAttendance(false);

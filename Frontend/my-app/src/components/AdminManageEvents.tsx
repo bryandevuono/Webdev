@@ -16,7 +16,7 @@ const AdminManageEvents = (): JSX.Element => {
     const [showAddPopup, setShowAddPopup] = useState(false);
 
     const getEvents = async () => {
-        const AllEvents = await getAllEvents();
+        const AllEvents = await getAllEvents(false);
         setEvents(AllEvents as CalendarEvent[]);
     };
     

@@ -7,7 +7,6 @@ import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendanceMenu from "./EventAttendanceMenu";
-import EventReview from "./EventReview";
 
 export interface CalendarEvent extends Event {
   kind: string;
@@ -18,7 +17,9 @@ export interface CalendarEvent extends Event {
 
 export default function EventCalendar(): JSX.Element {
   const [events, setEvents] = useState<CalendarEvent[]>();
+  const [attendingEvents, setAttendingEvents] = useState<CalendarEvent[]>();
   const [officeAttendance, setOfficeAttendance] = useState<CalendarEvent[]>();
+
   const [showEventAttendance, setShowEventAttendance] = useState(false);
   const [currentEvent, setCurrentEvent] = useState<CalendarEvent | undefined>(undefined);
   const [currentView, setCurrentView] = useState('month');
@@ -29,8 +30,13 @@ export default function EventCalendar(): JSX.Element {
   const [showUnsubscribeError, setShowUnsubscribeError] = useState(false);
 
   const getEvents = async () => {
-    const AllEvents = await getAllEvents();
+    const AllEvents = await getAllEvents(false);
     setEvents(AllEvents as CalendarEvent[]);
+  };
+
+  const getAttendingEvents = async () => {
+    const AllEvents = await getAllEvents(true);
+    setAttendingEvents(AllEvents as CalendarEvent[]);
   };
 
   const getOfficeAttendance = async () => {
@@ -56,6 +62,7 @@ export default function EventCalendar(): JSX.Element {
   useEffect(() => {
     getEvents();
     getOfficeAttendance();
+    getAttendingEvents();
   }, []);
 
   const makeEventCategories = (event: CalendarEvent) => {
@@ -71,15 +78,28 @@ export default function EventCalendar(): JSX.Element {
 
   return (
     <>
-      <Calendar
-        events={[...(events || []), ...(officeAttendance || [])].filter((event) => event.start >= new Date())}
-        components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
-        onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
-        eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
-        onView={(view) => setCurrentView(view)}
-      />
+      {currentView == 'agenda' ? 
+        <div className="event-overview">
+          <Calendar 
+            events={(events || []).filter((event) => event.start >= new Date())}
+            components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
+            onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
+            eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
+            defaultView="agenda"
+            onView={(view) => setCurrentView(view)}
+          />
+        </div>
+      : 
+        <Calendar
+          events={[...(attendingEvents || []), ...(officeAttendance || [])].filter((event) => event.start >= new Date())}
+          components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
+          onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
+          eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
+          onView={(view) => setCurrentView(view)}
+        />
+      }
 
-      <Legend />
+      {currentView != 'agenda'  ? <Legend /> : null}
       
       {showEventAttendance ? (
         <EventAttendanceMenu
@@ -89,6 +109,7 @@ export default function EventCalendar(): JSX.Element {
           setAttendanceError={setAttendanceError}
           setShowUnsubscribeMessage={setShowUnsubscribeMessage}
           setShowUnsubscribeError={setShowUnsubscribeError}
+          getEvents={getAttendingEvents}
         />
       ) : null}
 

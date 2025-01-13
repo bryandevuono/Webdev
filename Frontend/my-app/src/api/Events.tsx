@@ -1,5 +1,7 @@
 import { Event } from "react-big-calendar"
 import { CalendarEvent } from "../components/EventCalendar";
+import { checkUserRegistration } from "./AttendEvent";
+import { getUserId } from "./Login";
 
 export type OfficeEvent = CalendarEvent & {
     kind: "event",
@@ -9,7 +11,7 @@ export type OfficeEvent = CalendarEvent & {
     date?: string
 }
 
-export const getAllEvents = async (): Promise<Array<Event>> => {
+export const getAllEvents = async (checkIfAttending: boolean): Promise<Array<Event>> => {
     const response = await fetch('http://localhost:5053/api/events/GetAllEvents', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
@@ -32,7 +34,15 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
             location: data[i].location,
             date: data[i].date
         };
-        Events = [...Events, EventToAdd];
+        if(checkIfAttending && await checkUserRegistration(await getUserId(), data[i].id)){
+            Events = [...Events, EventToAdd];
+        } 
+        else if (checkIfAttending && !await checkUserRegistration(await getUserId(), data[i].id)){
+            continue;
+        }
+        else{
+            Events = [...Events, EventToAdd];
+        }
     }
     return Events;
 };
