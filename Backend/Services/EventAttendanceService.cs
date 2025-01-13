@@ -58,6 +58,7 @@ public class EventAttendanceService : IEventAttService
         attendance.Id = att.Id;
         attendance.UserId = att.UserId;
         attendance.EventId = att.EventId;
+        attendance.AttendedOn = att.AttendedOn;
         attendance.Rating = att.Rating;
         attendance.FeedBack = att.FeedBack;
 
