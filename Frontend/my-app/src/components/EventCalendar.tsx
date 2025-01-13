@@ -3,7 +3,7 @@ import Calendar from "./Calendar";
 import toolBar from "./Toolbar";
 import { OfficeEvent } from "../api/Events";
 import Legend from "./Legend";
-import {Event} from "react-big-calendar";
+import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendance from "./EventAttendance";
@@ -19,9 +19,9 @@ export default function EventCalendar(): JSX.Element {
   const [events, setEvents] = useState<CalendarEvent[]>();
   const [officeAttendace, setOfficeAttendace] = useState<CalendarEvent[]>();
   const [showEventAttendance, setShowEventAttendance] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState<CalendarEvent|undefined> (undefined);
-  const [currentView , setCurrentView] = useState('month');
-  
+  const [currentEvent, setCurrentEvent] = useState<CalendarEvent | undefined>(undefined);
+  const [currentView, setCurrentView] = useState('month');
+
   const [attendanceSuccess, setAttendanceSuccess] = useState(false);
   const [attendanceError, setAttendanceError] = useState(false);
 
@@ -41,14 +41,20 @@ export default function EventCalendar(): JSX.Element {
     })));
 
     setOfficeAttendace(convertedOfficeAttendace as CalendarEvent[]);
+    refreshData();
   };
 
   const handleEventClick = (event: CalendarEvent) => {
-    if(event.kind == 'event') {
+    if (event.kind == 'event') {
       setCurrentEvent(event);
       setShowEventAttendance(true);
     }
   }
+
+  const refreshData = async () => {
+    await getOfficeAttendace();
+    await getEvents();
+  };
 
   useEffect(() => {
     getEvents();
@@ -60,7 +66,7 @@ export default function EventCalendar(): JSX.Element {
     if (event.kind == 'event' && currentView == 'agenda') {
       backgroundColor = 'white';
     }
-    if(event.kind == 'office attendance') {
+    if (event.kind == 'office attendance') {
       backgroundColor = 'grey';
     }
     return { style: { backgroundColor } };
@@ -68,34 +74,34 @@ export default function EventCalendar(): JSX.Element {
 
   return (
     <>
-      <Calendar 
-        events={[...(events || []), ...(officeAttendace || [])]} 
-        components={{ toolbar: toolBar }} 
+      <Calendar
+        events={[...(events || []), ...(officeAttendace || [])]}
+        components={{ toolbar: toolBar }}
         onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
         eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
         onView={(view) => setCurrentView(view)}
       />
 
-      <Legend/>
+      <Legend />
       {showEventAttendance ?
-        <EventAttendance 
+        <EventAttendance
           setShowEventAttendance={setShowEventAttendance}
           currentEvent={currentEvent as OfficeEvent}
           setAttendanceSuccess={setAttendanceSuccess}
           setAttendanceError={setAttendanceError}
         />
-      : null}
+        : null}
 
-      {attendanceSuccess ? 
+      {attendanceSuccess ?
         <div className="popup-overlay">
           <div className="popup-form">
             <p>You are now attending this event!</p>
             <button onClick={() => setAttendanceSuccess(false)}>Close</button>
           </div>
         </div>
-      : null}
+        : null}
 
-      {attendanceError ? 
+      {attendanceError ?
         <div className="popup-overlay">
           <div className="popup-form">
             <p>There was an error attending this event!</p>
@@ -103,7 +109,7 @@ export default function EventCalendar(): JSX.Element {
             <button onClick={() => setAttendanceError(false)}>Close</button>
           </div>
         </div>
-      : null}
+        : null}
     </>
   );
 }
