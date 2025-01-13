@@ -1,3 +1,4 @@
+
 export const getEventAttendees = async (eventId: string): Promise<{ userId: string }[]> => {
     const response = await fetch(`http://localhost:5053/api/eventattendance/${eventId}/attendees`);
     if (!response.ok) {
@@ -5,3 +6,4 @@ export const getEventAttendees = async (eventId: string): Promise<{ userId: stri
     }
     return response.json();
 };
+

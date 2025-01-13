@@ -402,6 +402,42 @@ input[type=submit]:hover {
   font-size: 14px; 
 }
 
+.event-details {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  position: absolute;
+  top: 30vh;
+  left: 30vw;
+  height: 55vh;
+  width: 40vw;
+  background-color: #fdfdfd;  
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
+}
+
+.event-details-top button {
+  height: 30px;
+  width: 30px;
+}
+
+.event-details-top {
+  border-radius: 10px 10px 0 0 ;
+  box-sizing: border-box;
+  padding: 20px;
+  height: 7vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f6f8fc;
+}
+
+.event-details-bottom {
+  margin: 20px;
+}
+
 .add-button {
   width: 40px;
   height: 40px;
