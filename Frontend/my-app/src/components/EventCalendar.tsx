@@ -7,6 +7,7 @@ import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendance from "./EventAttendance";
+import EventReview from "./EventReview";
 
 export interface CalendarEvent extends Event {
   kind: string;
@@ -77,6 +78,8 @@ export default function EventCalendar(): JSX.Element {
         eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
         onView={(view) => setCurrentView(view)}
       />
+
+      <EventReview currentEvent={""} setShowPopup={setCurrentEvent}/>
 
       <Legend/>
       
