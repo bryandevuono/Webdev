@@ -7,6 +7,7 @@ import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendanceMenu from "./EventAttendanceMenu";
+import OfficeAttendancePopup from "./OfficeAttendancePopup";
 
 export interface CalendarEvent extends Event {
   kind: string;
@@ -21,13 +22,17 @@ export default function EventCalendar(): JSX.Element {
   const [officeAttendance, setOfficeAttendance] = useState<CalendarEvent[]>();
 
   const [showEventAttendance, setShowEventAttendance] = useState(false);
-  const [currentEvent, setCurrentEvent] = useState<CalendarEvent | undefined>(undefined);
-  const [currentView, setCurrentView] = useState('month');
+  const [currentEvent, setCurrentEvent] = useState<CalendarEvent | undefined>(
+    undefined
+  );
+  const [currentView, setCurrentView] = useState("month");
 
   const [attendanceSuccess, setAttendanceSuccess] = useState(false);
   const [attendanceError, setAttendanceError] = useState(false);
   const [showUnsubscribeMessage, setShowUnsubscribeMessage] = useState(false);
   const [showUnsubscribeError, setShowUnsubscribeError] = useState(false);
+  const [showOfficeAttendancePopup, setShowOfficeAttendancePopup] =
+    useState(false);
 
   const getEvents = async () => {
     const AllEvents = await getAllEvents(false);
@@ -42,65 +47,91 @@ export default function EventCalendar(): JSX.Element {
   const getOfficeAttendance = async () => {
     const AllOfficeAttendace = await GetAllOfficeAttendace();
 
-    const convertedOfficeAttendace = await Promise.all(AllOfficeAttendace.map(async (attendance) => ({
-      kind: 'office attendance',
-      start: new Date(attendance.Start),
-      end: new Date(attendance.End),
-      title: await GetUserName(attendance.UserId),
-    })));
+    const convertedOfficeAttendace = await Promise.all(
+      AllOfficeAttendace.map(async (attendance) => ({
+        kind: "office attendance",
+        start: new Date(attendance.Start),
+        end: new Date(attendance.End),
+        title: await GetUserName(attendance.UserId),
+      }))
+    );
 
     setOfficeAttendance(convertedOfficeAttendace as CalendarEvent[]);
   };
 
   const handleEventClick = (event: CalendarEvent) => {
-    if (event.kind == 'event') {
+    if (event.kind == "event") {
       setCurrentEvent(event);
       setShowEventAttendance(true);
+    } else if (event.kind == "office attendance") {
+      setCurrentEvent(event);
+      setShowOfficeAttendancePopup(true);
     }
-  }
+  };
 
   useEffect(() => {
     getEvents();
     getOfficeAttendance();
-    getAttendingEvents();
+    // getAttendingEvents();
   }, []);
 
   const makeEventCategories = (event: CalendarEvent) => {
-    let backgroundColor = '';
-    if (event.kind == 'event' && currentView == 'agenda') {
-      backgroundColor = 'white';
+    let backgroundColor = "";
+    if (event.kind == "event" && currentView == "agenda") {
+      backgroundColor = "white";
     }
-    if (event.kind == 'office attendance') {
-      backgroundColor = 'grey';
+    if (event.kind == "office attendance") {
+      backgroundColor = "grey";
     }
     return { style: { backgroundColor } };
   };
 
   return (
     <>
-      {currentView == 'agenda' ? 
+      {currentView == "agenda" ? (
         <div className="event-overview">
-          <Calendar 
+          <Calendar
             events={(events || []).filter((event) => event.start >= new Date())}
-            components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
+            components={{
+              toolbar: (props) => (
+                <CustomToolbar
+                  {...props}
+                  refreshOfficeAttendance={getOfficeAttendance}
+                />
+              ),
+            }}
             onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
-            eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
+            eventPropGetter={(event) =>
+              makeEventCategories(event as CalendarEvent)
+            }
             defaultView="agenda"
             onView={(view) => setCurrentView(view)}
           />
         </div>
-      : 
+      ) : (
         <Calendar
-          events={[...(attendingEvents || []), ...(officeAttendance || [])].filter((event) => event.start >= new Date())}
-          components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
+          events={[
+            ...(attendingEvents || []),
+            ...(officeAttendance || []),
+          ].filter((event) => event.start >= new Date())}
+          components={{
+            toolbar: (props) => (
+              <CustomToolbar
+                {...props}
+                refreshOfficeAttendance={getOfficeAttendance}
+              />
+            ),
+          }}
           onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
-          eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
+          eventPropGetter={(event) =>
+            makeEventCategories(event as CalendarEvent)
+          }
           onView={(view) => setCurrentView(view)}
         />
-      }
+      )}
 
-      {currentView != 'agenda'  ? <Legend /> : null}
-      
+      {currentView != "agenda" ? <Legend /> : null}
+
       {showEventAttendance ? (
         <EventAttendanceMenu
           setShowEventAttendance={setShowEventAttendance}
@@ -110,6 +141,13 @@ export default function EventCalendar(): JSX.Element {
           setShowUnsubscribeMessage={setShowUnsubscribeMessage}
           setShowUnsubscribeError={setShowUnsubscribeError}
           getEvents={getAttendingEvents}
+        />
+      ) : null}
+
+      {showOfficeAttendancePopup ? (
+        <OfficeAttendancePopup
+          currentEvent={currentEvent as CalendarEvent}
+          setShowPopup={setShowOfficeAttendancePopup}
         />
       ) : null}
 
@@ -136,7 +174,9 @@ export default function EventCalendar(): JSX.Element {
         <div className="popup-overlay">
           <div className="popup-form">
             <p>You have unsubscribed from this event</p>
-            <button onClick={() => setShowUnsubscribeMessage(false)}>Close</button>
+            <button onClick={() => setShowUnsubscribeMessage(false)}>
+              Close
+            </button>
           </div>
         </div>
       ) : null}
@@ -145,7 +185,9 @@ export default function EventCalendar(): JSX.Element {
         <div className="popup-overlay">
           <div className="popup-form">
             <p>There was an error unsubscribing from this event</p>
-            <button onClick={() => setShowUnsubscribeError(false)}>Close</button>
+            <button onClick={() => setShowUnsubscribeError(false)}>
+              Close
+            </button>
           </div>
         </div>
       ) : null}
