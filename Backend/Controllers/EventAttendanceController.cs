@@ -39,6 +39,13 @@ public class AttendanceController : Controller
         return Ok($"User {eventAttendance.UserId} is now attending event {eventAttendance.EventId}");
     }
 
+    [HttpGet("isUserRegistered/{userId}/{eventId}")]
+    public async Task<IActionResult> IsUserRegistered(Guid userId, Guid eventId)
+    {
+        var isRegistered = await _attendanceService.IsUserAttendingEvent(userId, eventId);
+        return Ok(isRegistered);
+    }
+
     [HttpGet("{title}/attendees")]
     public async Task<IActionResult> GetAttendees(string title)
     {

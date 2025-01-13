@@ -33,3 +33,12 @@ export const AttendEvent = async (eventId: string, setAttendanceSuccess:Function
     return false;
   }
 };
+
+export const checkUserRegistration = async (userId: string, eventId: string): Promise<boolean> => {
+  const response = await fetch(`http://localhost:5053/api/eventattendance/isUserRegistered/${userId}/${eventId}`);
+  if (!response.ok) {
+      throw new Error("Failed to check user registration");
+  }
+  const isRegistered = await response.json();
+  return isRegistered;
+};

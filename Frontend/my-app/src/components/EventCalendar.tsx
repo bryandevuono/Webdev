@@ -6,13 +6,17 @@ import Legend from "./Legend";
 import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
+import { UnsubscribeEvent } from "../api/UnsubscribeEvent";
 import EventAttendance from "./EventAttendance";
+import { getUserId } from "../api/Login";
+import { checkUserRegistration } from "../api/AttendEvent";
 
 export interface CalendarEvent extends Event {
   kind: string;
   start: Date;
   end: Date;
   title: string;
+  eventId: string;
 }
 
 export default function EventCalendar(): JSX.Element {
@@ -26,6 +30,10 @@ export default function EventCalendar(): JSX.Element {
 
   const [attendanceSuccess, setAttendanceSuccess] = useState(false);
   const [attendanceError, setAttendanceError] = useState(false);
+
+  const [unsubscribeSuccess, setUnsubscribeSuccess] = useState(false);
+  const [unsubscribeError, setUnsubscribeError] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
 
   const getEvents = async () => {
     const AllEvents = await getAllEvents();
@@ -47,10 +55,18 @@ export default function EventCalendar(): JSX.Element {
     setOfficeAttendace(convertedOfficeAttendace as CalendarEvent[]);
   };
 
-  const handleEventClick = (event: CalendarEvent) => {
-    if (event.kind == "event") {
-      setCurrentEvent(event);
-      setShowEventAttendance(true);
+  const handleEventClick = async (event: CalendarEvent) => {
+    if(event.kind == 'event') {
+        const userId = await getUserId();
+        try{ 
+        const isUserRegistered = await checkUserRegistration(userId, event.eventId);
+        setIsRegistered(isUserRegistered);
+        setCurrentEvent(event);
+        setShowEventAttendance(true);
+        } catch (err) {
+          console.error(err);
+          setAttendanceError(true);
+        }
     }
   };
 
@@ -88,6 +104,9 @@ export default function EventCalendar(): JSX.Element {
           currentEvent={currentEvent as OfficeEvent}
           setAttendanceSuccess={setAttendanceSuccess}
           setAttendanceError={setAttendanceError}
+          setUnsubscribeSuccess={setUnsubscribeSuccess}
+          setUnsubscribeError={setUnsubscribeError}
+          isRegistered={isRegistered}
         />
       ) : null}
 
@@ -109,6 +128,24 @@ export default function EventCalendar(): JSX.Element {
           </div>
         </div>
       ) : null}
+        
+        {unsubscribeSuccess ? 
+        <div className="popup-overlay">
+          <div className="popup-form">
+            <p>You have successfully unsubscribed from this event!</p>
+            <button onClick={() => setUnsubscribeSuccess(false)}>Close</button>
+          </div>
+        </div>
+      : null}
+
+      {unsubscribeError ? 
+        <div className="popup-overlay">
+          <div className="popup-form">
+            <p>There was an error unsubscribing from this event!</p>
+            <button onClick={() => setUnsubscribeError(false)}>Close</button>
+          </div>
+        </div>
+      : null}
     </>
   );
 }
