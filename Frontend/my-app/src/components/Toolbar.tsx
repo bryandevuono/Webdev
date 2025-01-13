@@ -61,7 +61,7 @@ const CustomToolbar = (props: CustomToolbarProps): JSX.Element => {
     e.preventDefault();
 
     await PostOfficeAttendace(formData, Navigate);
-    props.refreshOfficeAttendance(); // Call the refresh function
+    props.refreshOfficeAttendance();
     setShowPopup(false);
   };
 
