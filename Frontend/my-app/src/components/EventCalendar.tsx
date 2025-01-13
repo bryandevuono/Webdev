@@ -72,7 +72,7 @@ export default function EventCalendar(): JSX.Element {
   return (
     <>
       <Calendar
-        events={[...(events || []), ...(officeAttendance || [])]}
+        events={[...(events || []), ...(officeAttendance || [])].filter((event) => event.start >= new Date())}
         components={{ toolbar: (props) => <CustomToolbar {...props} refreshOfficeAttendance={getOfficeAttendance} /> }}
         onSelectEvent={(event) => handleEventClick(event as CalendarEvent)}
         eventPropGetter={(event) => makeEventCategories(event as CalendarEvent)}
