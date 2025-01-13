@@ -4,6 +4,9 @@ import { CalendarEvent } from "../components/EventCalendar";
 export type OfficeEvent = CalendarEvent & {
     kind: "event",
     eventId: string
+    description?: string
+    location?: string
+    date?: string
 }
 
 export const getAllEvents = async (): Promise<Array<Event>> => {
@@ -24,7 +27,10 @@ export const getAllEvents = async (): Promise<Array<Event>> => {
             start: new Date(data[i].startTime),
             end: new Date(data[i].endTime),
             title: data[i].title,
-            eventId: data[i].id
+            eventId: data[i].id,
+            description: data[i].description,
+            location: data[i].location,
+            date: data[i].date
         };
         Events.push(EventToAdd);
     }
@@ -91,4 +97,24 @@ export const addEvent = async (eventInfo: EventRequestBody): Promise<boolean> =>
     else{
         return false;
     }
+}
+
+export const getEvent = async (eventId: string): Promise<OfficeEvent> => {
+    const response = await fetch(`http://localhost:5053/api/events?Id=${eventId}`, {
+        method: 'GET',
+        credentials: 'include' as RequestCredentials,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    const data = await response.json();
+    const Event: OfficeEvent = {
+        kind: "event",
+        start: new Date(data.startTime),
+        end: new Date(data.endTime),
+        title: data.title,
+        eventId: data.id
+    };
+    return Event;
 }

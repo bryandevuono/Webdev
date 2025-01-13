@@ -14,10 +14,6 @@ public class OfficeAttendanceService : IOfficeAttendanceService
 
     public async Task<(bool, string)> AddOfficeAttendance(OfficeAttendance attendance)
     {
-        // if (await _loginService.IsSessionActive() == false)
-        // {
-        //     return (false, "Session not active");
-        // }
         attendance.OfficeAttendanceId = Guid.NewGuid();
         if (attendance != null)
         {
