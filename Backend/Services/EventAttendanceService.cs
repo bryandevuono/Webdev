@@ -44,21 +44,45 @@ public class EventAttendanceService : IEventAttService
 
         return attendees;
     }
-    public async Task<bool> AddFeedback(EventAttendance att)
+
+    public async Task<bool> PutEventAttendance(EventAttendance att)
     {
         var attendance = await _context.EventAttendance
-        .FirstOrDefaultAsync(a => a.UserId == att.UserId && a.EventId == att.EventId);
+        .FirstOrDefaultAsync(x => x.Id == att.Id);
 
         if (attendance == null)
         {
             return false;
         }
 
+        attendance.Id = att.Id;
+        attendance.UserId = att.UserId;
+        attendance.EventId = att.EventId;
+        attendance.Rating = att.Rating;
         attendance.FeedBack = att.FeedBack;
+
         await _context.SaveChangesAsync();
 
         return true;
     }
+
+    // public async Task<bool> AddFeedback(EventAttendance att)
+    // {
+    //     var attendance = await _context.EventAttendance
+    //     .FirstOrDefaultAsync(a => a.UserId == att.UserId && a.EventId == att.EventId);
+
+    //     if (attendance == null)
+    //     {
+    //         return false;
+    //     }
+
+    //     attendance.Rating = att.Rating;
+    //     attendance.FeedBack = att.FeedBack;
+    //     await _context.SaveChangesAsync();
+
+    //     return true;
+    // }
+
     public async Task<bool> RemoveAttendance(Guid userId, Guid eventId)
     {
         Console.WriteLine($"UserId: {userId}, EventId: {eventId}");

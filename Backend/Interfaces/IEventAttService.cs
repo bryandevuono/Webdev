@@ -5,4 +5,5 @@ public interface IEventAttService
     Task<bool> RemoveAttendance(Guid userId, Guid eventId);
     Task<Events?> GetEventById(Guid eventId);
     Task<bool> IsUserAttendingEvent(Guid userId, Guid eventId);
+    Task<bool> PutEventAttendance(EventAttendance att);
 }
