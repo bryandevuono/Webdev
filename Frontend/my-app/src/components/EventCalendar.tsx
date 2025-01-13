@@ -6,7 +6,7 @@ import Legend from "./Legend";
 import { Event } from "react-big-calendar";
 import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
-import EventAttendance from "./EventAttendance";
+import EventAttendanceMenu from "./EventAttendanceMenu";
 import EventReview from "./EventReview";
 
 export interface CalendarEvent extends Event {
@@ -79,12 +79,10 @@ export default function EventCalendar(): JSX.Element {
         onView={(view) => setCurrentView(view)}
       />
 
-      <EventReview currentEvent={""} setShowPopup={setCurrentEvent}/>
-
-      <Legend/>
+      <Legend />
       
-      {showEventAttendance ?
-        <EventAttendance
+      {showEventAttendance ? (
+        <EventAttendanceMenu
           setShowEventAttendance={setShowEventAttendance}
           currentEvent={currentEvent as OfficeEvent}
           setAttendanceSuccess={setAttendanceSuccess}
@@ -92,18 +90,18 @@ export default function EventCalendar(): JSX.Element {
           setShowUnsubscribeMessage={setShowUnsubscribeMessage}
           setShowUnsubscribeError={setShowUnsubscribeError}
         />
-        : null}
+      ) : null}
 
-      {attendanceSuccess ?
+      {attendanceSuccess ? (
         <div className="popup-overlay">
           <div className="popup-form">
             <p>You are now attending this event!</p>
             <button onClick={() => setAttendanceSuccess(false)}>Close</button>
           </div>
         </div>
-        : null}
+      ) : null}
 
-      {attendanceError ?
+      {attendanceError ? (
         <div className="popup-overlay">
           <div className="popup-form">
             <p>There was an error attending this event!</p>
@@ -111,25 +109,25 @@ export default function EventCalendar(): JSX.Element {
             <button onClick={() => setAttendanceError(false)}>Close</button>
           </div>
         </div>
-        : null}
+      ) : null}
 
-      {showUnsubscribeMessage ? 
-      <div className="popup-overlay">
-        <div className="popup-form">
-          <p>You have unsubscribed from this event</p>
-          <button onClick={() => setShowUnsubscribeMessage(false)}>Close</button>
-        </div> 
-      </div>
-      : null}
+      {showUnsubscribeMessage ? (
+        <div className="popup-overlay">
+          <div className="popup-form">
+            <p>You have unsubscribed from this event</p>
+            <button onClick={() => setShowUnsubscribeMessage(false)}>Close</button>
+          </div>
+        </div>
+      ) : null}
 
-      {showUnsubscribeError ? 
+      {showUnsubscribeError ? (
         <div className="popup-overlay">
           <div className="popup-form">
             <p>There was an error unsubscribing from this event</p>
             <button onClick={() => setShowUnsubscribeError(false)}>Close</button>
           </div>
         </div>
-      : null}
+      ) : null}
     </>
   );
 }
