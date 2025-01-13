@@ -1,7 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { Review, ReviewEvent } from "../api/EventAttendance";
+import {
+  Review,
+  ReviewEvent,
+  getEventAttendanceId,
+} from "../api/EventAttendance";
 import { OfficeEvent } from "../api/Events";
+import { getUserId } from "../api/Login";
 
 interface EventReviewProps {
   currentEvent: OfficeEvent;
@@ -13,8 +18,9 @@ const EventReview = ({
   currentEvent,
   setShowReview,
 }: EventReviewProps): JSX.Element => {
-  const [starRating, setStarRating] = useState(0);
+  const [starRating, setStarRating] = useState("");
   const [review, setReview] = useState("");
+  const [attendanceId, setAttendanceId] = useState("");
 
   const handleExit = () => {
     setShowReview(false);
@@ -23,16 +29,19 @@ const EventReview = ({
   const handleReview = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const userId = await getUserId();
+    const eventId = currentEvent.eventId;
+
     // create review object
     const reviewInfo: Review = {
-      starRating: starRating,
-      review: review,
+      userId: userId,
+      eventId: eventId,
+      Rating: starRating,
+      FeedBack: review,
     };
 
-    console.log(reviewInfo);
-    console.log(currentEvent);
     // post review
-    if ((await ReviewEvent(currentEvent.eventId, reviewInfo)) === false) {
+    if ((await ReviewEvent(reviewInfo)) === false) {
       alert("Failed to submit review");
     } else {
       alert("Review submitted");
@@ -60,7 +69,7 @@ const EventReview = ({
               id="1"
               name="star-rating"
               value={1}
-              onChange={(e) => setStarRating(Number(e.target.value))}
+              onChange={(e) => setStarRating(e.target.value)}
             />
             <label htmlFor="2">2</label>
             <input
@@ -68,7 +77,7 @@ const EventReview = ({
               id="2"
               name="star-rating"
               value={2}
-              onChange={(e) => setStarRating(Number(e.target.value))}
+              onChange={(e) => setStarRating(e.target.value)}
             />
             <label htmlFor="3">3</label>
             <input
@@ -76,7 +85,7 @@ const EventReview = ({
               id="3"
               name="star-rating"
               value={3}
-              onChange={(e) => setStarRating(Number(e.target.value))}
+              onChange={(e) => setStarRating(e.target.value)}
             />
             <label htmlFor="4">4</label>
             <input
@@ -84,7 +93,7 @@ const EventReview = ({
               id="4"
               name="star-rating"
               value={4}
-              onChange={(e) => setStarRating(Number(e.target.value))}
+              onChange={(e) => setStarRating(e.target.value)}
             />
             <label htmlFor="5">5</label>
             <input
@@ -92,7 +101,7 @@ const EventReview = ({
               id="5"
               name="star-rating"
               value={5}
-              onChange={(e) => setStarRating(Number(e.target.value))}
+              onChange={(e) => setStarRating(e.target.value)}
             />
             <textarea
               rows={5}

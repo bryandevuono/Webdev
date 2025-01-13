@@ -77,11 +77,22 @@ public class AttendanceController : Controller
     public async Task<IActionResult> PutEventAttendance([FromBody] EventAttendance attendance)
     {
         var succes = await _attendanceService.PutEventAttendance(attendance);
-        if (!succes)
+        if (succes == null)
         {
             return NotFound("Attendance not found.");
         }
         return Ok(succes);
+    }
+
+    [HttpGet("getid/{userId}/{eventId}")]
+    public async Task<IActionResult> GetIdByUserIdEventId(Guid userId, Guid eventId)
+    {
+        var id = await _attendanceService.GetIdByUserIdEventId(userId, eventId);
+        if (id == Guid.Empty)
+        {
+            return NotFound("Attendance not found.");
+        }
+        return Ok(id);
     }
 
 }

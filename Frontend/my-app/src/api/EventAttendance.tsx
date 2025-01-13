@@ -32,25 +32,34 @@ export const updateEventAttendance = async (
   }
 };
 
-export type Review = {
-  starRating: number;
-  review: string;
+export const getEventAttendanceId = async (
+  eventId: string,
+  userId: string
+): Promise<string> => {
+  const response = await fetch(
+    `http://localhost:5053/api/eventattendance/getid/${userId}/${eventId}`
+  );
+  if (!response.ok) {
+    return "";
+  }
+  return response.json();
 };
 
-export const ReviewEvent = async (
-  id: string,
-  review: Review
-): Promise<boolean> => {
-  const response = await fetch(
-    `http://localhost:5053/api/eventattendance/${id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(review),
-    }
-  );
+export type Review = {
+  userId: string;
+  eventId: string;
+  Rating: string;
+  FeedBack: string;
+};
+
+export const ReviewEvent = async (review: Review): Promise<boolean> => {
+  const response = await fetch(`http://localhost:5053/api/eventattendance`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(review),
+  });
   if (!response.ok) {
     return false;
   } else {
