@@ -21,7 +21,7 @@ const AdminSeeAttendees = (): JSX.Element => {
 
     const getEvents = async () => {
         try {
-            const allEvents = await getAllEvents();
+            const allEvents = await getAllEvents(false);
             if (!Array.isArray(allEvents)) {
                 throw new Error('Invalid event data');
             }
