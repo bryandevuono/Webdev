@@ -1,28 +1,9 @@
-export type EventAttendance = {
-  id: string;
-  eventId: string;
-  userId: string;
-  attendedOn: string;
-  feedback: string;
-  rating: string;
+
+export const getEventAttendees = async (eventId: string): Promise<{ userId: string }[]> => {
+    const response = await fetch(`http://localhost:5053/api/eventattendance/${eventId}/attendees`);
+    if (!response.ok) {
+        throw new Error("Failed to fetch attendees");
+    }
+    return response.json();
 };
 
-export const AddFeedback = async (
-  eventAttendance: EventAttendance
-): Promise<boolean> => {
-  const response = await fetch("http://localhost:5053/api/EventAttendance/", {
-    method: "POST",
-    credentials: "include" as RequestCredentials,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(eventAttendance),
-  });
-
-  const data = await response.json();
-  if (response.ok) {
-    return true;
-  } else {
-    return false;
-  }
-};

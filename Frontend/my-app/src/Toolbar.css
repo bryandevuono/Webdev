@@ -33,26 +33,39 @@
     z-index: 1000;
 }
 
-/* Style for the form */
 .popup-form {
     background-color: white;
-    /* Optional: add a background color to the form */
     padding: 20px;
-    /* Optional: padding inside the form */
     border-radius: 10px;
-    /* Optional: rounded corners */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    /* Optional: soft shadow around the form */
     display: flex;
     flex-direction: column;
-    /* Stack form elements vertically */
     gap: 10px;
-    /* Space between form elements */
     width: auto;
-    /* Adjust width of form */
 }
 
-/* Input and label styling */
+.popup-form-event {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    width: 40%;
+}
+
+.popup-form-detail {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    gap: 10px;
+    width: 40%;
+    position: absolute;
+}
+
 .input-style {
     padding: 8px;
     margin: 5px 0;

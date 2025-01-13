@@ -9,7 +9,7 @@ interface NavBarItemProps {
   loggedIn: boolean;
 }
 
-const NavBar = ({ navItems, loggedIn }: NavBarItemProps): JSX.Element => {
+const NavBar = ({ navItems, loggedIn}: NavBarItemProps): JSX.Element => {
   const [username, setUsername] = useState("");
   const getUserName = async () => {
     const userName = await getUserInfo();

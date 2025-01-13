@@ -1,44 +1,47 @@
-import { useState } from "react";
-import { EventRequestBody, OfficeEvent, editEvent} from "../api/Events";
+import React from 'react';
+import { useState } from 'react';
+import { addEvent } from '../api/Events';
 
-interface EventPopUpProps {
-    currentEvent: OfficeEvent;
+interface AddEventPopUpProps {
     setShowPopup: Function;
     setSuccess: Function;
-    setConfirmDelete: Function;
+    setFailed: Function;
 }
 
-const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: EventPopUpProps): JSX.Element => {
+export default function AddEventPopUp({setShowPopup, setSuccess, setFailed}: AddEventPopUpProps): JSX.Element {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [location, setLocation] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endTime, setEndTime] = useState("");
-    
-    const handleSubmit = () => {
-        const updatedEvent: EventRequestBody = {
+
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault()
+        const eventInfo = {
             title: title,
             description: description,
             location: location,
             startTime: startTime,
             endTime: endTime
-        }
-        
-        editEvent(currentEvent.eventId, updatedEvent);
-        setShowPopup(false);
-        setSuccess(true);
-    };
+        };
 
-    const handleDeleteClick = () => {
-        setConfirmDelete(true);
+        const Add = await addEvent(eventInfo);
+        
+        if (!Add){
+            setFailed(true);
+            setShowPopup(false);
+            return;
+        }
+
+        setSuccess(true);
         setShowPopup(false);
-    }
+    };
 
     return (
         <div className="popup-overlay">
             <div className="popup">
 
-                <h2>Edit the Event</h2>
+                <h2>Add Event</h2>
 
                 <div>
                     <form onSubmit={handleSubmit} className="popup-form">
@@ -79,8 +82,7 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: 
 
                         <br/>
 
-                        <button type="submit">Submit</button>
-                        <button onClick={() => handleDeleteClick()}>Delete Event</button>
+                        <button type="submit" onClick={(event) => handleSubmit(event)}>Submit</button>
                         <button type="submit" onClick={() => setShowPopup(false)}>Cancel</button>
                     </form>
                 </div>
@@ -88,5 +90,3 @@ const EventPopUp = ({currentEvent, setShowPopup, setSuccess, setConfirmDelete}: 
         </div>
     );
 }
-
-export default EventPopUp;

@@ -26,8 +26,8 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
-    CheckSession();
     CheckIfUserIsAdmin();
+    CheckSession();
   }, []);
 
   return (
@@ -59,7 +59,7 @@ function App(): JSX.Element {
             path="/profile"
             element={
               Authorized ? (
-                <ProfilePage setAuthorized={setAuthorized} />
+                <ProfilePage setAuthorized={setAuthorized} setIsAdmin={setIsAdmin}/>
               ) : (
                 <Navigate to="/" />
               )
