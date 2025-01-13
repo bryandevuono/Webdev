@@ -18,7 +18,7 @@ const EventReview = ({ currentEvent, setShowReview, setEventMenu }: EventReviewP
       setEventMenu(false);
       setShowReview(false);
     } else {
-    alert("Something went wrong while submitting your review...");
+      alert("Something went wrong while submitting your review...");
     }
   };
 
