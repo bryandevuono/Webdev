@@ -66,3 +66,12 @@ export const ReviewEvent = async (review: Review): Promise<boolean> => {
     return true;
   }
 };
+
+export const getAverageRating = async (eventId: string): Promise<{ averageRating: number, ratingCount: number }> => {
+  const response = await fetch(`http://localhost:5053/api/eventattendance/averageRating/${eventId}`);
+  if (!response.ok) {         
+      throw new Error("Failed to fetch average rating");
+  }
+  const data = await response.json();
+  return { averageRating: data.averageRating, ratingCount: data.ratingCount };
+};

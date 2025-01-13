@@ -61,6 +61,14 @@ public class AttendanceController : Controller
         return Ok(attendees);
     }
 
+    [HttpGet("averageRating/{eventId}")]
+    public async Task<IActionResult> GetAverageRating(Guid eventId)
+    {
+        (double averageRating, int ratingCount) = await _attendanceService.GetRatings(eventId);
+        return Ok(new { averageRating, ratingCount });
+    }
+
+
     [HttpDelete("{userId}/{eventId}")]
     public async Task<IActionResult> DeleteAttendance([FromRoute] Guid userId, [FromRoute] Guid eventId)
     {
