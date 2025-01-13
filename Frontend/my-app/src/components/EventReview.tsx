@@ -1,16 +1,11 @@
 import React from "react";
-import { useState } from "react";
-import { EventAttendance, AddFeedback } from "../api/EventAttendance";
 
 interface EventReviewProps {
   currentEvent: string;
   setShowPopup: Function;
 }
 
-const EventReview = ({
-  currentEvent,
-  setShowPopup,
-}: EventReviewProps): JSX.Element => {
+const EventReview = ({currentEvent, setShowPopup}: EventReviewProps): JSX.Element => {
   const handleExit = () => {
     setShowPopup(false);
   };
