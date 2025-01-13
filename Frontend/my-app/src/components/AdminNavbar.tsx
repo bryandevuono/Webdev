@@ -14,8 +14,6 @@ const AdminNavbar = ({ usersToggle, eventsToggle, attendeeToggle }: AdminNavbarP
                 <ul>
                     <li className="astext" onClick={() => eventsToggle(true)}>Manage events</li>
                     <br/>
-                    <li className="astext" onClick={() => usersToggle(true)}>Manage users</li>
-                    <br/>
                     <li className="astext" onClick={() => attendeeToggle(true)}>See attendees</li>
                 </ul>
             </nav>
