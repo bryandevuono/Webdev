@@ -77,6 +77,7 @@ export default function EventCalendar(): JSX.Element {
       />
 
       <Legend/>
+      
       {showEventAttendance ?
         <EventAttendance 
           setShowEventAttendance={setShowEventAttendance}

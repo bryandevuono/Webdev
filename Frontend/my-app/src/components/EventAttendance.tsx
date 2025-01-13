@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AttendEvent } from "../api/AttendEvent";
 import { UnsubscribeEvent } from "../api/UnsubscribeEvent";
+import { checkUserRegistration } from "../api/AttendEvent";
+import { getUserId } from "../api/Login";
 import { OfficeEvent } from "../api/Events";
 
 interface EventAttendanceProps {
@@ -11,6 +13,7 @@ interface EventAttendanceProps {
 }
 
 const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
+    const [isAttending, setIsAttending] = React.useState(false);
     const handleSubmit = (event: React.FormEvent) => {
         if (currentEvent.kind == "event") {
             AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
@@ -20,6 +23,16 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
         }
     }
 
+    const checkIfAttending = async () => {
+        const response = await checkUserRegistration(currentEvent.eventId, await getUserId());
+        setIsAttending(response);
+        console.log(response);
+    }
+
+    useEffect (() => {
+        checkIfAttending();
+    }, []);
+
     return (
         <div className="popup-overlay">
             <form className="popup-form-event">
@@ -28,9 +41,17 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
                 <p>Location: {currentEvent.location}</p>
                 <p>Date: {String(currentEvent.start)}</p>
                 <p>Choose an option:</p>
-                <button>Leave a review</button>
-                <button onClick={(event) => handleSubmit(event)}>Attend this Event</button>
-                <button>Unsubscribe</button>
+                
+                {isAttending ? 
+                    <button>Leave a review</button>
+                : null}
+
+                {isAttending ? 
+                    <button onClick={() => UnsubscribeEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError)}>Unsubscribe</button> 
+                : 
+                    <button onClick={(event) => handleSubmit(event)}>Attend this Event</button>
+                }
+
                 <button onClick={() => setShowEventAttendance(false)}>Cancel</button>
             </form>
             {}
