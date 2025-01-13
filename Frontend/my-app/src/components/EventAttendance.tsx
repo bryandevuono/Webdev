@@ -1,6 +1,7 @@
 import React from "react";
 import { AttendEvent } from "../api/AttendEvent";
 import { OfficeEvent } from "../api/Events";
+import { getEvent } from "../api/Events";
 
 interface EventAttendanceProps {
     setShowEventAttendance: Function
@@ -10,11 +11,9 @@ interface EventAttendanceProps {
 }
 
 const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuccess, setAttendanceError}: EventAttendanceProps): JSX.Element => {
-    const toggle = () => {
-        setShowEventAttendance(false);
-    }
+    const [showDetails, setShowDetails] = React.useState(false);
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: React.FormEvent) => {
         if (currentEvent.kind == "event") {
             AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
             setShowEventAttendance(false);
@@ -22,15 +21,20 @@ const EventAttendance = ({setShowEventAttendance, currentEvent, setAttendanceSuc
             setAttendanceError(true);
         }
     }
+
     return (
         <div className="popup-overlay">
-            <div className="popup">
-                <form className="popup-form">
-                    <p>Would you like to attend this event?</p>
-                    <button onClick={() => handleSubmit()}>Attend Event</button>
-                    <button onClick={() => toggle()}>Cancel</button>
-                </form>
-            </div>
+            <form className="popup-form-event">
+                <h1>{currentEvent.title}</h1>
+                <p>Description: {currentEvent.description}</p>
+                <p>Location: {currentEvent.location}</p>
+                <p>Date: {String(currentEvent.start)}</p>
+                <p>Choose an option:</p>
+                <button>Leave a review</button>
+                <button onClick={(event) => handleSubmit(event)}>Attend this Event</button>
+                <button>Unsubscribe</button>
+                <button onClick={() => setShowEventAttendance(false)}>Cancel</button>
+            </form>
         </div>
     );
 } 
