@@ -1,10 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {
-  Review,
-  ReviewEvent,
-  getEventAttendanceId,
-} from "../api/EventAttendance";
+import { Review, ReviewEvent } from "../api/EventAttendance";
 import { OfficeEvent } from "../api/Events";
 import { getUserId } from "../api/Login";
 
@@ -49,7 +45,6 @@ const EventReview = ({
 
   return (
     <div className="event-details">
-      
       <div className="event-details-top">
         <h1>{currentEvent.title}</h1>
         <button className="exit-button" onClick={handleExit}>
@@ -101,7 +96,7 @@ const EventReview = ({
               value={5}
               onChange={(e) => setStarRating(e.target.value)}
             />
-            <br/>
+            <br />
             <textarea
               rows={5}
               cols={50}

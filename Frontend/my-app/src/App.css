@@ -457,3 +457,40 @@ input[type=submit]:hover {
   left: 55%;
 }
 
+.office-attendance-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fdfdfd;  
+  width: 40vw;
+  height: 20vh;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px rgba(119, 115, 142, 0.5);
+  z-index: 1000;
+}
+
+.office-attendance-popup-top button {
+  height: 30px;
+  width: 30px;
+}
+
+.office-attendance-popup-top {
+  border-radius: 10px 10px 0 0 ;
+  box-sizing: border-box;
+  padding: 5vh;
+  height: 7vh;
+  width: 40vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f6f8fc;
+}
+
+.office-attendance-popup-bottom {
+  margin: 20px;
+}
