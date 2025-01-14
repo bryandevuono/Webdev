@@ -6,5 +6,6 @@ public interface IEventAttService
     Task<Events?> GetEventById(Guid eventId);
     Task<Guid> GetIdByUserIdEventId(Guid userId, Guid eventId);
     Task<bool> IsUserAttendingEvent(Guid userId, Guid eventId);
+    Task<(double averageRating, int ratingCount)> GetRatings(Guid eventId);
     Task<EventAttendance> PutEventAttendance(EventAttendance att);
 }
