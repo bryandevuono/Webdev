@@ -1,6 +1,6 @@
 import { CalendarEvent } from "../components/EventCalendar";
 
-export type OfficeAttendance = {
+type OfficeAttendance = {
   type: "office attendance";
   Start: string;
   End: string;

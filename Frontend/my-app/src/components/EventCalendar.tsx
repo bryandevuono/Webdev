@@ -64,6 +64,7 @@ export default function EventCalendar(): JSX.Element {
       setCurrentEvent(event);
       setShowEventAttendance(true);
     } else if (event.kind == "office attendance") {
+      console.log(event.title);
       setCurrentEvent(event);
       setShowOfficeAttendancePopup(true);
     }

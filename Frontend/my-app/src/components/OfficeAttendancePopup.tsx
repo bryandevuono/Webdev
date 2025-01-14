@@ -1,6 +1,5 @@
 import React from "react";
 import { DeleteOfficeAttendance } from "../api/OfficeAttendace";
-import { OfficeAttendance } from "../api/OfficeAttendace";
 import { CalendarEvent } from "./EventCalendar";
 
 interface OfficeAttendancePopupProps {
