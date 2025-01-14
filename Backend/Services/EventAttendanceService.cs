@@ -58,6 +58,56 @@ public class EventAttendanceService : IEventAttService
         return attendees;
     }
 
+    private double? ExtractNumericRating(string rating)
+    {
+        if (double.TryParse(rating, out var numericRating))
+        {
+            return numericRating;
+        }
+        // Look for numbs
+        var match = System.Text.RegularExpressions.Regex.Match(rating, @"\d+");
+        if (match.Success)
+        {
+            if (double.TryParse(match.Value, out var extractedNumber))
+            {
+                return extractedNumber;
+            }
+        }
+        return null;
+    }
+
+    public async Task<(double averageRating, int ratingCount)> GetRatings(Guid eventId)
+    {
+        try
+        {
+            var ratings = await _context.EventAttendance
+                .Where(ea => ea.EventId == eventId && ea.Rating != null)
+                .Select(ea => ea.Rating)
+                .ToListAsync();
+
+            var numericRatings = ratings
+                .Select(r => ExtractNumericRating(r))
+                .Where(r => r.HasValue)
+                .Select(r => r.Value)
+                .ToList();
+
+            if (numericRatings.Count == 0)
+            {
+                return (0, 0);
+            }
+
+            var average = numericRatings.Average();
+            var count = numericRatings.Count;
+
+            return (average, count);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in GetRatings: {ex.Message}");
+            throw;
+        }
+    }
+
     public async Task<EventAttendance> PutEventAttendance(EventAttendance att)
     {
         var attendance = await _context.EventAttendance
@@ -68,9 +118,6 @@ public class EventAttendanceService : IEventAttService
             return null;
         }
 
-        attendance.UserId = att.UserId;
-        attendance.EventId = att.EventId;
-        attendance.AttendedOn = att.AttendedOn;
         attendance.Rating = att.Rating;
         attendance.FeedBack = att.FeedBack;
 
