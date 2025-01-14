@@ -20,7 +20,6 @@ const EventReview = ({
 }: EventReviewProps): JSX.Element => {
   const [starRating, setStarRating] = useState("");
   const [review, setReview] = useState("");
-  const [attendanceId, setAttendanceId] = useState("");
 
   const handleExit = () => {
     setShowReview(false);

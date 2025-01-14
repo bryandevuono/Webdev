@@ -57,6 +57,7 @@ const EventAttendanceMenu = ({
     } else {
       setShowUnsubscribeError(true);
       setShowEventAttendance(false);
+      getEvents();
     }
   };
 
@@ -68,9 +69,7 @@ const EventAttendanceMenu = ({
 
   const fetchAverageRating = async () => {
     try {
-        console.log("Fetching average rating for event:", currentEvent.eventId);
         const { averageRating, ratingCount } = await getAverageRating(currentEvent.eventId);
-        console.log("Fetched average rating:", averageRating, "Rating count:", ratingCount);
         setAverageRating(averageRating);
         setRatingCount(ratingCount);
     } catch (error) {
@@ -87,13 +86,11 @@ const EventAttendanceMenu = ({
     <div className="popup-overlay">
       <form className="popup-form-event">
         <h1>{currentEvent.title}</h1>
-        <p>
-          {ratingCount === 0
-            ? "No ratings yet"
-            : ratingCount === 1
-            ? `Rating: ${averageRating}`
-            : `Average rating: ${(averageRating ?? 0).toFixed(1)}`}
-        </p>
+        {ratingCount > 0 ? 
+          <p>Average rating: {averageRating} ({ratingCount} reviews)</p>
+        :
+          <p>No reviews yet</p>
+        }
         <p>Description: {currentEvent.description}</p>
         <p>Location: {currentEvent.location}</p>
         <p>Date: {String(currentEvent.start)}</p>
