@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../Leaderboard.css";
-import {getUserInfo } from "../api/Login";
+import { getUserInfo } from "../api/Login";
 
 interface User {
   email: string;
@@ -16,6 +16,7 @@ function Leaderboard() {
 
   useEffect(() => {
     getLeaderboardData();
+    GetIndexOfCurrentUser();
   }, []);
 
   const GetCurrentUsername = async () => {
@@ -39,11 +40,11 @@ function Leaderboard() {
     }
   };
 
-  useEffect(() => {
-    if (currentUser && leaderboard.length > 0) {
-      GetIndexOfCurrentUser();
-    }
-  }, [currentUser, leaderboard]);
+  // useEffect(() => {
+  //   if (currentUser && leaderboard.length > 0) {
+  //     GetIndexOfCurrentUser();
+  //   }
+  // }, [currentUser, leaderboard]);
 
   return (
     <div className="leaderboard">
