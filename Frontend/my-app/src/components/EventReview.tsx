@@ -13,6 +13,7 @@ interface EventReviewProps {
 const EventReview = ({
   currentEvent,
   setShowReview,
+  setEventMenu,
 }: EventReviewProps): JSX.Element => {
   const [starRating, setStarRating] = useState("");
   const [review, setReview] = useState("");

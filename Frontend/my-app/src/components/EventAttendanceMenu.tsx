@@ -22,16 +22,19 @@ const EventAttendanceMenu = ({
   setAttendanceError,
   setShowUnsubscribeMessage,
   setShowUnsubscribeError,
-  getEvents
+  getEvents,
 }: EventAttendanceProps): JSX.Element => {
-
   const [isAttending, setIsAttending] = useState(false);
   const [showReview, setShowReview] = useState(false);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (currentEvent.kind === "event") {
-      await AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
+      await AttendEvent(
+        currentEvent.eventId,
+        setAttendanceSuccess,
+        setAttendanceError
+      );
       setShowEventAttendance(false);
       getEvents();
     } else {
@@ -89,7 +92,11 @@ const EventAttendanceMenu = ({
       </form>
 
       {showReview ? (
-        <EventReview currentEvent={currentEvent} setShowReview={setShowReview} setEventMenu={setShowEventAttendance}/>
+        <EventReview
+          currentEvent={currentEvent}
+          setShowReview={setShowReview}
+          setEventMenu={setShowEventAttendance}
+        />
       ) : null}
     </div>
   );
