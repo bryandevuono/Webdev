@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import "../Leaderboard.css";
-import {getUserInfo } from "../api/Login";
+import { getUserInfo } from "../api/Login";
+import { PassThrough } from "stream";
+import { get } from "http";
 
 interface User {
   email: string;
@@ -14,9 +16,18 @@ function Leaderboard() {
   const [currentUser, setCurrentUser] = useState("");
   const [currentUserIndex, setCurrentUserIndex] = useState<number>(-2);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const peoplePerPage = 10;
+  const [totalPages, setTotalPages] = useState(10);
+
   useEffect(() => {
     getLeaderboardData();
+    calculateTotalPages();
   }, []);
+
+  useEffect(() => {
+    getLeaderboardData();
+  }, [currentPage]);
 
   const GetCurrentUsername = async () => {
     const username = await getUserInfo();
@@ -30,10 +41,24 @@ function Leaderboard() {
 
   const getLeaderboardData = async () => {
     try {
-      const response = await fetch("http://localhost:5053/api/ranking");
+      const response = await fetch(
+        `http://localhost:5053/api/ranking/?page=${currentPage}&pageSize=${peoplePerPage}`
+      );
       const data = await response.json();
       setLeaderboard(data);
       await GetCurrentUsername();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const calculateTotalPages = async () => {
+    try {
+      const response = await fetch(
+        "http://localhost:5053/api/ranking/totalusers"
+      );
+      const data = await response.json();
+      setTotalPages(Math.ceil(data / peoplePerPage));
     } catch (error) {
       console.error(error);
     }
@@ -66,13 +91,13 @@ function Leaderboard() {
               }}
             >
               <td>
-                {index === 0
+                {index === 0 && currentPage === 1
                   ? `🥇`
-                  : index === 1
+                  : index === 1 && currentPage === 1
                   ? `🥈`
-                  : index === 2
+                  : index === 2 && currentPage === 1
                   ? `🥉`
-                  : index + 1}
+                  : index + 1 + (currentPage - 1) * peoplePerPage}
               </td>
               <td>{user.firstname + " " + user.lastname}</td>
               <td>{user.points}</td>
@@ -80,6 +105,26 @@ function Leaderboard() {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button
+          className="pageButton"
+          onClick={() =>
+            setCurrentPage(currentPage > 1 ? currentPage - 1 : currentPage)
+          }
+        >
+          {"<"}
+        </button>
+        <button
+          className="pageButton"
+          onClick={() =>
+            setCurrentPage(
+              currentPage < totalPages ? currentPage + 1 : currentPage
+            )
+          }
+        >
+          {">"}
+        </button>
+      </div>
     </div>
   );
 }

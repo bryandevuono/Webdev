@@ -26,21 +26,6 @@ th {
     text-align: left;
 }
 
-tr:nth-child(1) {
-    color: #aa8e43;
-    font-weight: 600;
-}
-
-tr:nth-child(2) {
-    color: #6d6d6d;
-    font-weight: 600;
-}
-
-tr:nth-child(3) {
-    color: #775a31;
-    font-weight: 600;
-}
-
 td {
     box-sizing: border-box;
     font-size: 1.2em;

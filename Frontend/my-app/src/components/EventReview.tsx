@@ -8,11 +8,13 @@ interface EventReviewProps {
   currentEvent: OfficeEvent;
   setShowReview: Function;
   setEventMenu: Function;
+  updateReviews: () => void;
 }
 
 const EventReview = ({
   currentEvent,
   setShowReview,
+  updateReviews,
 }: EventReviewProps): JSX.Element => {
   const [starRating, setStarRating] = useState("");
   const [review, setReview] = useState("");
@@ -38,6 +40,7 @@ const EventReview = ({
       alert("Failed to submit review");
     } else {
       alert("Review submitted");
+      updateReviews();
     }
 
     setShowReview(false);
@@ -100,6 +103,7 @@ const EventReview = ({
             <textarea
               rows={5}
               cols={50}
+              maxLength={150}
               placeholder="What did you think about this event?"
               onChange={(e) => setReview(e.target.value)}
             />

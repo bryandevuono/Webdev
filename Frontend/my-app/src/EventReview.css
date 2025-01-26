@@ -1,0 +1,21 @@
+.event-review {
+    background-color: #e7eaf0;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    float: left;
+    margin: 10px;
+    padding: 0px 20px;
+    line-height: 0.5;
+    min-width: 200px;
+    max-width: 200px;
+    max-height: 300px;
+    word-wrap: break-word; /* Break long words to prevent overflow */
+    overflow-wrap: break-word; /* Ensure text wraps properly */
+    white-space: normal;
+}
+
+.event-review-review {
+    line-height: 1.5;
+}

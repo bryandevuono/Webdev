@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Microsoft.EntityFrameworkCore;
 
 public class RankingService : IRankingService
@@ -9,11 +10,22 @@ public class RankingService : IRankingService
         _context = context;
     }
 
-    public async Task<List<Users>> GetUsersOrdered()
+    public async Task<List<Users>?> GetUsersOrdered(int page, int pageSize)
     {
-        List<Users> users = await _context.Users.ToListAsync();
-        var sortedUsers = users.OrderByDescending(u => u.Points).ToList();
-        return sortedUsers;
+        // Default values if not set
+        if (page < 1) page = 1;
+        if (pageSize < 1) pageSize = 10;
+
+        return await _context.Users
+        .OrderByDescending(u => u.Points)
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
+    }
+
+    public async Task<int> GetTotalUsers()
+    {
+        return await _context.Users.CountAsync();
     }
 
     public async Task<int> GetPointsForUser(Guid id)

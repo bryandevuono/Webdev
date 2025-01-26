@@ -5,7 +5,10 @@
 GET http://localhost:5053/api/events/GetAllEvents
 
 ### Reads an event by ID: 200 Ok
-GET http://localhost:5053/api/events?Id=c99a86a7-d49e-452b-b5f7-3d96ec8eb601
+GET http://localhost:5053/api/events?Id=6302faef-a8fd-4163-996e-4284c21f9961
+
+### Reeads all reviews for an event: 200 Ok
+GET http://localhost:5053/api/events/reviews/6302faef-a8fd-4163-996e-4284c21f9961
 
 ### Reads an event with an invalid Id: 404 NotFound
 GET http://localhost:5053/api/events?Id=25324156341

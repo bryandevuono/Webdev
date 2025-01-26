@@ -1,5 +1,8 @@
 GET http://localhost:5053/api/ranking
 ###
 
+GET http://localhost:5053/api/ranking/totalusers
+###
+
 GET http://localhost:5053/api/ranking/user
 ###

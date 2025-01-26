@@ -70,9 +70,9 @@ public class EventService : IEventService
         }
     }
 
-    public IEnumerable<string?> GetReviews(Guid Id)
+    public List<string?> GetReviews(Guid id)
     {
-        var result = _context.EventAttendance.Where(_ => Id == _.EventId).ToList();
+        var result = _context.EventAttendance.Where(_ => id == _.EventId).ToList();
         List<string?> Reviews = new List<string?>();
         foreach (var review in result)
         {
