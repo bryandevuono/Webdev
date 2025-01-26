@@ -1,3 +1,4 @@
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 
 [Route("api/ranking")]
@@ -13,10 +14,22 @@ public class RankingController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetUsersOrdered()
+    public async Task<IActionResult> GetUsersOrdered([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
-        List<Users> users = await _rankingService.GetUsersOrdered();
+        if (page < 1 || pageSize < 1)
+        {
+            return BadRequest("Page and pageSize must be greater than zero.");
+        }
+
+        List<Users>? users = await _rankingService.GetUsersOrdered(page, pageSize);
         return Ok(users);
+    }
+
+    [HttpGet("totalusers")]
+    public async Task<IActionResult> GetTotalUsers()
+    {
+        int totalUsers = await _rankingService.GetTotalUsers();
+        return Ok(totalUsers);
     }
 
     [HttpGet("user")]

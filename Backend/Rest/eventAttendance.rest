@@ -33,7 +33,9 @@ PUT http://localhost:5053/api/eventattendance HTTP/1.1
 Content-type: application/json
 
 {
-    "Id": "5462d9e4-5769-4aab-be0c-5338cf3859e3",
+    "Id": "18f1ad8e-5c3c-4683-994b-5cc908a122bc",
+    "userId": "ea58e13d-2890-4c6f-9d9e-209a3556fd2c",
+    "eventId": "6302faef-a8fd-4163-996e-4284c21f9961",
     "Rating": "5",
     "FeedBack": "Wejoooo"
 }

@@ -30,6 +30,17 @@ public class EventController : Controller
         return Ok(result);
     }
 
+    [HttpGet("reviews/{Id}")]
+    public async Task<IActionResult> GetReviews([FromRoute] Guid Id)
+    {
+        var Reviews = _eventservice.GetReviews(Id);
+        if (Reviews == null)
+        {
+            return NotFound();
+        }
+        return Ok(Reviews);
+    }
+
     [ServiceFilter(typeof(AuthenticationFilter))]
     [HttpDelete("DeleteEvent/{Id}")]
     public async Task<IActionResult> DeleteEvent(Guid? Id)
@@ -53,7 +64,7 @@ public class EventController : Controller
     [HttpPost("AddEvent")]
     public async Task<IActionResult> AddEvent([FromBody] Events NewEvent)
     {
-        if(NewEvent.Title == null | NewEvent.StartTime == null | NewEvent.EndTime == null | NewEvent.Description == null)
+        if (NewEvent.Title == null | NewEvent.StartTime == null | NewEvent.EndTime == null | NewEvent.Description == null)
         {
             return BadRequest();
         }
@@ -72,7 +83,7 @@ public class EventController : Controller
     [HttpPut("EditEvent")]
     public async Task<IActionResult> EditEvent([FromBody] Events NewEvent, [FromQuery] Guid Id)
     {
-        if(NewEvent.Title == null | NewEvent.StartTime == null | NewEvent.EndTime == null | NewEvent.Description == null)
+        if (NewEvent.Title == null | NewEvent.StartTime == null | NewEvent.EndTime == null | NewEvent.Description == null)
         {
             return BadRequest();
         }
@@ -86,6 +97,17 @@ public class EventController : Controller
         {
             return NotFound("Id not found");
         }
+    }
+
+    [HttpGet("eventreviews")]
+    public async Task<IActionResult> GetEventReviews([FromQuery] Guid Id)
+    {
+        var Reviews = _eventservice.GetReviews(Id);
+        if (Reviews == null)
+        {
+            return NotFound();
+        }
+        return Ok(Reviews);
     }
 
 }

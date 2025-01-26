@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import { checkUserRegistration, AttendEvent } from "../api/AttendEvent";
 import { UnsubscribeEvent } from "../api/UnsubscribeEvent";
 import { getUserId } from "../api/Login";
-import { OfficeEvent } from "../api/Events";
+import { OfficeEvent, getEventReviews } from "../api/Events";
 import { getAverageRating } from "../api/EventAttendance";
 import EventReview from "./EventReview";
+
+import ShowEventReview from "./ShowEventReview";
+import { get } from "http";
 
 interface EventAttendanceProps {
   setShowEventAttendance: Function;
@@ -23,20 +26,43 @@ const EventAttendanceMenu = ({
   setAttendanceError,
   setShowUnsubscribeMessage,
   setShowUnsubscribeError,
-  getEvents
+  getEvents,
 }: EventAttendanceProps): JSX.Element => {
-
   const [isAttending, setIsAttending] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [averageRating, setAverageRating] = useState<number | null>(null);
   const [ratingCount, setRatingCount] = useState<number>(0);
 
+  const [EventReviews, setEventReviews] = useState<string[]>([]);
+
+  const showReviewAsReview = (reviews: string[]) => {
+    return reviews
+      .filter((reviewString) => {
+        const [rating, review] = reviewString.split(":");
+        return rating && review;
+      })
+      .map((reviewString, index) => {
+        const [rating, review] = reviewString.split(":");
+        return (
+          <ShowEventReview
+            key={index}
+            rating={parseInt(rating, 10)}
+            review={review}
+          />
+        );
+      });
+  };
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     if (currentEvent.kind === "event") {
-      await AttendEvent(currentEvent.eventId, setAttendanceSuccess, setAttendanceError);
+      await AttendEvent(
+        currentEvent.eventId,
+        setAttendanceSuccess,
+        setAttendanceError
+      );
       setShowEventAttendance(false);
-      getEvents();    
+      getEvents();
     } else {
       setAttendanceError(true);
     }
@@ -69,48 +95,87 @@ const EventAttendanceMenu = ({
 
   const fetchAverageRating = async () => {
     try {
-        const { averageRating, ratingCount } = await getAverageRating(currentEvent.eventId);
-        setAverageRating(averageRating);
-        setRatingCount(ratingCount);
+      const { averageRating, ratingCount } = await getAverageRating(
+        currentEvent.eventId
+      );
+      setAverageRating(averageRating);
+      setRatingCount(ratingCount);
     } catch (error) {
-        console.error("Failed to fetch average rating:", error);
+      console.error("Failed to fetch average rating:", error);
     }
+  };
+
+  const getReviews = async () => {
+    const reviews = await getEventReviews(currentEvent.eventId);
+    setEventReviews(reviews);
   };
 
   useEffect(() => {
     checkIfAttending();
     fetchAverageRating();
+    getReviews();
   }, [currentEvent]);
 
   return (
     <div className="popup-overlay">
       <form className="popup-form-event">
-        <h1>{currentEvent.title}</h1>
-        {ratingCount > 0 ? 
-          <p>Average rating: {averageRating} ({ratingCount} reviews)</p>
-        :
-          <p>No reviews yet</p>
-        }
-        <p>Description: {currentEvent.description}</p>
-        <p>Location: {currentEvent.location}</p>
-        <p>Date: {String(currentEvent.start)}</p>
-        <p>Choose an option:</p>
+        <div className="event-top">
+          <h1>{currentEvent.title}</h1>
+        </div>
+        <div className="event-bottom">
+          <div className="event-reviews">
+            {ratingCount > 0 ? (
+              <>
+                <p>
+                  <b>Average rating:</b> {averageRating?.toFixed(2)} (
+                  {ratingCount} reviews)
+                </p>
+                <div className="event-reviews-list">
+                  {showReviewAsReview(EventReviews)}
+                </div>
+              </>
+            ) : (
+              <p>No reviews yet</p>
+            )}
+          </div>
+          <div className="event-info">
+            <p>
+              <b>Description:</b> {currentEvent.description}
+            </p>
+            <p>
+              <b>Location:</b> {currentEvent.location}
+            </p>
+            <p>
+              <b>Date:</b> {String(currentEvent.start)}
+            </p>
+          </div>
+          <div className="event-buttons">
+            {isAttending ? (
+              <>
+                <button onClick={handleReviewClick}>Leave a review</button>
+                <button onClick={handleUnsubscribe}>Unsubscribe</button>
+              </>
+            ) : (
+              <button onClick={handleSubmit}>Attend this Event</button>
+            )}
 
-        {isAttending ? (
-          <>
-            <button onClick={handleReviewClick}>Leave a review</button>
-            <button onClick={handleUnsubscribe}>Unsubscribe</button>
-          </>
-        ) : (
-          <button onClick={handleSubmit}>Attend this Event</button>
-        )}
-
-        <button onClick={() => setShowEventAttendance(false)}>Cancel</button>
+            <button onClick={() => setShowEventAttendance(false)}>
+              Cancel
+            </button>
+          </div>
+        </div>
       </form>
 
       {showReview ? (
-        <EventReview currentEvent={currentEvent} setShowReview={setShowReview} setEventMenu={setShowEventAttendance}/>
-      ) : null}
+        <EventReview
+          currentEvent={currentEvent}
+          setShowReview={setShowReview}
+          setEventMenu={setShowEventAttendance}
+          updateReviews={getReviews}
+        />
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };
