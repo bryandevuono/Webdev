@@ -19,6 +19,7 @@ const OfficeAttendancePopup = ({
   const handleDelete = (eventId: Guid) => async () => {
     if (await DeleteOfficeAttendance(eventId)) {
       setShowPopup(false);
+      console.log("Event deleted");
     }
     else {
       console.log("Failed to delete event");
