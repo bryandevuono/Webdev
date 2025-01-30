@@ -31,14 +31,21 @@ const OfficeAttendancePopup = ({
       <div className="popup-overlay-content">
         <h1>Office attendance By {currentEvent.title}</h1>
         <h2>
-          Date: {currentEvent.start.toLocaleDateString()}
+          Date:{" "}
+          {currentEvent.start.toLocaleDateString() === currentEvent.end.toLocaleDateString() ? (
+            currentEvent.start.toLocaleDateString()
+          ) : (
+            `${currentEvent.start.toLocaleDateString()} - ${currentEvent.end.toLocaleDateString()}`
+          )}
           <br />
-          Time: {currentEvent.start.toLocaleTimeString()} -{" "} {currentEvent.end.toLocaleTimeString()}
+          <br />
+          Time: {currentEvent.start.toLocaleTimeString()} -{" "}
+          {currentEvent.end.toLocaleTimeString()}
         </h2>
-        <button onClick={handleDelete(Guid.parse(currentEvent.Id))}>Delete</button>
+        <button onClick={() => handleDelete(Guid.parse(currentEvent.Id))}>Delete</button>
         <button onClick={handleExit}>Exit</button>
       </div>
-    </div >
+    </div>
   );
 };
 
