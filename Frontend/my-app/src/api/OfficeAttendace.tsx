@@ -1,6 +1,8 @@
 import { CalendarEvent } from "../components/EventCalendar";
+import { Guid } from "guid-typescript";
 
 type OfficeAttendance = {
+  OfficeAttendanceId: string;
   type: "office attendance";
   Start: string;
   End: string;
@@ -23,6 +25,7 @@ export const GetAllOfficeAttendace = async (): Promise<
 
   for (let i = 0; i < data.length; i++) {
     const OfficeAttendanceToAdd: OfficeAttendance = {
+      OfficeAttendanceId: data[i].officeAttendanceId.toString(),
       type: "office attendance",
       Start: data[i].start,
       End: data[i].end,
@@ -37,8 +40,10 @@ export const PostOfficeAttendace = async (
   UserInfoInput: OfficeAttendance,
   navigate: Function
 ): Promise<boolean> => {
+  UserInfoInput.OfficeAttendanceId = Guid.create().toString();
   UserInfoInput.Start = new Date(UserInfoInput.Start).toISOString();
   UserInfoInput.End = new Date(UserInfoInput.End).toISOString();
+
 
   const requestOptions = {
     method: "POST",
@@ -73,13 +78,12 @@ export const GetUserName = async (UserId: string): Promise<string> => {
   );
 
   const data = await response.json();
-  console.log(data);
   const name = `${data.firstname} ${data.lastname}`;
   return name;
 };
 
 export const DeleteOfficeAttendance = async (
-  officeAttendanceId: string
+  officeAttendanceId: Guid
 ): Promise<boolean> => {
   const response = await fetch(
     `http://localhost:5053/api/officeattendance/${officeAttendanceId}`,

@@ -5,8 +5,10 @@ import { PostOfficeAttendace } from "../api/OfficeAttendace";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../Toolbar.css";
 import { useNavigate } from "react-router-dom";
+import { Guid } from "guid-typescript";
 
 interface OfficeAttendanceInput {
+  OfficeAttendanceId: string;
   type: "office attendance";
   Start: string;
   End: string;
@@ -22,6 +24,7 @@ const CustomToolbar = (props: CustomToolbarProps): JSX.Element => {
   const [Id, setId] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [formData, setFormData] = useState<OfficeAttendanceInput>({
+    OfficeAttendanceId: "",
     type: "office attendance",
     Start: "",
     End: "",
@@ -101,8 +104,8 @@ const CustomToolbar = (props: CustomToolbarProps): JSX.Element => {
                   </label>
                 </div>
 
-                <br/>
-                
+                <br />
+
                 <button type="submit">Submit</button>
                 <button type="button" onClick={togglePopup}>Cancel</button>
               </form>

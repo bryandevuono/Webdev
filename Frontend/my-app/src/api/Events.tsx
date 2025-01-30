@@ -30,6 +30,7 @@ export const getAllEvents = async (
 
   for (let i = 0; i < data.length; i++) {
     const EventToAdd: OfficeEvent = {
+      Id: data[i].id,
       kind: "event",
       start: new Date(data[i].startTime),
       end: new Date(data[i].endTime),
@@ -140,6 +141,7 @@ export const getEvent = async (eventId: string): Promise<OfficeEvent> => {
 
   const data = await response.json();
   const Event: OfficeEvent = {
+    Id: data.id,
     kind: "event",
     start: new Date(data.startTime),
     end: new Date(data.endTime),
