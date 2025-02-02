@@ -1,6 +1,7 @@
 import React from "react";
 import { DeleteOfficeAttendance } from "../api/OfficeAttendace";
 import { CalendarEvent } from "./EventCalendar";
+import { Guid } from "guid-typescript";
 
 interface OfficeAttendancePopupProps {
   currentEvent: CalendarEvent;
@@ -15,27 +16,35 @@ const OfficeAttendancePopup = ({
     setShowPopup(false);
   };
 
-  const handleDelete = async () => {
-    console.log(currentEvent);
-    if (
-      (await DeleteOfficeAttendance("874b398d-9788-4193-9cfb-4e71fd7a627e")) ===
-      true
-    ) {
-      alert("Office Attendance Deleted");
-    } else {
-      alert("Failed to delete Office Attendance");
+  const handleDelete = (eventId: Guid) => async () => {
+    if (await DeleteOfficeAttendance(eventId)) {
+      setShowPopup(false);
+      console.log("Event deleted");
     }
-    setShowPopup(false);
+    else {
+      console.log("Failed to delete event");
+      alert("Failed to delete event");
+    }
   };
 
   return (
-    <div className="office-attendance-popup">
-      <div className="office-attendance-popup-top">
-        <h1>Office Attendance</h1>
-        <button onClick={handleExit}>X</button>
-      </div>
-      <div className="office-attendance-popup-bottom">
-        <button onClick={handleDelete}>Delete</button>
+    <div className="popup-overlay">
+      <div className="popup-overlay-content">
+        <h1>Office attendance By {currentEvent.title}</h1>
+        <h2>
+          Date:{" "}
+          {currentEvent.start.toLocaleDateString() === currentEvent.end.toLocaleDateString() ? (
+            currentEvent.start.toLocaleDateString()
+          ) : (
+            `${currentEvent.start.toLocaleDateString()} - ${currentEvent.end.toLocaleDateString()}`
+          )}
+          <br />
+          <br />
+          Time: {currentEvent.start.toLocaleTimeString()} -{" "}
+          {currentEvent.end.toLocaleTimeString()}
+        </h2>
+        <button onClick={() => handleDelete(Guid.parse(currentEvent.Id))}>Delete</button>
+        <button onClick={handleExit}>Exit</button>
       </div>
     </div>
   );

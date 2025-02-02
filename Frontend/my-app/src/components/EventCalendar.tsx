@@ -8,8 +8,10 @@ import { getAllEvents } from "../api/Events";
 import { GetAllOfficeAttendace, GetUserName } from "../api/OfficeAttendace";
 import EventAttendanceMenu from "./EventAttendanceMenu";
 import OfficeAttendancePopup from "./OfficeAttendancePopup";
+import { Guid } from "guid-typescript";
 
 export interface CalendarEvent extends Event {
+  Id: string;
   kind: string;
   start: Date;
   end: Date;
@@ -49,6 +51,7 @@ export default function EventCalendar(): JSX.Element {
 
     const convertedOfficeAttendace = await Promise.all(
       AllOfficeAttendace.map(async (attendance) => ({
+        Id: attendance.OfficeAttendanceId,
         kind: "office attendance",
         start: new Date(attendance.Start),
         end: new Date(attendance.End),
@@ -64,7 +67,6 @@ export default function EventCalendar(): JSX.Element {
       setCurrentEvent(event);
       setShowEventAttendance(true);
     } else if (event.kind == "office attendance") {
-      console.log(event.title);
       setCurrentEvent(event);
       setShowOfficeAttendancePopup(true);
     }
